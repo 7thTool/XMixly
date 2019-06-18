@@ -1,0 +1,316 @@
+<!-- 
+  type="company" 
+  block="block/pgkit.js" 
+  generator="generator/pgkit.js" 
+  color="color/pgkit.js" 
+  lib="pgkit" 
+  media="media/pgkit"
+  language="language/pgkit" 
+-->
+<script type="text/javascript" src="../../blocks/company/pgkit.js"></script>
+<script type="text/javascript" src="../../generators/arduino/company/pgkit.js"></script>
+<!--引用所有写好的模块-->
+<category id="pgkit" name="pgkit" colour="#16b886">
+  <!--连接模块-->
+  <category id="pgkit_construct" name="连接模块" colour="#3EDAFF">
+        <block type="pgkit_construct_XPORTS"></block>
+        <!--<block type="pgkit_xiodriver_digitalRead"></block>
+        <block type="pgkit_xiodriver_analogRead"></block>
+        <block type="pgkit_xiodriver_digitalWrite"></block>-->
+      <!--<block type="pgkit_led">
+          <value name="PIN">
+              <shadow type="pins_digital"></shadow>
+          </value>
+          <value name="STAT">
+            <shadow type="inout_highlow"></shadow>
+          </value>
+        </block>-->
+  </category>
+  <!--运动模块-->
+  <category id="pgkit_actuator" name="运动模块" colour="#3EDAFF">
+    <block type="pgkit_xservo_setAngle">
+                <value name="ANGLE">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+    </block>
+    <block type="pgkit_xservo_getAngle"></block>
+    <block type="pgkit_xdualdcmotor_turn">
+            <value name="SPEED">
+                <shadow type="math_number">
+                    <field name="NUM">25</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="pgkit_xdualdcmotor_stop"></block>
+  </category>
+  <!--感知模块-->
+  <category id="pgkit_sensor" name="感知模块" colour="#3EDAFF">
+    <block type="pgkit_xbutton_isPressed"></block>
+    <block type="pgkit_xbutton_waitPressed"></block>
+    <block type="pgkit_xlightsensor_getLuminance"></block>
+    <block type="pgkit_xlightsensor_waitLuminance">
+        <value name="VALUE">
+            <shadow type="math_number">
+                <field name="NUM">10</field>
+            </shadow>
+        </value>
+    </block>
+    <block type="pgkit_xsoundsensor_getVolume"></block>
+    <block type="pgkit_xsoundsensor_waitVolume">
+        <value name="VALUE">
+            <shadow type="math_number">
+                <field name="NUM">10</field>
+            </shadow>
+        </value>
+    </block>
+    <block type="pgkit_xirtracking_hasStatus"></block>
+    <block type="pgkit_xirtracking_waitStatus"></block>
+    <block type="pgkit_xirtracking6_hasStatus"></block>
+    <block type="pgkit_xirtracking6_waitStatus"></block>
+    <block type="pgkit_xultrasonic_getDistance"></block>
+    <block type="pgkit_xultrasonic_waitDistance">
+        <value name="VALUE">
+            <shadow type="math_number">
+                <field name="NUM">10</field>
+            </shadow>
+        </value>
+    </block>
+    <block type="pgkit_xiravoiding_start">
+                <value name="SENSITIVE">
+                    <shadow type="math_number">
+                        <field name="NUM">100</field>
+                    </shadow>
+                </value>
+    </block>
+    <block type="pgkit_xiravoiding_stop"></block>
+    <block type="pgkit_xiravoiding_getStatus"></block>
+    <block type="pgkit_xiravoiding_waitStatus"></block>
+    <block type="pgkit_xpotentiometer_getValue"></block>
+    <block type="pgkit_xpotentiometer_waitValue">
+        <value name="VALUE">
+            <shadow type="math_number">
+                <field name="NUM">10</field>
+            </shadow>
+        </value>
+    </block>
+    <block type="pgkit_xhumiture_getHumidity"></block>
+            <block type="pgkit_xhumiture_getTemperature"></block>
+            <block type="pgkit_xhumiture_waitHumidity">
+                <value name="VALUE">
+                    <shadow type="math_number">
+                        <field name="NUM">25</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="pgkit_xhumiture_waitTemperature">
+                <value name="VALUE">
+                    <shadow type="math_number">
+                        <field name="NUM">25</field>
+                    </shadow>
+                </value>
+            </block>
+    <block type="pgkit_xpir_isMotionDetected"></block>
+    <block type="pgkit_xpir_waitMotion"></block>
+    <block type="pgkit_xshocksensor_isShocking"></block>
+    <block type="pgkit_xshocksensor_waitStatus"></block>
+  </category>
+  <!--展示模块-->
+  <category id="pgkit_display" name="展示模块" colour="#3EDAFF">
+    <block type="pgkit_xsegdisplay_showNumber">
+                <value name="VALUE">
+                    <shadow type="math_number">
+                        <field name="NUM">1.23</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="pgkit_xsegdisplay_showNumberEx">
+                <value name="VALUE">
+                    <shadow type="math_number">
+                        <field name="NUM">1</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="pgkit_xsegdisplay_showCharacter">
+                <value name="VALUE">
+                    <shadow type="text">
+                        <field name="TEXT">A</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="pgkit_xsegdisplay_showSegment"></block>
+            <block type="pgkit_xsegdisplay_clearSegment"></block>
+            <block type="pgkit_xsegdisplay_clear"></block>
+            <block type="pgkit_xledmatrix_move">
+                <value name="X">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+                <value name="Y">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+            </block>  
+            <block type="pgkit_xledmatrix_setBrightness">
+                <field name="VALUE">4</field>
+            </block> 
+            <block type="pgkit_xledmatrix_setColorInverse"></block>   
+            <block type="pgkit_xledmatrix_setEffect"></block> 
+            <block type="pgkit_xledmatrix_showNumber">
+                <value name="NUM">
+                    <shadow type="math_number">
+                        <field name="NUM">1.23</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="pgkit_xledmatrix_showNumberPair">
+                <value name="A">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+                <value name="B">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+            </block>  
+            <block type="pgkit_xledmatrix_showString">
+                <value name="VALUE">
+                    <shadow type="text">
+                        <field name="TEXT">text</field>
+                    </shadow>
+                </value>
+            </block> 
+            <block type="pgkit_xledmatrix_showEmoticon"></block> 
+            <block type="pgkit_xledmatrix_showFlag"></block> 
+            <block type="pgkit_xledmatrix_clear"></block>
+            <block type="pgkit_xvoicebroadcast_reportObject">
+                <value name="VALUE">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="pgkit_xvoicebroadcast_reportTime">
+                <value name="HOUR">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+                <value name="MINUTE">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+                <value name="SECOND">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="pgkit_xvoicebroadcast_reportDate">
+                <value name="YEAR">
+                    <shadow type="math_number">
+                        <field name="NUM">2018</field>
+                    </shadow>
+                </value>
+                <value name="MONTH">
+                    <shadow type="math_number">
+                        <field name="NUM">11</field>
+                    </shadow>
+                </value>
+                <value name="DAY">
+                    <shadow type="math_number">
+                        <field name="NUM">11</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="pgkit_xvoicebroadcast_reportOperator"></block>
+            <block type="pgkit_xvoicebroadcast_reportSound"></block> 
+            <block type="pgkit_xvoicebroadcast_isPlaying"></block> 
+            <block type="pgkit_xvoicebroadcast_stop"></block>
+    <block type="pgkit_xpgklightshow_showColor">
+            </block>
+            <block type="pgkit_xpgklightshow_showRGB">
+                <value name="R">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+                <value name="G">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+                <value name="B">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="pgkit_xpgklightshow_clear"></block>            
+            <block type="pgkit_xpgkaudioplayer_playTone">
+                <value name="FREQUENCY">
+                    <shadow type="math_number">
+                        <field name="NUM">300</field>
+                    </shadow>
+                </value>
+                <value name="DURATION">
+                    <shadow type="math_number">
+                        <field name="NUM">200</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="pgkit_xpgkaudioplayer_setNoteParameter">
+                <value name="BEATTIME">
+                    <shadow type="math_number">
+                        <field name="NUM">0.8</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="pgkit_xpgkaudioplayer_playNote"></block>
+  </category>
+  <!--通信模块-->
+  <category id="pgkit_communicator" name="通信模块" colour="#3EDAFF">
+    <block type="pgkit_xirreceiver_enableLongPress">
+        <value name="VALUE">
+            <shadow type="math_number">
+                <field name="NUM">1</field>
+            </shadow>
+        </value>
+    </block>
+    <block type="pgkit_xirreceiver_available"></block>
+    <block type="pgkit_xirreceiver_waitMessage">
+    </block>
+    <block type="pgkit_xirreceiver_receiveNumber">
+        <value name="VALUE">
+            <shadow type="math_number">
+                <field name="NUM">1</field>
+            </shadow>
+        </value>
+    </block>
+  </category>
+  <!--系统模块-->
+  <!--<category id="pgkit_system" name="系统模块" colour="#3EDAFF">
+    <block type="pgkit_xservo_setAngle">
+                <value name="ANGLE">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+    </block>
+    <block type="pgkit_xservo_getAngle"></block>
+    <block type="pgkit_xdualdcmotor_turn">
+            <value name="SPEED">
+                <shadow type="math_number">
+                    <field name="NUM">25</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="pgkit_xdualdcmotor_stop"></block>
+  </category>-->
+</category>
