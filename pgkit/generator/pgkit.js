@@ -762,6 +762,71 @@ Blockly.Arduino.pgkit_xledmatrix_setEffect = function () {
   return code;
 };
 
+//显示 - 自定义图案数组
+Blockly.Arduino.pgkit_xledmatrix_matrix = function() {
+  var val = 0;
+  var code = '';
+  for(var row = 0 ; row < 8; row ++) {
+    for (var col = 0; col < 16; col++) {
+      if((this.getFieldValue(row + '_' + col) == 'TRUE')) {
+        val += row * 16 + col + 1;
+        code +=  '1';
+      } else {
+        code += '0';
+      }
+    }
+  }
+  code = code + ',' + val;
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+Blockly.Arduino.pgkit_xledmatrix_showBitmap = function () {
+  var port = this.getFieldValue('XLEDMatrix');
+  if(Blockly.Arduino.isOnBoardModule('XLEDMatrix',port)) {
+    Blockly.Arduino.addOnBoardModule('XLEDMatrix',port);
+  }
+  var name = Blockly.Arduino.getModuleName('XLEDMatrix',port);
+  var val = Blockly.Arduino.valueToCode(this, 'VALUE',
+    Blockly.Arduino.ORDER_NONE) || '';
+  var code = '';
+  if(val.length >= 128) {
+    var arr = val.split(',');
+    var tmp = new Array(128);
+    for(var i = 0; i < 8; i++)
+    {
+      for(var j = 0; j < 16; j++)
+      {
+        tmp[j*8 + i] = val[i*16 + j];
+      }
+    }
+    tmp = tmp.join("");
+    var globalName = 'bitmap_' + arr[1];
+    var globalCode = 'uint8_t bitmap_' + arr[1] + '[] = {\n' 
+    + Blockly.Arduino.INDENT + ' /*' + tmp.substr(0,8) +'*/' + parseInt(tmp.substr(0,8),2) + '\n'
+    + Blockly.Arduino.INDENT + ',/*' + tmp.substr(8,8) +'*/' + parseInt(tmp.substr(8,8),2) + '\n' 
+    + Blockly.Arduino.INDENT + ',/*' + tmp.substr(16,8) +'*/' + parseInt(tmp.substr(16,8),2) + '\n' 
+    + Blockly.Arduino.INDENT + ',/*' + tmp.substr(24,8) +'*/' + parseInt(tmp.substr(24,8),2) + '\n' 
+    + Blockly.Arduino.INDENT + ',/*' + tmp.substr(32,8) +'*/' + parseInt(tmp.substr(32,8),2) + '\n' 
+    + Blockly.Arduino.INDENT + ',/*' + tmp.substr(40,8) +'*/' + parseInt(tmp.substr(40,8),2) + '\n' 
+    + Blockly.Arduino.INDENT + ',/*' + tmp.substr(48,8) +'*/' + parseInt(tmp.substr(48,8),2) + '\n' 
+    + Blockly.Arduino.INDENT + ',/*' + tmp.substr(56,8) +'*/' + parseInt(tmp.substr(56,8),2) + '\n' 
+    + Blockly.Arduino.INDENT + ',/*' + tmp.substr(64,8) +'*/' + parseInt(tmp.substr(64,8),2) + '\n' 
+    + Blockly.Arduino.INDENT + ',/*' + tmp.substr(72,8) +'*/' + parseInt(tmp.substr(72,8),2) + '\n' 
+    + Blockly.Arduino.INDENT + ',/*' + tmp.substr(80,8) +'*/' + parseInt(tmp.substr(80,8),2) + '\n' 
+    + Blockly.Arduino.INDENT + ',/*' + tmp.substr(88,8) +'*/' + parseInt(tmp.substr(88,8),2) + '\n' 
+    + Blockly.Arduino.INDENT + ',/*' + tmp.substr(96,8) +'*/' + parseInt(tmp.substr(96,8),2) + '\n' 
+    + Blockly.Arduino.INDENT + ',/*' + tmp.substr(104,8) +'*/' + parseInt(tmp.substr(104,8),2) + '\n' 
+    + Blockly.Arduino.INDENT + ',/*' + tmp.substr(112,8) +'*/' + parseInt(tmp.substr(112,8),2) + '\n' 
+    + Blockly.Arduino.INDENT + ',/*' + tmp.substr(120,8) +'*/' + parseInt(tmp.substr(120,8),2) + '\n' 
+    + '};';
+    Blockly.Arduino.addDeclaration(globalName, globalCode);
+    code = name + '.showBitmap(' + globalName + ', 16);\n';
+  } else {
+    code = name + '.showBitmap(\"' + val + '\",' + val.length + ');\n';
+  }
+  return code;
+};
+
 Blockly.Arduino.pgkit_xledmatrix_showNumber = function () {
   Blockly.Arduino.addGlobal();
   var port = this.getFieldValue('XLEDMatrix');

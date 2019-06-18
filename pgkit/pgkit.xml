@@ -142,6 +142,12 @@
             <block type="pgkit_xsegdisplay_showSegment"></block>
             <block type="pgkit_xsegdisplay_clearSegment"></block>
             <block type="pgkit_xsegdisplay_clear"></block>
+            <block type="pgkit_xledmatrix_showBitmap">
+                <value name="VALUE">
+                    <shadow type="pgkit_xledmatrix_matrix">
+                    </shadow>
+                </value>
+            </block> 
             <block type="pgkit_xledmatrix_move">
                 <value name="X">
                     <shadow type="math_number">

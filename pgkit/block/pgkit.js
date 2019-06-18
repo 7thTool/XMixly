@@ -2303,36 +2303,49 @@ Blockly.Blocks.pgkit_xledmatrix_setEffect = {
   }
 };
 
-// Blockly.Blocks.pgkit_xledmatrix_showBitmap = {
-//   init: function () {
-//     function getMyVars() {
-//       return Blockly.getMyNameObjsByType('XLEDMatrix', [Blockly.Msg.MY_NULL, '']);
-//     }
-//     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
-//     this.appendDummyInput()
-//         .appendField("")
-//         .appendField(new Blockly.FieldImage("../../media/pgkit/XLEDMatrix.png", 16, 16, "*"));
-//     this.appendDummyInput()
-//       .appendField(Blockly.Msg.MY_XLEDMATRIX_1)
-//       .appendField(dropdownInstances, "XLEDMatrix")
-//       .appendField(Blockly.Msg.MY_XLEDMATRIX_2);
-//     // this.appendDummyInput()
-//     //   .appendField("")
-//     //   .appendField(new Blockly.FieldImage(window._Matrix_Data_16x8[0].imgSrc, 32, 60, "*", null, true));
-//     this.appendDummyInput()
-//       .appendField(Blockly.Msg.MY_XLEDMATRIX_SHOWBITMAP_VALUE_1);
-//     this.appendValueInput('VALUE')
-//       .setCheck(String)
-//       .appendField(Blockly.Msg.MY_XLEDMATRIX_SHOWBITMAP_VALUE_2);
-//     this.setInputsInline(true);
-//     this.setPreviousStatement(true, null);
-//     this.setNextStatement(true, null);
-//     //this.setOutput(true, 'Number');
-//     this.setColour(pgkit_robotColor_display);
-//     this.setTooltip("");
-//     this.setHelpUrl("");
-//   }
-// };
+// 自定义 图形化
+Blockly.Blocks.pgkit_xledmatrix_matrix = { //
+  init: function() {
+    this.setColour(pgkit_robotColor_display);
+    for(var row = 0 ; row < 8; row ++) {
+      var leds = this.appendDummyInput();
+      for (var col = 0; col < 16; col++) {
+          var cbox = new Blockly.FieldCheckbox(false);
+          leds.appendField(cbox, row + '_' + col);
+      }
+    }
+    this.setOutput(true, String);
+    this.setTooltip('');
+  }
+};
+
+Blockly.Blocks.pgkit_xledmatrix_showBitmap = {
+  init: function () {
+    function getMyVars() {
+      return Blockly.getMyNameObjsByType('XLEDMatrix', [Blockly.Msg.MY_NULL, '']);
+    }
+    var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
+    this.appendDummyInput()
+        .appendField("")
+        .appendField(new Blockly.FieldImage("../../media/pgkit/XLEDMatrix.png", 16, 16, "*"));
+    this.appendDummyInput()
+      .appendField(Blockly.Msg.MY_XLEDMATRIX_1)
+      .appendField(dropdownInstances, "XLEDMatrix")
+      .appendField(Blockly.Msg.MY_XLEDMATRIX_2);
+    this.appendDummyInput()
+      .appendField(Blockly.Msg.MY_XLEDMATRIX_SHOWBITMAP_VALUE_1);
+    this.appendValueInput('VALUE')
+      .setCheck(String)
+      .appendField(Blockly.Msg.MY_XLEDMATRIX_SHOWBITMAP_VALUE_2);
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    //this.setOutput(true, 'Number');
+    this.setColour(pgkit_robotColor_display);
+    this.setTooltip("");
+    this.setHelpUrl("");
+  }
+};
 
 Blockly.Blocks.pgkit_xledmatrix_showNumber = {
   init: function () {
