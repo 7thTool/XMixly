@@ -11,7 +11,7 @@
 <script type="text/javascript" src="../../blocks/company/pgkit.js"></script>
 <script type="text/javascript" src="../../generators/arduino/company/pgkit.js"></script>
 <!--引用所有写好的模块-->
-<category id="pgkit" name="pgkit" colour="#16b886">
+<category id="pgkit" name="PGKit" colour="#16b886">
   <!--连接模块-->
   <category id="pgkit_construct" name="连接模块" colour="#3EDAFF">
         <block type="pgkit_construct_XPORTS"></block>
