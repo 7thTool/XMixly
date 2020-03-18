@@ -584,7 +584,7 @@ var pgkit_robotColor_system = '#FF6767';   //系统
   window.PGKit.init(JSON.parse(jsonObjects));
 })();
 
-Blockly.getMyNameTypes = function (defVar) {
+Blockly.getPGKitNameTypes = function (defVar) {
     var myVars = [];
     var myTypes = window.PGKit.getTypeObjs();
     if (myTypes) {
@@ -601,7 +601,7 @@ Blockly.getMyNameTypes = function (defVar) {
     return myVars;
 }
 
-Blockly.getMyNameModelsByType = function (type, defVar) {
+Blockly.getPGKitNameModelsByType = function (type, defVar) {
     var myVars = [];
     if (type) {
         var myModels = window.PGKit.getModelObjsByType(type);
@@ -620,7 +620,7 @@ Blockly.getMyNameModelsByType = function (type, defVar) {
     return myVars;
 }
 
-Blockly.getMyNameObjsByType = function (type, defVar) {
+Blockly.getPGKitNameObjsByType = function (type, defVar) {
     var myVars = [];
     //先获取板载模块
     if (type) {
@@ -648,7 +648,7 @@ Blockly.getMyNameObjsByType = function (type, defVar) {
     return myVars;
 }
 
-Blockly.getMyNamePorts = function (defVar) {
+Blockly.getPGKitNamePorts = function (defVar) {
     var myVars = [];
     var myPorts = window.PGKit.getConnectablePortObjs();
     if (myPorts) {
@@ -665,7 +665,7 @@ Blockly.getMyNamePorts = function (defVar) {
     return myVars;
 }
 
-Blockly.getMyConnectableNameTypesByPort = function (port, defVar) {
+Blockly.getPGKitConnectableNameTypesByPort = function (port, defVar) {
     var myVars = [];
     var myTypes = window.PGKit.getConnectableTypeObjsByPort(port);
     if (myTypes) {
@@ -682,7 +682,7 @@ Blockly.getMyConnectableNameTypesByPort = function (port, defVar) {
     return myVars;
 }
 
-Blockly.getMyConnectableNameModelsByPort = function (port, type, defVar) {
+Blockly.getPGKitConnectableNameModelsByPort = function (port, type, defVar) {
     var myVars = [];
     if (type) {
         var myModels = window.PGKit.getConnectableModelObjsByPort(port, type);
@@ -701,7 +701,7 @@ Blockly.getMyConnectableNameModelsByPort = function (port, type, defVar) {
     return myVars;
 }
 
-Blockly.updateMyPort = function (type, port, blockId) {
+Blockly.updatePGKitPort = function (type, port, blockId) {
     /*if(!window.PGKit.isPortConnectedWithBlockId(port,blockId) || !window.PGKit.isPortConnectedWithType(port,type)) {
         window.PGKit.removePort(type, port, blockId);
         var portObj = window.PGKit.getPortObj(port);
@@ -713,7 +713,7 @@ Blockly.updateMyPort = function (type, port, blockId) {
     return false;
 }
 
-Blockly.getMyModelObj = function (port) {
+Blockly.getPGKitModelObj = function (port) {
     var typeObj = window.PGKit.getTypeObjById(port);
     if(typeObj) {
         return window.PGKit.getModelObj(typeObj.type, typeObj.model);
@@ -741,7 +741,7 @@ function construct_onchange() {
     }
     var model = this.getFieldValue('MODEL');
     var port = this.getFieldValue('PORT');
-    Blockly.updateMyPort(type,port,this.id);
+    Blockly.updatePGKitPort(type,port,this.id);
   }
 };
 
@@ -750,11 +750,11 @@ Blockly.Blocks.pgkit_construct_XPORTS = {
     var _this = this;
     this.blockType = 'XPORTS';
     function getMyPorts() {
-      return Blockly.getMyNamePorts([Blockly.MIXLY_MY_NULL, '']);
+      return Blockly.getPGKitNamePorts([Blockly.MIXLY_MY_NULL, '']);
     }
     var dropdownPorts = this.dropdownPorts = new Blockly.FieldDropdown(getMyPorts);
     function getMyTypes() {
-      return Blockly.getMyConnectableNameTypesByPort(dropdownPorts.value_, [Blockly.MIXLY_MY_NULL, '']);
+      return Blockly.getPGKitConnectableNameTypesByPort(dropdownPorts.value_, [Blockly.MIXLY_MY_NULL, '']);
     }
     var dropdownTypes = this.dropdownTypes = new Blockly.FieldDropdown(getMyTypes);
     /*dropdownPorts.onItemSelected = function (menu, menuItem) {
@@ -763,9 +763,9 @@ Blockly.Blocks.pgkit_construct_XPORTS = {
             // Call any validation function, and allow it to override.
             value = this.callValidator(value);
 
-            var types = Blockly.getMyConnectableNameTypesByPort(value, [Blockly.MIXLY_MY_NULL, '']);
+            var types = Blockly.getPGKitConnectableNameTypesByPort(value, [Blockly.MIXLY_MY_NULL, '']);
             _this.dropdownTypes.setValue(types[0][1]);
-            var models = Blockly.getMyConnectableNameModelsByPort(value, types[0][1], [Blockly.MIXLY_MY_NULL, '']);
+            var models = Blockly.getPGKitConnectableNameModelsByPort(value, types[0][1], [Blockly.MIXLY_MY_NULL, '']);
              _this.dropdownModels.setValue(models[0][1]);
         }
         if (value !== null) {
@@ -773,7 +773,7 @@ Blockly.Blocks.pgkit_construct_XPORTS = {
         }
     };*/
     function getMyModels() {
-      return Blockly.getMyConnectableNameModelsByPort(dropdownPorts.value_, dropdownTypes.value_, [Blockly.MIXLY_MY_NULL, '']);
+      return Blockly.getPGKitConnectableNameModelsByPort(dropdownPorts.value_, dropdownTypes.value_, [Blockly.MIXLY_MY_NULL, '']);
     }
     var dropdownModels = this.dropdownModels = new Blockly.FieldDropdown(getMyModels);
     dropdownTypes.onItemSelected = function (menu, menuItem) {
@@ -781,7 +781,7 @@ Blockly.Blocks.pgkit_construct_XPORTS = {
         if (this.sourceBlock_) {
             value = this.callValidator(value);
 
-            var models = Blockly.getMyConnectableNameModelsByPort(dropdownPorts.value_, value, [Blockly.MIXLY_MY_NULL, '']);
+            var models = Blockly.getPGKitConnectableNameModelsByPort(dropdownPorts.value_, value, [Blockly.MIXLY_MY_NULL, '']);
             _this.dropdownModels.setValue(models[0][1]);
         }
         if (value !== null) {
@@ -815,7 +815,7 @@ Blockly.Blocks.pgkit_construct_XPORTS = {
 Blockly.Blocks.pgkit_xiodriver_digitalRead = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNamePorts([Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNamePorts([Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     var dropdownIndexs = new Blockly.FieldDropdown([
@@ -847,7 +847,7 @@ Blockly.Blocks.pgkit_xiodriver_digitalRead = {
 Blockly.Blocks.pgkit_xiodriver_analogRead = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNamePorts([Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNamePorts([Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     var dropdownIndexs = new Blockly.FieldDropdown([
@@ -879,7 +879,7 @@ Blockly.Blocks.pgkit_xiodriver_analogRead = {
 Blockly.Blocks.pgkit_xiodriver_digitalWrite = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNamePorts([Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNamePorts([Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     var dropdownIndexs = new Blockly.FieldDropdown([
@@ -945,7 +945,7 @@ Actuator - 运动模块
 Blockly.Blocks.pgkit_xservo_setAngle = {
   init: function() {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XServo', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XServo', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     this.appendDummyInput()
@@ -974,7 +974,7 @@ Blockly.Blocks.pgkit_xservo_setAngle = {
 Blockly.Blocks.pgkit_xservo_getAngle = {
   init: function() {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XServo', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XServo', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     this.appendDummyInput()
@@ -997,7 +997,7 @@ Blockly.Blocks.pgkit_xservo_getAngle = {
 Blockly.Blocks.pgkit_xdualdcmotor_turn = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XDualDCMotor', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XDualDCMotor', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     var dropdownIndexs = new Blockly.FieldDropdown([
@@ -1038,7 +1038,7 @@ Blockly.Blocks.pgkit_xdualdcmotor_turn = {
 Blockly.Blocks.pgkit_xdualdcmotor_stop = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XDualDCMotor', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XDualDCMotor', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     var dropdownIndexs = new Blockly.FieldDropdown([
@@ -1073,7 +1073,7 @@ Sensor - 感知模块
 Blockly.Blocks.pgkit_xbutton_isPressed = {
   init: function() {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XButton', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XButton', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     this.appendDummyInput()
@@ -1096,7 +1096,7 @@ Blockly.Blocks.pgkit_xbutton_isPressed = {
 Blockly.Blocks.pgkit_xbutton_waitPressed = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XButton', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XButton', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     this.appendDummyInput()
@@ -1120,7 +1120,7 @@ Blockly.Blocks.pgkit_xbutton_waitPressed = {
 Blockly.Blocks.pgkit_xlightsensor_getLuminance = {
   init: function() {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XLightSensor', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XLightSensor', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     this.appendDummyInput()
@@ -1143,7 +1143,7 @@ Blockly.Blocks.pgkit_xlightsensor_getLuminance = {
 Blockly.Blocks.pgkit_xlightsensor_waitLuminance = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XLightSensor', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XLightSensor', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     var dropdownIndexs = new Blockly.FieldDropdown([
@@ -1179,7 +1179,7 @@ Blockly.Blocks.pgkit_xlightsensor_waitLuminance = {
 Blockly.Blocks.pgkit_xsoundsensor_getVolume = {
   init: function() {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XSoundSensor', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XSoundSensor', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     this.appendDummyInput()
@@ -1202,7 +1202,7 @@ Blockly.Blocks.pgkit_xsoundsensor_getVolume = {
 Blockly.Blocks.pgkit_xsoundsensor_waitVolume = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XSoundSensor', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XSoundSensor', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     var dropdownIndexs = new Blockly.FieldDropdown([
@@ -1238,7 +1238,7 @@ Blockly.Blocks.pgkit_xsoundsensor_waitVolume = {
 Blockly.Blocks.pgkit_xirtracking_hasStatus = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XIRTracking',[Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XIRTracking',[Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     var dropdownStatus = new Blockly.FieldDropdown([
@@ -1271,7 +1271,7 @@ Blockly.Blocks.pgkit_xirtracking_hasStatus = {
 Blockly.Blocks.pgkit_xirtracking_waitStatus = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XIRTracking', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XIRTracking', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     var dropdownIndexs = new Blockly.FieldDropdown([
@@ -1313,7 +1313,7 @@ Blockly.Blocks.pgkit_xirtracking_waitStatus = {
 Blockly.Blocks.pgkit_xirtracking6_hasStatus = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XIRTracking6',[Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XIRTracking6',[Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     var dropdownStatus1 = new Blockly.FieldDropdown([
@@ -1385,7 +1385,7 @@ Blockly.Blocks.pgkit_xirtracking6_hasStatus = {
 Blockly.Blocks.pgkit_xirtracking6_waitStatus = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XIRTracking6', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XIRTracking6', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     var dropdownIndexs = new Blockly.FieldDropdown([
@@ -1464,7 +1464,7 @@ Blockly.Blocks.pgkit_xirtracking6_waitStatus = {
 Blockly.Blocks.pgkit_xultrasonic_getDistance = {
   init: function() {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XUltrasonic', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XUltrasonic', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     this.appendDummyInput()
@@ -1487,7 +1487,7 @@ Blockly.Blocks.pgkit_xultrasonic_getDistance = {
 Blockly.Blocks.pgkit_xultrasonic_waitDistance = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XUltrasonic', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XUltrasonic', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     var dropdownIndexs = new Blockly.FieldDropdown([
@@ -1523,7 +1523,7 @@ Blockly.Blocks.pgkit_xultrasonic_waitDistance = {
 Blockly.Blocks.pgkit_xiravoiding_start = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XIRAvoiding', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XIRAvoiding', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     this.appendDummyInput()
@@ -1553,7 +1553,7 @@ Blockly.Blocks.pgkit_xiravoiding_start = {
 Blockly.Blocks.pgkit_xiravoiding_stop = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XIRAvoiding', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XIRAvoiding', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     this.appendDummyInput()
@@ -1577,7 +1577,7 @@ Blockly.Blocks.pgkit_xiravoiding_stop = {
 Blockly.Blocks.pgkit_xiravoiding_getStatus = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XIRAvoiding',[Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XIRAvoiding',[Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     this.appendDummyInput()
@@ -1601,7 +1601,7 @@ Blockly.Blocks.pgkit_xiravoiding_getStatus = {
 Blockly.Blocks.pgkit_xiravoiding_waitStatus = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XIRAvoiding', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XIRAvoiding', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     var dropdownEvents = new Blockly.FieldDropdown([
@@ -1631,7 +1631,7 @@ Blockly.Blocks.pgkit_xiravoiding_waitStatus = {
 Blockly.Blocks.pgkit_xpotentiometer_getValue = {
   init: function() {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XPotentiometer', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XPotentiometer', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     this.appendDummyInput()
@@ -1653,7 +1653,7 @@ Blockly.Blocks.pgkit_xpotentiometer_getValue = {
 Blockly.Blocks.pgkit_xpotentiometer_waitValue = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XPotentiometer', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XPotentiometer', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     var dropdownIndexs = new Blockly.FieldDropdown([
@@ -1689,7 +1689,7 @@ Blockly.Blocks.pgkit_xpotentiometer_waitValue = {
 Blockly.Blocks.pgkit_xhumiture_getHumidity = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XHumiture', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XHumiture', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     this.appendDummyInput()
@@ -1713,7 +1713,7 @@ Blockly.Blocks.pgkit_xhumiture_getHumidity = {
 Blockly.Blocks.pgkit_xhumiture_getTemperature = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XHumiture', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XHumiture', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     this.appendDummyInput()
@@ -1737,7 +1737,7 @@ Blockly.Blocks.pgkit_xhumiture_getTemperature = {
 Blockly.Blocks.pgkit_xhumiture_waitHumidity = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XHumiture', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XHumiture', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     var dropdownIndexs = new Blockly.FieldDropdown([
@@ -1773,7 +1773,7 @@ Blockly.Blocks.pgkit_xhumiture_waitHumidity = {
 Blockly.Blocks.pgkit_xhumiture_waitTemperature = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XHumiture', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XHumiture', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     var dropdownIndexs = new Blockly.FieldDropdown([
@@ -1809,7 +1809,7 @@ Blockly.Blocks.pgkit_xhumiture_waitTemperature = {
 Blockly.Blocks.pgkit_xpir_isMotionDetected = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XPIR', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XPIR', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     this.appendDummyInput()
@@ -1833,7 +1833,7 @@ Blockly.Blocks.pgkit_xpir_isMotionDetected = {
 Blockly.Blocks.pgkit_xpir_waitMotion = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XPIR', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XPIR', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     var dropdownIndexs = new Blockly.FieldDropdown([
@@ -1863,7 +1863,7 @@ Blockly.Blocks.pgkit_xpir_waitMotion = {
 Blockly.Blocks.pgkit_xshocksensor_isShocking = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XShockSensor',[Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XShockSensor',[Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     this.appendDummyInput()
@@ -1891,7 +1891,7 @@ Blockly.Blocks.pgkit_xshocksensor_isShocking = {
 Blockly.Blocks.pgkit_xshocksensor_waitStatus = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XShockSensor', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XShockSensor', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     var dropdownEvents = new Blockly.FieldDropdown([
@@ -1925,7 +1925,7 @@ Display - 展示模块
 Blockly.Blocks.pgkit_xsegdisplay_showNumber = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XSegDisplay', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XSegDisplay', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     var dropdownFormats = new Blockly.FieldDropdown([
@@ -1959,7 +1959,7 @@ Blockly.Blocks.pgkit_xsegdisplay_showNumber = {
 Blockly.Blocks.pgkit_xsegdisplay_showNumberEx = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XSegDisplay', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XSegDisplay', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     var dropdownFormats = new Blockly.FieldDropdown([
@@ -1997,7 +1997,7 @@ Blockly.Blocks.pgkit_xsegdisplay_showNumberEx = {
 Blockly.Blocks.pgkit_xsegdisplay_showCharacter = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XSegDisplay', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XSegDisplay', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     var dropdownIndexs = new Blockly.FieldDropdown([
@@ -2036,7 +2036,7 @@ Blockly.Blocks.pgkit_xsegdisplay_showCharacter = {
 Blockly.Blocks.pgkit_xsegdisplay_showSegment = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XSegDisplay', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XSegDisplay', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     var dropdownIndexs = new Blockly.FieldDropdown([
@@ -2083,7 +2083,7 @@ Blockly.Blocks.pgkit_xsegdisplay_showSegment = {
 Blockly.Blocks.pgkit_xsegdisplay_clearSegment = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XSegDisplay', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XSegDisplay', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     var dropdownIndexs = new Blockly.FieldDropdown([
@@ -2130,7 +2130,7 @@ Blockly.Blocks.pgkit_xsegdisplay_clearSegment = {
 Blockly.Blocks.pgkit_xsegdisplay_clear = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XSegDisplay', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XSegDisplay', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     var dropdownIndexs = new Blockly.FieldDropdown([
@@ -2164,7 +2164,7 @@ Blockly.Blocks.pgkit_xsegdisplay_clear = {
 Blockly.Blocks.pgkit_xledmatrix_move = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XLEDMatrix', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XLEDMatrix', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     this.appendDummyInput()
@@ -2198,7 +2198,7 @@ Blockly.Blocks.pgkit_xledmatrix_move = {
 Blockly.Blocks.pgkit_xledmatrix_setBrightness = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XLEDMatrix', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XLEDMatrix', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     var dropdownValues = new Blockly.FieldDropdown([
@@ -2234,7 +2234,7 @@ Blockly.Blocks.pgkit_xledmatrix_setBrightness = {
 Blockly.Blocks.pgkit_xledmatrix_setColorInverse = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XLEDMatrix', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XLEDMatrix', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     var dropdownValues = new Blockly.FieldDropdown([
@@ -2264,7 +2264,7 @@ Blockly.Blocks.pgkit_xledmatrix_setColorInverse = {
 Blockly.Blocks.pgkit_xledmatrix_setEffect = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XLEDMatrix', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XLEDMatrix', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     var dropdownEffects = new Blockly.FieldDropdown([
@@ -2322,7 +2322,7 @@ Blockly.Blocks.pgkit_xledmatrix_matrix = { //
 Blockly.Blocks.pgkit_xledmatrix_showBitmap = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XLEDMatrix', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XLEDMatrix', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     this.appendDummyInput()
@@ -2350,7 +2350,7 @@ Blockly.Blocks.pgkit_xledmatrix_showBitmap = {
 Blockly.Blocks.pgkit_xledmatrix_showNumber = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XLEDMatrix', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XLEDMatrix', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     this.appendDummyInput()
@@ -2388,7 +2388,7 @@ Blockly.Blocks.pgkit_xledmatrix_showNumber = {
 Blockly.Blocks.pgkit_xledmatrix_showNumberPair = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XLEDMatrix', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XLEDMatrix', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     this.appendDummyInput()
@@ -2421,7 +2421,7 @@ Blockly.Blocks.pgkit_xledmatrix_showNumberPair = {
 Blockly.Blocks.pgkit_xledmatrix_showString = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XLEDMatrix', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XLEDMatrix', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     this.appendDummyInput()
@@ -2449,7 +2449,7 @@ Blockly.Blocks.pgkit_xledmatrix_showString = {
 Blockly.Blocks.pgkit_xledmatrix_showEmoticon = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XLEDMatrix', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XLEDMatrix', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     var dropdownEmotions = new Blockly.FieldDropdown([
@@ -2487,7 +2487,7 @@ Blockly.Blocks.pgkit_xledmatrix_showFlag = {
   init: function () {
     var _this = this;
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XLEDMatrix', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XLEDMatrix', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     
@@ -2594,7 +2594,7 @@ Blockly.Blocks.pgkit_xledmatrix_showFlag = {
 Blockly.Blocks.pgkit_xledmatrix_clear = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XLEDMatrix', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XLEDMatrix', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     this.appendDummyInput()
@@ -2619,7 +2619,7 @@ Blockly.Blocks.pgkit_xledmatrix_clear = {
 Blockly.Blocks.pgkit_xvoicebroadcast_reportObject = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XVoiceBroadcast', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XVoiceBroadcast', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     var dropdownIndexs = new Blockly.FieldDropdown([
@@ -2658,7 +2658,7 @@ Blockly.Blocks.pgkit_xvoicebroadcast_reportObject = {
 Blockly.Blocks.pgkit_xvoicebroadcast_reportTime = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XVoiceBroadcast', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XVoiceBroadcast', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     this.appendDummyInput()
@@ -2696,7 +2696,7 @@ Blockly.Blocks.pgkit_xvoicebroadcast_reportTime = {
 Blockly.Blocks.pgkit_xvoicebroadcast_reportDate = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XVoiceBroadcast', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XVoiceBroadcast', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     /*var dropdownWeekDays = new Blockly.FieldDropdown([
@@ -2745,7 +2745,7 @@ Blockly.Blocks.pgkit_xvoicebroadcast_reportDate = {
 Blockly.Blocks.pgkit_xvoicebroadcast_reportOperator = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XVoiceBroadcast', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XVoiceBroadcast', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     var dropdownIndexs = new Blockly.FieldDropdown([
@@ -2778,7 +2778,7 @@ Blockly.Blocks.pgkit_xvoicebroadcast_reportSound = {
   init: function () {
     var _this = this;
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XVoiceBroadcast', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XVoiceBroadcast', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     function getMyIndexs() {
@@ -2939,7 +2939,7 @@ Blockly.Blocks.pgkit_xvoicebroadcast_reportSound = {
 Blockly.Blocks.pgkit_xvoicebroadcast_stop = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XVoiceBroadcast', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XVoiceBroadcast', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     this.appendDummyInput()
@@ -2963,7 +2963,7 @@ Blockly.Blocks.pgkit_xvoicebroadcast_stop = {
 Blockly.Blocks.pgkit_xvoicebroadcast_isPlaying = {
     init: function () {
       function getMyVars() {
-        return Blockly.getMyNameObjsByType('XVoiceBroadcast', [Blockly.Msg.MY_NULL, '']);
+        return Blockly.getPGKitNameObjsByType('XVoiceBroadcast', [Blockly.Msg.MY_NULL, '']);
       }
       var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
       this.appendDummyInput()
@@ -2988,7 +2988,7 @@ Blockly.Blocks.pgkit_xvoicebroadcast_isPlaying = {
   Blockly.Blocks.pgkit_xpgklightshow_showColor = {
     init: function () {
       function getMyVars() {
-        return Blockly.getMyNameObjsByType('XRGBLed', [Blockly.Msg.MY_NULL, '']);
+        return Blockly.getPGKitNameObjsByType('XRGBLed', [Blockly.Msg.MY_NULL, '']);
       }
       var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
       var dropdownIndexs = new Blockly.FieldDropdown([
@@ -3027,7 +3027,7 @@ Blockly.Blocks.pgkit_xvoicebroadcast_isPlaying = {
   Blockly.Blocks.pgkit_xpgklightshow_showRGB = {
     init: function () {
       function getMyVars() {
-        return Blockly.getMyNameObjsByType('XRGBLed', [Blockly.Msg.MY_NULL, '']);
+        return Blockly.getPGKitNameObjsByType('XRGBLed', [Blockly.Msg.MY_NULL, '']);
       }
       var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
       var dropdownIndexs = new Blockly.FieldDropdown([
@@ -3078,7 +3078,7 @@ Blockly.Blocks.pgkit_xvoicebroadcast_isPlaying = {
   Blockly.Blocks.pgkit_xpgklightshow_clear = {
     init: function () {
       function getMyVars() {
-        return Blockly.getMyNameObjsByType('XRGBLed', [Blockly.Msg.MY_NULL, '']);
+        return Blockly.getPGKitNameObjsByType('XRGBLed', [Blockly.Msg.MY_NULL, '']);
       }
       var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
       var dropdownIndexs = new Blockly.FieldDropdown([
@@ -3111,7 +3111,7 @@ Blockly.Blocks.pgkit_xvoicebroadcast_isPlaying = {
 Blockly.Blocks.pgkit_xpgkaudioplayer_playTone = {
   init: function() {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XBuzzer', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XBuzzer', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     this.appendDummyInput()
@@ -3144,7 +3144,7 @@ Blockly.Blocks.pgkit_xpgkaudioplayer_playTone = {
 Blockly.Blocks.pgkit_xpgkaudioplayer_setNoteParameter = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XBuzzer', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XBuzzer', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     this.appendDummyInput()
@@ -3173,7 +3173,7 @@ Blockly.Blocks.pgkit_xpgkaudioplayer_setNoteParameter = {
 Blockly.Blocks.pgkit_xpgkaudioplayer_playNote = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XBuzzer', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XBuzzer', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     var dropdownNotes = new Blockly.FieldDropdown([
@@ -3239,7 +3239,7 @@ Blockly.Blocks.pgkit_xpgkaudioplayer_playNote = {
 Blockly.Blocks.pgkit_xpgkaudioplayer_playMusic = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XBuzzer', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XBuzzer', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     var dropdownValues = new Blockly.FieldDropdown([
@@ -3275,7 +3275,7 @@ Blockly.Blocks.pgkit_xpgkaudioplayer_playMusic = {
 Blockly.Blocks.pgkit_xpgkaudioplayer_playEffect = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XBuzzer', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XBuzzer', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     var dropdownEffects = new Blockly.FieldDropdown([
@@ -3312,7 +3312,7 @@ Communicator - 通信模块
 Blockly.Blocks.pgkit_xirreceiver_enableLongPress = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XIRReceiver',[Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XIRReceiver',[Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     this.appendDummyInput()
@@ -3341,7 +3341,7 @@ Blockly.Blocks.pgkit_xirreceiver_enableLongPress = {
 Blockly.Blocks.pgkit_xirreceiver_available = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XIRReceiver',[Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XIRReceiver',[Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     this.appendDummyInput()
@@ -3365,7 +3365,7 @@ Blockly.Blocks.pgkit_xirreceiver_available = {
 Blockly.Blocks.pgkit_xirreceiver_receiveNumber = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XIRReceiver',[Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XIRReceiver',[Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     this.appendDummyInput()
@@ -3391,7 +3391,7 @@ Blockly.Blocks.pgkit_xirreceiver_receiveNumber = {
 Blockly.Blocks.pgkit_xirreceiver_waitMessage = {
   init: function () {
     function getMyVars() {
-      return Blockly.getMyNameObjsByType('XIRReceiver', [Blockly.Msg.MY_NULL, '']);
+      return Blockly.getPGKitNameObjsByType('XIRReceiver', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
     this.appendDummyInput()

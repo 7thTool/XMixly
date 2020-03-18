@@ -4,7 +4,7 @@
   generator="generator/wkkit.js" 
   color="color/wkkit.js" 
   lib="wkkit" 
-  hardware="hardware/arduino/avr/variants/wukong" 
+  hardware="hardware/arduino/avr" 
   media="media/wkkit"
   language="language/wkkit" 
 -->

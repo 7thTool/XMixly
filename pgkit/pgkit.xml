@@ -3,8 +3,8 @@
   block="block/pgkit.js" 
   generator="generator/pgkit.js" 
   color="color/pgkit.js" 
-  lib="XBlockly" 
-  hardware="hardware" 
+  lib="pgkit" 
+  hardware="hardware/arduino/avr" 
   media="media/pgkit"
   language="language/pgkit" 
 -->

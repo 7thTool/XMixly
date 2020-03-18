@@ -79,6 +79,71 @@ uno.build.variant=standard
 
 ##############################################################
 
+nezha.name=Arduino/NeZha
+
+nezha.vid.0=0x2341
+nezha.pid.0=0x0043
+nezha.vid.1=0x2341
+nezha.pid.1=0x0001
+nezha.vid.2=0x2A03
+nezha.pid.2=0x0043
+nezha.vid.3=0x2341
+nezha.pid.3=0x0243
+
+nezha.upload.tool=avrdude
+nezha.upload.protocol=arduino
+nezha.upload.maximum_size=32256
+nezha.upload.maximum_data_size=2048
+nezha.upload.speed=115200
+
+nezha.bootloader.tool=avrdude
+nezha.bootloader.low_fuses=0xFF
+nezha.bootloader.high_fuses=0xDE
+nezha.bootloader.extended_fuses=0xFD
+nezha.bootloader.unlock_bits=0x3F
+nezha.bootloader.lock_bits=0x0F
+nezha.bootloader.file=optiboot/optiboot_atmega328.hex
+
+nezha.build.mcu=atmega328p
+nezha.build.f_cpu=16000000L
+nezha.build.board=AVR_UNO
+nezha.build.core=arduino
+nezha.build.variant=nezha
+
+##############################################################
+
+wukong.name=Arduino/WuKong
+
+wukong.vid.0=0x2341
+wukong.pid.0=0x0043
+wukong.vid.1=0x2341
+wukong.pid.1=0x0001
+wukong.vid.2=0x2A03
+wukong.pid.2=0x0043
+wukong.vid.3=0x2341
+wukong.pid.3=0x0243
+
+wukong.upload.tool=avrdude
+wukong.upload.protocol=arduino
+wukong.upload.maximum_size=32256
+wukong.upload.maximum_data_size=2048
+wukong.upload.speed=115200
+
+wukong.bootloader.tool=avrdude
+wukong.bootloader.low_fuses=0xFF
+wukong.bootloader.high_fuses=0xDE
+wukong.bootloader.extended_fuses=0xFD
+wukong.bootloader.unlock_bits=0x3F
+wukong.bootloader.lock_bits=0x0F
+wukong.bootloader.file=optiboot/optiboot_atmega328.hex
+
+wukong.build.mcu=atmega328p
+wukong.build.f_cpu=16000000L
+wukong.build.board=AVR_UNO
+wukong.build.core=arduino
+wukong.build.variant=wukong
+
+##############################################################
 
 pangu.name=Arduino/PanGu
 
@@ -112,6 +177,7 @@ pangu.build.core=arduino
 pangu.build.variant=pangu
 
 ##############################################################
+
 diecimila.name=Arduino Duemilanove or Diecimila
 
 diecimila.upload.tool=avrdude
@@ -127,9 +193,9 @@ diecimila.build.board=AVR_DUEMILANOVE
 diecimila.build.core=arduino
 diecimila.build.variant=standard
 
-## Arduino Duemilanove or Diecimila w/ ATmega328P
-## ----------------------------------------------
-diecimila.menu.cpu.atmega328=ATmega328P
+## Arduino Duemilanove or Diecimila w/ ATmega328
+## ---------------------------------------------
+diecimila.menu.cpu.atmega328=ATmega328
 
 diecimila.menu.cpu.atmega328.upload.maximum_size=30720
 diecimila.menu.cpu.atmega328.upload.maximum_data_size=2048
@@ -171,35 +237,20 @@ nano.build.board=AVR_NANO
 nano.build.core=arduino
 nano.build.variant=eightanaloginputs
 
-## Arduino Nano w/ ATmega328P
-## --------------------------
-nano.menu.cpu.atmega328=ATmega328P
+## Arduino Nano w/ ATmega328
+## -------------------------
+nano.menu.cpu.atmega328=ATmega328
 
 nano.menu.cpu.atmega328.upload.maximum_size=30720
 nano.menu.cpu.atmega328.upload.maximum_data_size=2048
-nano.menu.cpu.atmega328.upload.speed=115200
+nano.menu.cpu.atmega328.upload.speed=57600
 
 nano.menu.cpu.atmega328.bootloader.low_fuses=0xFF
 nano.menu.cpu.atmega328.bootloader.high_fuses=0xDA
 nano.menu.cpu.atmega328.bootloader.extended_fuses=0xFD
-nano.menu.cpu.atmega328.bootloader.file=optiboot/optiboot_atmega328.hex
+nano.menu.cpu.atmega328.bootloader.file=atmega/ATmegaBOOT_168_atmega328.hex
 
 nano.menu.cpu.atmega328.build.mcu=atmega328p
-
-## Arduino Nano w/ ATmega328P (old bootloader)
-## --------------------------
-nano.menu.cpu.atmega328old=ATmega328P (Old Bootloader)
-
-nano.menu.cpu.atmega328old.upload.maximum_size=30720
-nano.menu.cpu.atmega328old.upload.maximum_data_size=2048
-nano.menu.cpu.atmega328old.upload.speed=57600
-
-nano.menu.cpu.atmega328old.bootloader.low_fuses=0xFF
-nano.menu.cpu.atmega328old.bootloader.high_fuses=0xDA
-nano.menu.cpu.atmega328old.bootloader.extended_fuses=0xFD
-nano.menu.cpu.atmega328old.bootloader.file=atmega/ATmegaBOOT_168_atmega328.hex
-
-nano.menu.cpu.atmega328old.build.mcu=atmega328p
 
 ## Arduino Nano w/ ATmega168
 ## -------------------------
@@ -498,9 +549,9 @@ mini.build.board=AVR_MINI
 mini.build.core=arduino
 mini.build.variant=eightanaloginputs
 
-## Arduino Mini w/ ATmega328P
-## --------------------------
-mini.menu.cpu.atmega328=ATmega328P
+## Arduino Mini w/ ATmega328
+## -------------------------
+mini.menu.cpu.atmega328=ATmega328
 
 mini.menu.cpu.atmega328.upload.maximum_size=28672
 mini.menu.cpu.atmega328.upload.maximum_data_size=2048
@@ -593,9 +644,9 @@ bt.build.board=AVR_BT
 bt.build.core=arduino
 bt.build.variant=eightanaloginputs
 
-## Arduino BT w/ ATmega328P
-## ------------------------
-bt.menu.cpu.atmega328=ATmega328P
+## Arduino BT w/ ATmega328
+## -----------------------
+bt.menu.cpu.atmega328=ATmega328
 bt.menu.cpu.atmega328.upload.maximum_size=28672
 bt.menu.cpu.atmega328.upload.maximum_data_size=2048
 
@@ -668,9 +719,9 @@ lilypad.build.board=AVR_LILYPAD
 lilypad.build.core=arduino
 lilypad.build.variant=standard
 
-## LilyPad Arduino w/ ATmega328P
-## -----------------------------
-lilypad.menu.cpu.atmega328=ATmega328P
+## LilyPad Arduino w/ ATmega328
+## ----------------------------
+lilypad.menu.cpu.atmega328=ATmega328
 
 lilypad.menu.cpu.atmega328.upload.maximum_size=30720
 lilypad.menu.cpu.atmega328.upload.maximum_data_size=2048
@@ -713,9 +764,9 @@ pro.build.board=AVR_PRO
 pro.build.core=arduino
 pro.build.variant=eightanaloginputs
 
-## Arduino Pro or Pro Mini (5V, 16 MHz) w/ ATmega328P
-## --------------------------------------------------
-pro.menu.cpu.16MHzatmega328=ATmega328P (5V, 16 MHz)
+## Arduino Pro or Pro Mini (5V, 16 MHz) w/ ATmega328
+## -------------------------------------------------
+pro.menu.cpu.16MHzatmega328=ATmega328 (5V, 16 MHz)
 
 pro.menu.cpu.16MHzatmega328.upload.maximum_size=30720
 pro.menu.cpu.16MHzatmega328.upload.maximum_data_size=2048
@@ -729,9 +780,9 @@ pro.menu.cpu.16MHzatmega328.bootloader.file=atmega/ATmegaBOOT_168_atmega328.hex
 pro.menu.cpu.16MHzatmega328.build.mcu=atmega328p
 pro.menu.cpu.16MHzatmega328.build.f_cpu=16000000L
 
-## Arduino Pro or Pro Mini (3.3V, 8 MHz) w/ ATmega328P
-## ---------------------------------------------------
-pro.menu.cpu.8MHzatmega328=ATmega328P (3.3V, 8 MHz)
+## Arduino Pro or Pro Mini (3.3V, 8 MHz) w/ ATmega328
+## --------------------------------------------------
+pro.menu.cpu.8MHzatmega328=ATmega328 (3.3V, 8 MHz)
 
 pro.menu.cpu.8MHzatmega328.upload.maximum_size=30720
 pro.menu.cpu.8MHzatmega328.upload.maximum_data_size=2048
