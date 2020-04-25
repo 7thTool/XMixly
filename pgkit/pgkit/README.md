@@ -1,6 +1,6 @@
-# XBlockly Library v1.0.0
+# Mylecon pangu kit robot server library v1.0.0
 
-Arduino Library for XBlockly-criterion Electronic Modules
+Server Library for mylecon pangu kit robot
 
 For more information about this library please visit us at
 https://www.mylecon.com
