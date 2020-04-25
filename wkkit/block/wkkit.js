@@ -2018,7 +2018,7 @@ Blockly.Blocks.wkkit_xsegdisplay_showCharacter = {
         .appendField(dropdownIndexs, "INDEX")
         .appendField(Blockly.Msg.MY_XSEGDISPLAY_SHOWCHARACTER_INDEX_2);
     this.appendValueInput('VALUE')
-        .setCheck(String)
+        .setCheck(Number)
         //.setAlign(Blockly.ALIGN_LEFT)
         .appendField(Blockly.Msg.MY_XSEGDISPLAY_SHOWCHARACTER_VALUE_1);
     this.appendDummyInput()

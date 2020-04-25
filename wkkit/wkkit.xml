@@ -115,7 +115,7 @@
             </block>
             <block type="wkkit_xsegdisplay_showCharacter">
                 <value name="VALUE">
-                    <shadow type="text">
+                    <shadow type="text_char">
                         <field name="TEXT">A</field>
                     </shadow>
                 </value>
