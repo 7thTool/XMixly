@@ -109,38 +109,7 @@ void XIODriver::reset()
 {
 }
 
-#ifdef XBRIDGE_SUPPORT
-int8_t XIODriver::onAccess(uint8_t api, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize)
-{
-	uint8_t sno;
-	uint8_t value;
-	int32_t avalue;
-	
-	LOGN("XIODriver::onAccess()");
-	(void)psize;
-	
-    if (api == XIODriver_API_digitalRead) {
-		param = fetchU8(param, &sno);
-        result = fillU8(result, this->digitalRead(sno));
-        *rsize  = 1;
-    } else if (api == XIODriver_API_digitalWrite) {
-		param = fetchU8(param, &sno);
-		param = fetchU8(param, &value);
-		this->digitalWrite(sno, value);
-        *result = 0;
-        *rsize = 0;
-	} else if (api == XIODriver_API_analogRead) {
-		param = fetchU8(param, &sno);
-		avalue = this->analogRead(sno);
-		result = fillU32(result, avalue);
-		*rsize = 4;
-    } else {
-        *rsize = 0;
-        return -1;
-    }
-    return 0;
-}
-#endif // XBRIDGE_SUPPORT
+
 
 uint8_t XIODriver::digitalRead(uint8_t sno)
 {

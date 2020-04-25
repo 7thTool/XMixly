@@ -28,11 +28,6 @@
 
 #include <XBlock.h>
 
-#define XDualDCMotor_API_setMotorSpeed	(0x01)	/*!< void setMotorSpeed(uint8_t motor, int8_t speed) */
-#define XDualDCMotor_API_setAllSpeed	(0x02)	/*!< void setAllSpeed(int8_t speed1, int8_t speed2) */
-#define XDualDCMotor_API_stopMotor		(0x03)	/*!< void stopMotor(uint8_t motor) */
-#define XDualDCMotor_API_stopAllMotor	(0x04)	/*!< void stopAllMotor() */
-
 
 #define DDM_SPEED_VALUE_MAX		100
 
@@ -90,12 +85,6 @@ public:
 	½á¹û£º	ÎÞ
 	*/
 	void stopAllMotor();
-
-#ifdef XBRIDGE_SUPPORT
-protected:
-	/*!< XNBlock interface */
-	int8_t onAccess(uint8_t api, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize);
-#endif // XBRIDGE_SUPPORT
 
 private:
 	int8_t	_portId;

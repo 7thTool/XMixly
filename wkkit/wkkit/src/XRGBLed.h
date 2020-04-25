@@ -30,13 +30,6 @@
 
 #define DEFAULT_MAX_LED_NUMBER  	(32)
 
-#define XRGBLed_API_setColor		(0x01)	/*!< void setColor(uint8_t index, uint8_t red, uint8_t green, uint8_t blue) */
-#define XRGBLed_API_setAllColor		(0x02)	/*!< void setAllColor(uint8_t red, uint8_t green, uint8_t blue) */
-#define XRGBLed_API_show			(0x03)	/*!< void show() */
-#define XRGBLed_API_showColor		(0x04)	/*!< void showColor(uint8_t index, uint8_t red, uint8_t green, uint8_t blue) */
-#define XRGBLed_API_showAllColor	(0x05)	/*!< void showAllColor(uint8_t red, uint8_t green, uint8_t blue) */
-#define XRGBLed_API_clear			(0x06)	/*!< void clear() */
-
 
 class XRGBLed : public XNBlock{
 public:
@@ -100,12 +93,6 @@ public:
 	½á¹û£º	ÎÞ
 	*/
 	void clear(uint8_t index = 0);
-
-#ifdef XBRIDGE_SUPPORT
-protected:
-    /*!< XNBlock interface */
-    int8_t onAccess(uint8_t api, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize);
-#endif // XBRIDGE_SUPPORT
 
 private:
 	int init(uint8_t pin);

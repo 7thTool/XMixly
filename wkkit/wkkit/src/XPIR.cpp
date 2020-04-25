@@ -97,10 +97,6 @@ int XPIR::setup(const char *label)
 
 void XPIR::reset()
 {
-#ifdef XBRIDGE_SUPPORT_NOTIFY
-	_evtMask = 0;
-	_status = 0xFF;
-#endif
 }
 
 
@@ -116,55 +112,7 @@ uint8_t XPIR::isHumanMotionDetected()
 	return digitalRead(_pin);
 }
 
-#ifdef XBRIDGE_SUPPORT
-int8_t XPIR::onAccess(uint8_t api, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize)
-{
-	LOGN("XPIR::onAccess()");
-	(void)param; (void)psize;
-	
-    if (api == XPIR_API_isHumanMotionDetected) {
-        result = fillU8(result, isHumanMotionDetected());
-        *rsize  = 1;
-    } else {
-        *rsize = 0;
-        return -1;
-    }
-    return 0;
-}
 
-#ifdef XBRIDGE_SUPPORT_NOTIFY
-int8_t XPIR::onNotifyRegister(uint8_t evt, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize)
-{
-	LOGN("XPIR::onNotifyRegister()");
-	(void)param; (void)psize;
-	(void)evt;
 
-	//if (evt == XPIR_EVT_Change) {
-		_evtMask |= XPIR_EVT_Change;
-		_status = isHumanMotionDetected();
-		fillU8(result, _status);
-		*rsize = 1;
-	//}
-	return 0;
-}
 
-int8_t XPIR::onNotifyCheck(uint8_t *evt, uint8_t *result, uint8_t *rsize)
-{
-	uint8_t status;
-	LOGN("XPIR::onNotifyCheck()");
 
-	if (_evtMask & XPIR_EVT_Change) {
-		status = isHumanMotionDetected();
-		if (status != _status) {
-			_status = status;
-			fillU8(result, status);
-			*evt = XPIR_EVT_Change;
-			*rsize = 1;
-			return 0;
-		}
-	}
-
-	return -1;
-}
-#endif	// XBRIDGE_SUPPORT_NOTIFY
-#endif // XBRIDGE_SUPPORT

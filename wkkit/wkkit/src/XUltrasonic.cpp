@@ -103,11 +103,6 @@ void XUltrasonic::reset()
 {
 	_lastMeasureTime = millis();
 	_dis = 0;
-#ifdef XBRIDGE_SUPPORT_NOTIFY
-	_evtMask = 0;
-	_sensitive = 5;
-	_preDis = 0xFFFF;
-#endif
 }
 
 #define PULSE_TIMEOUT 22000L	
@@ -145,60 +140,3 @@ uint16_t XUltrasonic::getDistance()
 	}
     return _dis;
 }
-
-#ifdef XBRIDGE_SUPPORT
-int8_t XUltrasonic::onAccess(uint8_t api, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize)
-{
-	LOGN("XUltrasonic::onAccess()");
-	(void)param; (void)psize;
-
-    if (api == XUltrasonic_API_getDistance) {
-       result = fillU16(result, getDistance());
-	   *rsize = 2;
-    } else {
-		*rsize = 0;
-        return -1;
-    }
-
-    return 0;
-}
-
-#ifdef XBRIDGE_SUPPORT_NOTIFY
-int8_t XUltrasonic::onNotifyRegister(uint8_t evt, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize)
-{
-	LOGN("XUltrasonic::onNotifyRegister()");
-	(void)psize;
-	(void)evt;
-
-	//if (evt == XUltrasonic_EVT_Change) {
-		_evtMask |= XUltrasonic_EVT_Change;
-		fetchU16(param, &_sensitive);
-		_preDis = getDistance();
-		fillU16(result, _preDis);
-		*rsize = 2;
-	//}
-	return 0;
-}
-
-int8_t XUltrasonic::onNotifyCheck(uint8_t *evt, uint8_t *result, uint8_t *rsize)
-{
-	uint16_t diff;
-
-	LOGN("XUltrasonic::onNotifyCheck()");
-
-	if (_evtMask & XUltrasonic_EVT_Change) {
-		getDistance();
-		diff = (_dis > _preDis) ? (_dis - _preDis) : (_preDis - _dis);
-		if (diff >= _sensitive) {
-			_preDis = _dis;
-			*evt = XUltrasonic_EVT_Change;
-			fillU16(result, _dis);
-			*rsize = 2;
-			return 0;
-		}
-	}
-
-	return -1;
-}
-#endif	// XBRIDGE_SUPPORT_NOTIFY
-#endif // XBRIDGE_SUPPORT

@@ -77,7 +77,7 @@ void XNI2C::reset(uint8_t rstPin, uint8_t selPin)
 	}
 
 	pinMode(selPin, OUTPUT);
-	digitalWrite(selPin, 0);  //set selPin to low
+	digitalWrite(selPin, 0);
 	
 	pinMode(rstPin, OUTPUT);
 	digitalWrite(rstPin, 1);  //set high to reset this I2C-interface module
@@ -95,38 +95,34 @@ int8_t XNI2C::write(uint8_t selPin, uint8_t devAddr, uint8_t regAddr, const uint
 		setup();
 	}
 
-	// 1. select
 	XI2C.select(selPin);
 
-	// 2. wait device set status to busy
 	delayMicroseconds(500);
 	ret = XI2C.readData(devAddr, XI2C_STATUS_ADDRESS, &stat, 1);
 	while((ret != 0) || (stat != XI2C_STATUS_BUSY)) {
 		if(waitCount++ > XI2C_TIMEOUT){
 			LOGN("XI2C status wait busy TIMEOUT");
 			XI2C.release(selPin);
-			return -2;  //send cmd over time
+			return -2;
 		}
 
 		delayMicroseconds(200);
 		ret = XI2C.readData(devAddr, XI2C_STATUS_ADDRESS, &stat, 1);
 	}
 
-	// 3. read data operation
 	ret = XI2C.writeData(devAddr, regAddr, data, length);
 	waitCount = 0;
 	while(ret == -1) {
 		if(waitCount++ > XI2C_TIMEOUT) {
 			XI2C.release(selPin);
-			return -2;  //send cmd over time
+			return -2;
 		}
 
 		delayMicroseconds(200);
 		ret = XI2C.writeData(devAddr, regAddr, data, length);
 	}
 
-	// 4. wait device set status to idle
-	delay(2);	// wait momnent then get status.
+	delay(2);
 	ret = XI2C.readData(devAddr, XI2C_STATUS_ADDRESS, &stat, 1);
 	waitCount = 0;
 	while((ret != 0) || (stat != XI2C_STATUS_IDLE)) {
@@ -140,7 +136,6 @@ int8_t XNI2C::write(uint8_t selPin, uint8_t devAddr, uint8_t regAddr, const uint
 		ret = XI2C.readData(devAddr, XI2C_STATUS_ADDRESS, &stat, 1);
 	}
 
-	// 5. release
 	XI2C.release(selPin);
 
 	return 0;
@@ -157,52 +152,47 @@ int8_t XNI2C::read(uint8_t selPin, uint8_t devAddr, uint8_t regAddr, uint8_t *bu
 		setup();
 	}
 
-	// 1. select
 	XI2C.select(selPin);
 
-	// 2. wait device set status to busy
 	delayMicroseconds(200);
 	ret = XI2C.readData(devAddr, XI2C_STATUS_ADDRESS, &stat, 1);
 	while((ret != 0) || (stat != XI2C_STATUS_BUSY)) {
 		if(waitCount++ > XI2C_TIMEOUT) {
 			LOGN("XI2C status wait busy TIMEOUT");
 			XI2C.release(selPin);
-			return -2;  //send cmd over time
+			return -2;
 		}
 
 		delayMicroseconds(200);
 		ret = XI2C.readData(devAddr, XI2C_STATUS_ADDRESS, &stat, 1);
 	}
 
-	// 3. read data operation
 	ret = XI2C.readData(devAddr, regAddr, buffer, size);
 	waitCount = 0;
 	while(ret == -1) {
 		if(waitCount++ > XI2C_TIMEOUT){
 			XI2C.release(selPin);
-			return -2;  //send cmd over time
+			return -2;
 		}
 
 		delayMicroseconds(200);
 		ret = XI2C.readData(devAddr, regAddr, buffer, size);
 	}
 
-	// 4. wait device set status to idle
-	delayMicroseconds(500);	// wait momnent then get status.
+	delayMicroseconds(500);
 	ret = XI2C.readData(devAddr, XI2C_STATUS_ADDRESS, &stat, 1);
 	waitCount = 0;
 	while((ret != 0) || (stat != XI2C_STATUS_IDLE)) {
 		if(waitCount++ > XI2C_TIMEOUT){
 			LOGN("XI2C status wait idle TIMEOUT");
 			XI2C.release(selPin);
-			return -2;  //send cmd over time
+			return -2;
 		}
 
 		delayMicroseconds(200);
 		ret = XI2C.readData(devAddr, XI2C_STATUS_ADDRESS, &stat, 1);
 	}
 
-	// 5. release
 	XI2C.release(selPin);
 
 	return 0;

@@ -100,38 +100,6 @@ void XVoiceBroadcast::reset()
 }
 
 
-/* buffer byte data protocol:
- * buf[0]: 0x01 means stop play 
- * buf[0]: 0x02 means play voice
- *				  buf[1]: part number 
- * buf[0]: 0x03 means play voices
- *				  buf[1]: voice length, max length is 30 
- *				  buf[2-31]:voice part group
- * buf[0]: 0x04 means reportObject
- *		  buf[1]: which
- *		  buf[2]: isNegative
- *		  buf[3]: bit7-0	 of integer part of value
- *		  buf[4]: bit15-8	 of integer part of value
- *		  buf[5]: bit23-16	 of integer part of value
- *		  buf[6]: bit31-24	 of integer part of value
- *		  buf[7]: decimal part of value
- * buf[0]: 0x05 means reportTime
- *		  buf[1]: hour
- *		  buf[2]: minute
- *		  buf[3]: second
- * buf[0]: 0x06 means reportDate
- *		  buf[1]: bit7-0	 of uint16_t year
- *		  buf[2]: bit15-8	 of uint16_t year
- *		  buf[3]: month
- *		  buf[4]: day
- *		  buf[5]: weekday
- * buf[0]: 0x07 means reportOperator
- *		  buf[1]: which
- * buf[0]: 0x08 means reportSound
- *		  buf[1]: which
- *		  buf[2]: repeat
- * buf[0]: 0x00, 0x09~0xff reserved 
-*/
 void XVoiceBroadcast::reportObject(uint8_t which, float value)
 {
 	int8_t ret = 0;
@@ -281,7 +249,7 @@ void XVoiceBroadcast::playVoice(uint8_t segment)
 	int8_t ret = 0;
 
 
-	_buf[0] = 0x02;  //playVoice command
+	_buf[0] = 0x02;
 	_buf[1] = segment;
 	
 	LOGN("playVoice:");
@@ -302,7 +270,7 @@ void XVoiceBroadcast::playVoices(uint8_t * segs, uint8_t length)
 		return;
 	}
 
-	_buf[0] = 0x03;  //playVoices command
+	_buf[0] = 0x03;
 	_buf[1] = (length > 30) ? 30 : length;
 	
 	LOGN("playVoices:");
@@ -330,7 +298,7 @@ void XVoiceBroadcast::stop()
 {
 	int8_t ret = 0;
 
-	_buf[0] = 0x1; //stop command
+	_buf[0] = 0x1;
 
 	LOGN("stop:");
 	LOG("_buf[0]=");LOGN(_buf[0]);
@@ -341,73 +309,3 @@ void XVoiceBroadcast::stop()
 
 }
 
-#ifdef XBRIDGE_SUPPORT
-int8_t XVoiceBroadcast::onAccess(uint8_t api, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize)
-{
-
-	LOGN("YGRCarDriver::onAccess()");
-	(void)psize; (void)result;
-	*rsize = 0;
-
-	if (api == XVoiceBroadcast_API_reportObject) {
-		uint8_t which;
-		float f;
-		param = fetchU8(param, &which);
-		param = fetchFloat(param, &f);
-		reportObject(which, (double)f);
-	}
-	else if (api == XVoiceBroadcast_API_reportTime) {
-		uint8_t hour, minute, second;
-		param = fetchU8(param, &hour);
-		param = fetchU8(param, &minute);
-		param = fetchU8(param, &second);
-		reportTime(hour, minute, second);
-	}
-	else if (api == XVoiceBroadcast_API_reportDate) {
-		uint16_t year;
-		uint8_t month, day, weekday;
-		param = fetchU16(param, &year);
-		param = fetchU8(param, &month);
-		param = fetchU8(param, &day);
-		param = fetchU8(param, &weekday);
-		reportDate(year, month, day, weekday);
-	}
-	else if (api == XVoiceBroadcast_API_reportOperator) {
-		uint8_t which;
-		param = fetchU8(param, &which);
-		reportOperator(which);
-	}
-	else if (api == XVoiceBroadcast_API_reportSound) {
-		uint8_t which, repeat;
-		param = fetchU8(param, &which);
-		param = fetchU8(param, &repeat);
-		reportSound(which, repeat);
-	}
-	else if (api == XVoiceBroadcast_API_playVoice) {
-		uint8_t segment;
-		param = fetchU8(param, &segment);
-		playVoice(segment);
-	}
-	else if (api == XVoiceBroadcast_API_playVoices) {
-		uint8_t segs[30];
-		uint8_t length;
-		param = fetchU8(param, &length);
-		for(uint8_t i=0;i<length;i++) {
-			param = fetchU8(param, &segs[i]);
-		}
-		playVoices(segs, length);
-	}
-	else if (api == XVoiceBroadcast_API_isPlaying) {
-        result = fillU8(result, isPlaying());
-        *rsize  = 1;
-    }
-	else if (api == XVoiceBroadcast_API_stop) {	
-		stop();
-	}
-	else {
-		return -1;
-	}
-
-	return 0;
-}
-#endif // XBRIDGE_SUPPORT

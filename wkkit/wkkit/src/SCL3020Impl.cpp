@@ -53,34 +53,21 @@ void SCL3020Impl::showColor(uint8_t index, uint8_t color)
 {
 	uint8_t buf[3];
 	int8_t ret = 0;
-
-	/* buffer byte data protocol:
-	 * buf[0]: bit7-4: 0x8 means set scl command
-	 *				   bit1-0: 
-	 *						  1) 0x0 both scl1 and scl2 not need update color,
-	 *						  2) 0x1 only scl1 need update color
-	 *						  3) 0x2 only scl2 need update color
-	 *						  4) 0x3 both scl1 and scl2 need update color
-	 *				   buf[1]: scl1 color value 
-	 *				   buf[2]: scl2 color value
-	 */
-
 	buf[0] = 0x80;
-	//buf[0] &= 0x3f; //bit7-6: set scl command
 
 	if(index == 0){
-		buf[0] |= 0x03; //bit1-0: both scl1 and scl2 need update color
+		buf[0] |= 0x03;
 		buf[1] = color;
 		buf[2] = color;
 	} else if(index == 1){
-		buf[0] |= 0x01; //bit1-0: only scl1 need update color
+		buf[0] |= 0x01;
 		buf[1] = color;
 	} else if(index == 2){
-		buf[0] |= 0x02; //bit1-0: only scl2 need update color
-		buf[2] = color;
+			buf[0] |= 0x02;
+			
+			buf[2] = color;
 	} else {
 		return;
-		//buf[0] |= 0x00; //bit1-0: both scl1 and scl2 not need update color
 	}
 
 	LOGN("showColor:");

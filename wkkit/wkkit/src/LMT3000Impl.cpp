@@ -69,16 +69,6 @@ void LMT3000Impl::setup(uint8_t rstPin, uint8_t selPin)
 }
 
 
-/* buffer byte data protocol:
- * buf[0]: 0x00 means set brightness 
- *		   buf[1]: brightness value
- * buf[0]: 0x01 means set color inverse 
- *		   buf[1]: inverse value 
- * buf[0]: 0x02 means set effect 
- *		   buf[1]: effect type
- *		   buf[2]: effect speed
- * buf[0]: 0x03~0xff reserved 
- */
 void LMT3000Impl::setBrightness(uint8_t brightness)
 {
 	uint8_t buf[3];
@@ -159,41 +149,6 @@ void LMT3000Impl::showBitmap(uint8_t *bitmap, uint8_t len)
 		XI2C.reset(_resetPin, _selectPin);
 
 }
-
-/* buffer byte data protocol:
- * buf[0]: 0x00 means update column 
- *		   buf[1]: column
- *		   buf[2]: value
- * buf[0]: 0x01 means update point 
- *		   buf[1]: Horizontal coordinate of the point
- *		   buf[2]: Vertical coordinate  of the point
- *		   buf[3]: point value 
- * buf[0]: 0x02 means show number
- *		   buf[1]: bit7-0	  of int32_t num
- *		   buf[2]: bit15-8	  of int32_t num
- *		   buf[3]: bit23-16   of int32_t num
- *		   buf[4]: bit31-24   of int32_t num
- * buf[0]: 0x03 means show string
- *		   buf[1-16]: Strings contents, max of strlen is 16(not include terminator '\0')
- *		   buf[17]: terminator '\0' if strings len>=16
- * buf[0]: 0x04 means show number pair 
- *		   buf[1]: number a
- *		   buf[2]: number b
- * buf[0]: 0x05 means show emoticon 
- *		   buf[1]: emoticon type
- * buf[0]: 0x06 means show flag 
- *		   buf[1]: flag type
- * buf[0]: 0x07 means move 
- *		   buf[1]: Horizontal coordinate of moving
- *		   buf[2]: Vertical coordinate  of moving
- * buf[0]: 0x08 means clear 
- * buf[0]: 0x09 means show number hex
- *		   buf[1]: bit7-0	  of uint32_t num
- *		   buf[2]: bit15-8	  of uint32_t num
- *		   buf[3]: bit23-16   of uint32_t num
- *		   buf[4]: bit31-24   of uint32_t num
- * buf[0]: 0x0a~0xff reserved 
- */
 
 void LMT3000Impl::updateColumn(uint8_t column, uint8_t value)
 {

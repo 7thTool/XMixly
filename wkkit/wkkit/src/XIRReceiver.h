@@ -57,15 +57,6 @@
 #define XIR_KEY_TOTAL	(21)
 
 
-#define XIRReceiver_API_receive		(2)	/*!< uint8_t receive() */
-
-/*	pdata
- *		- register: nouse
- *		- notify: [0]--"uint8_t key"
- */
-#define XIRReceiver_EVT_Change		(0x01)
-
-
 class XIRReceiver : public XNBlock  {
 public:
 	XIRReceiver();
@@ -118,16 +109,6 @@ public:
 	*/
 	void enableLongPress(uint8_t key);
 
-#ifdef XBRIDGE_SUPPORT
-protected:
-	/*!< XNBlock interface */
-	int8_t onAccess(uint8_t api, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize);
-#ifdef XBRIDGE_SUPPORT_NOTIFY
-	int8_t onNotifyRegister(uint8_t evt, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize);
-	int8_t onNotifyCheck(uint8_t *evt, uint8_t *result, uint8_t *rsize);
-#endif
-#endif // XBRIDGE_SUPPORT
-
 private:
     /** \brief
      *   Enable timer interrupt to begin receive IR message.
@@ -170,9 +151,6 @@ private:
 	uint32_t _longPressMark;
 	uint8_t _model;
 	void	*_impl;
-#ifdef XBRIDGE_SUPPORT_NOTIFY
-	uint8_t	_evtMask;
-#endif
 };
 
 

@@ -29,16 +29,6 @@
 #include <XBlock.h>
 
 
-#define XIRAvoiding_API_getStatus 			(0x01)	/*!< uint8_t getStatus() */
-
-
-/*	pdata 
- *		- register: nouse
- *		- notify: uint8_t status;
- */
-#define XIRAvoiding_EVT_Change		(0x01)
-
-
 class XIRAvoiding : public XNBlock {
 public:
     XIRAvoiding();
@@ -83,27 +73,12 @@ public:
 	*/
 	uint8_t getStatus(); 
 
-#ifdef XBRIDGE_SUPPORT
-protected:
-    /*!< XNBlock interface */
-    int8_t onAccess(uint8_t api, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize);
-#ifdef XBRIDGE_SUPPORT_NOTIFY
-	int8_t onNotifyRegister(uint8_t evt, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize);
-	int8_t onNotifyCheck(uint8_t *evt, uint8_t *result, uint8_t *rsize);
-#endif
-#endif // XBRIDGE_SUPPORT
-
 private:
 	int8_t _portId;
 	uint8_t _model;
 	uint8_t _pin;
 	uint8_t _enPin;
-#ifdef XBRIDGE_SUPPORT_NOTIFY
-	uint8_t	_evtMask;
-	uint8_t _status;
-#endif
 };
-
 
 #endif //__XIRAVODING_H__
 

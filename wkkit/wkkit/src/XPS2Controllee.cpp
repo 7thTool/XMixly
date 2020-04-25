@@ -38,18 +38,6 @@
 //#define RECV_DETAIL
 
 
-/* 
-	[Head]	[Type|DLen]	[Data]	[CheckSum]
-	|		|			|		|
-	|		|			|		|--1B, include all except checksum itself
-	|		|			|
-	|		|			|--8B, [JS-LX][BTN-G1][JS-LY][BTN-G2][JS-RX][BTN-G3][JS-RY][BTN-G4]
-	|		|
-	|		|--[7:4], data length, 1~15. PS2 fixed 8
-	|		|--[3:0], type, 1~7. PS2 fixed 1
-	|
-	|--2B, 1st=0xFF, 2nd=0xAA
- */
 #define PS2_HEAD1	0xFF
 #define PS2_HEAD2	0xAA
 
@@ -109,8 +97,6 @@ int XPS2Controllee::available()
 	XDebug.println("");
 #endif
 
-	/* First check if received minimum data enough to parse. */
-	/* 12Bytes: 2B(HEAD) + 1B(Type|DLen) + 8B(Data) + 1B(CheckSum) */
 	rsize = _24GReceiver->available();
 	if (rsize < 12) {
 #ifdef RECV_DETAIL
@@ -125,35 +111,35 @@ int XPS2Controllee::available()
 #ifdef RECV_DETAIL
 		XDebug.print(head, HEX); XDebug.print(' ');
 #endif
-		if (head == PS2_HEAD1) { /* 成功收到HEAD1 */
+		if (head == PS2_HEAD1) {
 			break;
 		} else {
 			rsize--;
 		}
 	} while (rsize > 0);
-	if (rsize == 0) { /* 未收到HEAD1 */
+	if (rsize == 0) {
 		LOGN("not found HEAD1");
 		return 0;
 	}
 
 	/* Search Head2 */
 	timeout = millis();
-	while (head == PS2_HEAD1) { /* 如果找到HEAD1，就接着找HEAD2 */
+	while (head == PS2_HEAD1) {
 		if (_24GReceiver->available()) {
 			head = _24GReceiver->recvByte();
 #ifdef RECV_DETAIL
 			XDebug.print(head, HEX); XDebug.print(' ');
 #endif
-			if (head == PS2_HEAD2) { /* 成功收到HEAD2 */
+			if (head == PS2_HEAD2) {
 				break;
-			} else if (head == PS2_HEAD1) { /* 又收到HEAD1 */
+			} else if (head == PS2_HEAD1) {
 #ifdef RECV_DETAIL
 				XDebug.println("New HEAD1");
 #endif
 				timeout = millis();
 			} else {
 				LOGN("received head not HEAD1 neither HEAD2");
-				return 0; /* 收到错误头数据，退出从来 */
+				return 0;
 			}
 		} else {
 			if (millis() > timeout + TIMEOUT) {
@@ -163,8 +149,6 @@ int XPS2Controllee::available()
 		}
 	}
 
-	/* 找到头之后，就应该收到足够的数据 */
-	/* 10Bytes: 1B(Type|DLen) + 8B(Data) + 1B(CheckSum) */
 	timeout = millis();
 	while (true) {
 		rsize = _24GReceiver->available();
@@ -176,11 +160,6 @@ int XPS2Controllee::available()
 		}
 	}
 
-	/*	
-		接收数据。因为正确的数据里面肯定不会出现HEAD1+HEAD2，所以简略实现，
-		不再判断出现有头的出现。即时数据中因干扰等原因出错，出现了和头一样
-		的数据，也没有关系，该包会丢弃掉，重新接收。
-	*/
 	flag = _24GReceiver->recvByte();
 #ifdef RECV_DETAIL
 	XDebug.print(flag, HEX); XDebug.print(' ');

@@ -196,9 +196,6 @@ int XIRReceiver::setup(const char *label)
 void XIRReceiver::reset()
 {
 	if (_portId != -2) {
-#ifdef XBRIDGE_SUPPORT_NOTIFY
-		_evtMask = 0;
-#endif
 		if(_model == MODEL_IRR3000)
 		{
 			enableRecv();
@@ -454,53 +451,3 @@ ISR(TIMER_INTR_NAME)
   }
 
 }
-
-#ifdef XBRIDGE_SUPPORT
-int8_t XIRReceiver::onAccess(uint8_t api, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize)
-{
-	LOGN("XIRReceiver::onAccess()");
-	(void)param; (void)psize;
-
-    if (api == XIRReceiver_API_receive) {
-        result = fillU8(result, receive());
-        *rsize = 1;
-	} else {
-		*rsize = 0;
-		return -1;
-	}
-	return 0;
-}
-
-#ifdef XBRIDGE_SUPPORT_NOTIFY
-int8_t XIRReceiver::onNotifyRegister(uint8_t evt, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize)
-{
-	LOGN("XIRReceiver::onNotifyRegister()");
-	(void)param; (void)psize;
-	(void)evt;
-
-	//if (evt == XIRReceiver_EVT_Change) {
-		_evtMask |= XIRReceiver_EVT_Change;
-		receive();
-		fillU8(result, _key);
-		*rsize = 1;
-	//}
-	return 0;
-}
-
-int8_t XIRReceiver::onNotifyCheck(uint8_t *evt, uint8_t *result, uint8_t *rsize)
-{
-	LOGN("XIRReceiver::onNotifyCheck()");
-
-	if (_evtMask & XIRReceiver_EVT_Change) {
-		if (receive() != 0xFF) {
-			fillU8(result, _key);
-			*evt = XIRReceiver_EVT_Change;
-			*rsize = 1;
-			return 0;
-		}
-	}
-
-	return -1;
-}
-#endif	// XBRIDGE_SUPPORT_NOTIFY
-#endif // XBRIDGE_SUPPORT

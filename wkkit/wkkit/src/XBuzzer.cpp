@@ -125,24 +125,3 @@ void XBuzzer::playTone(uint16_t frequency, uint32_t duration)
 	}
 }
 
-#ifdef XBRIDGE_SUPPORT
-int8_t XBuzzer::onAccess(uint8_t api, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize)
-{
-	LOGN("XBuzzer::onAccess()");
-	(void)psize; (void)result;
-	
-    if (api == XBuzzer_API_playTone) {
-		uint16_t frequency;
-		uint32_t duration;
-		param = fetchU16(param, &frequency);
-		param = fetchU32(param, &duration);
-        playTone(frequency, duration);
-        *rsize = 0;
-    }
-    else {
-        *rsize = 0;
-        return -1;
-    }
-    return 0;
-}
-#endif // XBRIDGE_SUPPORT

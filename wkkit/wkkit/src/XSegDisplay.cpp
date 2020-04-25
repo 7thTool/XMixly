@@ -387,39 +387,3 @@ void XSegDisplay::clearSegment(uint8_t index, char segment)
 	}
 #endif
 }
-
-#ifdef XBRIDGE_SUPPORT
-int8_t XSegDisplay::onAccess(uint8_t api, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize)
-{
-	LOGN("XSegDisplay::onAccess()");
-	(void)psize; (void)result;
-	*rsize = 0;
-
-	if (api == XSegDisplay_API_clear) {
-		clear();
-    } else if (api == XSegDisplay_API_showNumber) {
-		float f;
-		param = fetchFloat(param, &f);
-		showNumber(f);
-	} else if (api == XSegDisplay_API_showCharacter) {
-		uint8_t index, character;
-		param = fetchU8(param, &index);
-		param = fetchU8(param, &character);
-		showCharacter(index, character);
-	} else if (api == XSegDisplay_API_showSegment) {
-		uint8_t index, segment;
-		param = fetchU8(param, &index);
-		param = fetchU8(param, &segment);
-		showSegment(index, segment);
-	} else if (api == XSegDisplay_API_clearSegment) {
-		uint8_t index, segment;
-		param = fetchU8(param, &index);
-		param = fetchU8(param, &segment);
-		clearSegment(index, segment);
-	} else {
-        return -1;
-    }
-
-    return 0;
-}
-#endif // XBRIDGE_SUPPORT

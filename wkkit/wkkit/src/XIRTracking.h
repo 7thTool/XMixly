@@ -29,15 +29,6 @@
 #include <XBlock.h>
 
 
-#define XIRTracking_API_getStatus	(1)	/*!< uint8_t getStatus() */
-
-/*	pdata
- *		- register: nouse
- *		- notify: uint8_t status;
- */
-#define XIRTracking_EVT_Change		(0x01)
-
-
 #define MAX_CHANNEL 2
 
 class XIRTracking : public XNBlock  {
@@ -68,16 +59,6 @@ public:
 	结果：	每个bit是一路状态，0表示脱轨，1表示在轨。最多支持8路对管，从bit0~bit7分别对应S1~S8
 	*/
 	uint8_t getStatus();
-
-#ifdef XBRIDGE_SUPPORT
-protected:
-    /*!< XNBlock interface */
-    int8_t onAccess(uint8_t api, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize);
-#ifdef XBRIDGE_SUPPORT_NOTIFY
-	int8_t onNotifyRegister(uint8_t evt, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize);
-	int8_t onNotifyCheck(uint8_t *evt, uint8_t *result, uint8_t *rsize);
-#endif
-#endif
 	
 private:
 	int8_t _portId; // -1 means onboard block, -2 means setup failed.
@@ -85,10 +66,6 @@ private:
 	uint8_t _selectPin;
 	uint8_t _resetPin;
 	uint8_t _model;
-#ifdef XBRIDGE_SUPPORT_NOTIFY
-	uint8_t	_evtMask;
-	uint8_t _preStatus;
-#endif
 };
 
 #endif //__XIRTRACKING_H__

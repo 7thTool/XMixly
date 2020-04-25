@@ -145,29 +145,3 @@ void XDCMotor::stop()
 	digitalWrite(_pwmPin, LOW);
 	digitalWrite(_dirPin, LOW);
 }
-
-#ifdef XBRIDGE_SUPPORT
-#if 1
-int8_t XDCMotor::onAccess(uint8_t api, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize)
-{
-	LOGN("XDCMotor::onAccess(");LOG(api);LOGN(")");
-	(void)psize; (void)result;
-
-    if (api == XDCMotor_API_start) {
-		int8_t speed;
-		param = fetchU8(param, (uint8_t *)&speed);
-		start(speed);
-		*rsize = 0;
-	}
-	else if(api == XDCMotor_API_stop) {
-		stop();
-		*rsize = 0;
-	}
-	else {
-		*rsize = 0;
-		return -1;
-	}
-	return 0;
-}
-#endif
-#endif // XBRIDGE_SUPPORT

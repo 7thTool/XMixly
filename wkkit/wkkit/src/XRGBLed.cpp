@@ -127,54 +127,6 @@ void XRGBLed::reset()
 	clear(0);
 }
 
-#ifdef XBRIDGE_SUPPORT
-int8_t XRGBLed::onAccess(uint8_t api, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize)
-{
-	uint8_t index, red, green, blue;
-
-	LOGN("XRGBLed::onAccess()");
-	(void)psize; (void)result;
-	*rsize = 0;
-
-    if (api == XRGBLed_API_setColor) {
-		param = fetchU8(param, &index);
-		param = fetchU8(param, &red);
-		param = fetchU8(param, &green);
-		param = fetchU8(param, &blue);
-        setColor(index, red, green, blue);
-    }
-	else if(api == XRGBLed_API_setAllColor) {
-		param = fetchU8(param, &red);
-		param = fetchU8(param, &green);
-		param = fetchU8(param, &blue);
-        setColor(0, red, green, blue);
-	}
-	else if(api == XRGBLed_API_show) {
-		show();
-	}
-	else if (api == XRGBLed_API_showColor) {
-		param = fetchU8(param, &index);
-		param = fetchU8(param, &red);
-		param = fetchU8(param, &green);
-		param = fetchU8(param, &blue);
-        showColor(index, red, green, blue);
-    }
-	else if(api == XRGBLed_API_showAllColor) {
-		param = fetchU8(param, &red);
-		param = fetchU8(param, &green);
-		param = fetchU8(param, &blue);
-        showColor(0, red, green, blue);
-	}
-	else if(api == XRGBLed_API_clear) {
-		clear(0);
-	}
-    else {
-        return -1;
-    }
-    return 0;
-}
-#endif // XBRIDGE_SUPPORT
-
 void XRGBLed::setColor(uint8_t index, uint8_t red, uint8_t green, uint8_t blue)
 {
 	uint8_t i, tmp;

@@ -129,34 +129,3 @@ void XSevenColorLight::clear(uint8_t index)
 }
 
 
-#ifdef XBRIDGE_SUPPORT
-#if 1
-int8_t XSevenColorLight::onAccess(uint8_t api, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize)
-{
-	LOGN("XSevenColorLight::onAccess(");LOG(api);LOGN(")");
-	(void)psize; (void)result;
-
-    if (api == XSevenColorLight_API_showColor) {
-		uint8_t index;
-		uint8_t color;
-		param = fetchU8(param, &index);
-		param = fetchU8(param, &color);
-		showColor(index, color);
-		*rsize = 0;
-	}
-	else if(api == XSevenColorLight_API_clear) {
-		uint8_t index;
-		param = fetchU8(param, &index);
-		clear(index);
-		*rsize = 0;
-	}
-	else {
-		*rsize = 0;
-		return -1;
-	}
-	return 0;
-}
-#endif
-#endif // XBRIDGE_SUPPORT
-
-

@@ -32,15 +32,6 @@
 #define XULS_MAX_MEASURE_DIS	(3000)	// mm
 
 
-#define XUltrasonic_API_getDistance			(1)	/*!< uint16_t getDistance() */
-
-/*	pdata
- *		- register: nouse
- *		- notify: uint16_t distance; unit is "mm"
- */
-#define XUltrasonic_EVT_Change		(0x01)
-
-
 class XUltrasonic : public XNBlock {
 public:
 	XUltrasonic();
@@ -70,16 +61,6 @@ public:
 	*/
 	uint16_t getDistance();
 
-#ifdef XBRIDGE_SUPPORT
-protected:
-	/*!< XNBlock interface */
-    int8_t onAccess(uint8_t api, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize);
-#ifdef XBRIDGE_SUPPORT_NOTIFY
-	int8_t onNotifyRegister(uint8_t evt, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize);
-	int8_t onNotifyCheck(uint8_t *evt, uint8_t *result, uint8_t *rsize);
-#endif
-#endif // XBRIDGE_SUPPORT
-
 private:
 	int8_t	_portId;
 	uint8_t _echoPin;
@@ -87,11 +68,6 @@ private:
 	unsigned long _lastMeasureTime;
 	uint16_t _dis;
 
-#ifdef XBRIDGE_SUPPORT_NOTIFY
-	uint8_t	_evtMask;
-	uint16_t _sensitive;
-	uint16_t _preDis;
-#endif
 };
 
 #endif //__XUlTRASONIC_H__

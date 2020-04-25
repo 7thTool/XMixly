@@ -100,10 +100,6 @@ int XButton::setup(const char *label)
 
 void XButton::reset()
 {
-#ifdef XBRIDGE_SUPPORT_NOTIFY
-	_evtMask = 0;
-	_status = 0xFF;
-#endif
 }
 
 #define BTN3200_HIGH_THRESHOLD 100
@@ -144,61 +140,3 @@ uint8_t XButton::isKnocked()
 	return 0;	
 }
 
-#ifdef XBRIDGE_SUPPORT
-int8_t XButton::onAccess(uint8_t api, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize)
-{
-	LOGN("XButton::onAccess()");
-	(void)param; (void)psize;
-
-    if (api == XButton_API_isPressed) {
-        result = fillU8(result, isPressed());
-        *rsize = 1;
-	} else if (api == XButton_API_isKnocked) {
-        result = fillU8(result, isKnocked());
-        *rsize = 1;
-    } else {
-        *rsize = 0;
-        return -1;
-    }
-
-    return 0;
-}
-
-#ifdef XBRIDGE_SUPPORT_NOTIFY
-int8_t XButton::onNotifyRegister(uint8_t evt, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize)
-{
-	LOGN("XButton::onNotifyRegister()");
-	(void)param; (void)psize;
-	(void)evt;
-
-	//if (evt & XButton_EVT_Change) {
-		_evtMask |= XButton_EVT_Change;
-		_status = isPressed();
-		fillU8(result, _status);
-		*rsize = 1;
-	//}
-	return 0;
-}
-
-int8_t XButton::onNotifyCheck(uint8_t *evt, uint8_t *result, uint8_t *rsize)
-{
-	uint8_t status;
-
-	LOGN("XButton::onNotifyCheck()");
-	(void)result;
-
-	if (_evtMask & XButton_EVT_Change) {
-		status = isPressed();
-		if (status != _status) {
-			_status = status;
-			*evt = XButton_EVT_Change;
-			fillU8(result, status);
-			*rsize = 1;
-			return 0;
-		}
-	}
-
-	return -1;
-}
-#endif	// XBRIDGE_SUPPORT_NOTIFY
-#endif // XBRIDGE_SUPPORT

@@ -29,21 +29,6 @@
 #include <XBlock.h>
 
 
-#define XLEDMatrix_API_setEffect				(1)	/*!< void setEffect(uint8_t effect, uint8_t speed) */
-#define XLEDMatrix_API_showNumber				(2)	/*!< void showNumber(float num) */
-#define XLEDMatrix_API_showNumberPair			(3)	/*!< void showNumberPair(uint8_t a, uint8_t b) */
-#define XLEDMatrix_API_showEmoticon				(4)	/*!< void showEmoticon(uint8_t emot) */
-#define XLEDMatrix_API_showFlag					(5)	/*!< void showFlag(uint8_t flag) */
-#define XLEDMatrix_API_clear					(6)	/*!< void clear() */
-
-//#define XLEDMatrix_API_setBrightness			(7)	/*!< void setBrightness(uint8_t brightness) */
-//#define XLEDMatrix_API_setColorInverse		(8)	/*!< void setColorInverse(uint8_t value) */
-//#define XLEDMatrix_API_showBitmap				(9)	/*!< void showBitmap(uint8_t *bitmap, uint8_t len) */
-//#define XLEDMatrix_API_updateColumn			(10)	/*!< void updateColumn(uint8_t column, uint8_t value) */
-//#define XLEDMatrix_API_updatePoint			(11)	/*!< void updatePoint(uint8_t x, uint8_t y, uint8_t value)*/
-//#define XLEDMatrix_API_showString				(12)	/*!< void showString(char *str) */
-//#define XLEDMatrix_API_move					(13)	/*!< void move(int8_t x, int8_t y) */
-
 #define XLEDMatrix_EFFECT_NONE					(0)
 #define XLEDMatrix_EFFECT_UP_ROLL				(1)
 #define XLEDMatrix_EFFECT_DOWN_ROLL				(2)
@@ -214,12 +199,6 @@ public:
 	½á¹û£º	ÎÞ
 	*/
 	void clear();
-
-#ifdef XBRIDGE_SUPPORT
-protected:
-	int8_t onAccess(uint8_t api, const uint8_t *param,
-            uint8_t psize, uint8_t *result, uint8_t *rsize);
-#endif // XBRIDGE_SUPPORT
 
 private:
 	int8_t	_portId;

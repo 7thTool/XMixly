@@ -100,11 +100,6 @@ int XLightSensor::setup(const char *label)
 
 void XLightSensor::reset()
 {
-#ifdef XBRIDGE_SUPPORT_NOTIFY
-	_evtMask = 0;
-	_sensitive = 4;
-	_luminance = 0xFF;
-#endif
 }
 
 uint8_t XLightSensor::getLuminance()
@@ -129,58 +124,3 @@ uint8_t XLightSensor::getLuminance()
 	return (uint8_t)value;
 }
 
-#ifdef XBRIDGE_SUPPORT
-int8_t XLightSensor::onAccess(uint8_t api, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize)
-{
-	LOGN("XLightSensor::onAccess()");
-	(void)param; (void)psize;
-
-    if (api == XLightSensor_API_getLuminance) {
-        result = fillU8(result, getLuminance());
-        *rsize = 1;
-    } else {
-        *rsize = 0;
-        return -1;
-    }
-
-    return 0;
-}
-
-#ifdef XBRIDGE_SUPPORT_NOTIFY
-int8_t XLightSensor::onNotifyRegister(uint8_t evt, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize)
-{
-	LOGN("XLightSensor::onNotifyRegister()");
-	(void)psize;
-	(void)evt;
-
-	//if (evt == XLightSensor_EVT_Change) {
-		fetchU8(param, &_sensitive);
-		_evtMask |= XLightSensor_EVT_Change;
-		_luminance = getLuminance();
-		fillU8(result, _luminance);
-		*rsize = 1;
-	//}
-	return 0;
-}
-
-int8_t XLightSensor::onNotifyCheck(uint8_t *evt, uint8_t *result, uint8_t *rsize)
-{
-	uint8_t luminance, diff;
-	LOGN("XLightSensor::onNotifyRegister()");
-
-	if (_evtMask & XLightSensor_EVT_Change) {
-		luminance = getLuminance();
-		diff = (luminance > _luminance) ? (luminance - _luminance) : (_luminance - luminance);
-		if (diff >= _sensitive) {
-			_luminance = luminance;
-			fillU8(result, luminance);
-			*evt = XLightSensor_EVT_Change;
-			*rsize = 1;
-			return 0;
-		}
-	}
-
-	return -1;
-}
-#endif	// XBRIDGE_SUPPORT_NOTIFY
-#endif // XBRIDGE_SUPPORT

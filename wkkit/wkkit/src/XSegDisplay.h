@@ -28,13 +28,6 @@
 #include <XBlock.h>
 
 
-#define XSegDisplay_API_showNumber		(0x01)
-#define XSegDisplay_API_clear			(0x02)
-#define XSegDisplay_API_showCharacter	(0x03)
-#define XSegDisplay_API_showSegment		(0x04)
-#define XSegDisplay_API_clearSegment	(0x05)
-
-
 class XSegDisplay : public XNBlock {
 public:
 	XSegDisplay() : XNBlock(), _portId(-1), _model(0), _impl(NULL) {}
@@ -120,11 +113,6 @@ public:
 	*/
 	void clear(uint8_t index = 0);
 
-#ifdef XBRIDGE_SUPPORT
-protected:
-	int8_t onAccess(uint8_t api, const uint8_t *param,
-            uint8_t psize, uint8_t *result, uint8_t *rsize);
-#endif // XBRIDGE_SUPPORT
 
 private:
 	float pow10(uint8_t n);

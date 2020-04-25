@@ -65,18 +65,6 @@ void DDM3001Impl::setup(uint8_t rstPin, uint8_t selPin)
 	_selectPin = selPin;
 }
 
-/* buffer byte data protocol:
- * buf[0]: bit7-4: 0x0 means set motor command 
- *		   bit1-0: 
- *				 1) 0x0 both motor1 and motor2 not need update speed,
- *				 2) 0x1 only motor1 need update speed
- *				 3) 0x2 only motor2 need update speed
- *				 4) 0x3 both motor1 and motor2 need update speed
- *		   bit2: motor1 speed dir (1 means speed < 0) 
- *		   bit3: motor2 speed dir (1 means speed < 0)
- * buf[1]: motor1 speed value 
- * buf[2]: motor2 speed value
- */
 void DDM3001Impl::setMotorSpeed(uint8_t motor, int8_t speed)
 {
 	uint8_t data;
@@ -87,19 +75,18 @@ void DDM3001Impl::setMotorSpeed(uint8_t motor, int8_t speed)
 	data = map(data, 0, DDM_SPEED_VALUE_MAX, 0, 255);
 
 	buf[0] = 0x00;
-	//buf[0] &= 0x3f; //bit7-6: set motor command
 
 	if(motor == 1){
-		buf[0] |= 0x01; //bit1-0: only motor1 need update speed
+		buf[0] |= 0x01;
 		if(speed<0) {
-			buf[0] |= (1<<2); //bit2: motor1 dir
+			buf[0] |= (1<<2);
 		}
 		
 		buf[1] = data;
 	} else {
-		buf[0] |= 0x02; //bit1-0: only motor2 need update speed
+		buf[0] |= 0x02;
 		if(speed<0) {
-			buf[0] |= (1<<3); //bit3: motor2 dir
+			buf[0] |= (1<<3);
 		}
 		
 		buf[2] = data;
@@ -132,15 +119,14 @@ void DDM3001Impl::setAllSpeed(int8_t Lspeed, int8_t Rspeed)
 	LOG("Rdata=");LOGN(Rdata);
 
 	buf[0] = 0x00;
-	//buf[0] &= 0x3f; //bit7-4: set motor command
 
-	buf[0] |= 0x03; //bit1-0: both motor1 and motor2 need update speed
+	buf[0] |= 0x03;
 
 	if(Lspeed<0) {
-		buf[0] |= (1<<2); //bit2: motor1 dir
+		buf[0] |= (1<<2);
 	}
 	if(Rspeed<0) {
-		buf[0] |= (1<<3); //bit3: motor2 dir
+		buf[0] |= (1<<3);
 	}
 
 

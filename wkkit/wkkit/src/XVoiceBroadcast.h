@@ -28,18 +28,6 @@
 #include <XBlock.h>
 
 
-#define XVoiceBroadcast_API_reportObject		(1)
-#define XVoiceBroadcast_API_reportTime			(2)
-#define XVoiceBroadcast_API_reportDate			(3)
-#define XVoiceBroadcast_API_reportOperator		(4)
-#define XVoiceBroadcast_API_reportSound			(5)
-#define XVoiceBroadcast_API_playVoice			(6)
-#define XVoiceBroadcast_API_playVoices			(7)
-#define XVoiceBroadcast_API_isPlaying			(8)
-#define XVoiceBroadcast_API_stop				(9)
-
-
-
 #define XVoiceBroadcast_Object_VALUE			(0)
 #define XVoiceBroadcast_Object_LIGHT			(1)
 #define XVoiceBroadcast_Object_SOUND			(2)
@@ -263,12 +251,6 @@ public:
 	½á¹û£º	ÎÞ
 	*/
 	void stop();
-
-#ifdef XBRIDGE_SUPPORT
-protected:
-    /*!< XNBlock interface */
-    int8_t onAccess(uint8_t api, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize);
-#endif // XBRIDGE_SUPPORT
 
 private:
 	uint8_t _buf[32];

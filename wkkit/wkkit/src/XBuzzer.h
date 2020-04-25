@@ -28,8 +28,6 @@
 #include <XBlock.h>
 
 
-#define XBuzzer_API_playTone 			(0x01)	/*!< void playTone(uint16_t frequency, uint32_t duration) */
-
 
 class XBuzzer : public XNBlock {
 public:
@@ -60,12 +58,6 @@ public:
 	结果：	无
 	*/
 	void playTone(uint16_t frequency, uint32_t duration = 0);
-
-#ifdef XBRIDGE_SUPPORT
-protected:
-    /*!< XNBlock interface */
-    int8_t onAccess(uint8_t api, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize);
-#endif // XBRIDGE_SUPPORT
 
 private:
 	int8_t	_portId;

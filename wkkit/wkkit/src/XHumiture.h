@@ -30,23 +30,6 @@
 #include <XBlock.h>
 
 
-#define XHumiture_API_getHumidity 			(0x01)	/*!< uint8_t getHumidity() */
-#define XHumiture_API_getTemperature 		(0x02)	/*!< uint8_t getTemperature() */
-
-
-/*	pdata
- *		- register: float sensitive;
- *		- notify: float temperature;
- */
-#define XHumiture_EVT_Temperature_Change	(0x01)
-
-/*	pdata
- *		- register: float sensitive;
- *		- notify: float humidity;
- */
-#define XHumiture_EVT_Humidity_Change		(0x02)
-
-
 class XHumiture : public XNBlock {
 public:
 	XHumiture();
@@ -83,17 +66,6 @@ public:
 	*/
 	float getTemperature();
 
-
-#ifdef XBRIDGE_SUPPORT
-protected:
-    /*!< XNBlock interface */
-    int8_t onAccess(uint8_t api, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize);
-#ifdef XBRIDGE_SUPPORT_NOTIFY
-	int8_t onNotifyRegister(uint8_t evt, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize);
-	int8_t onNotifyCheck(uint8_t *evt, uint8_t *result, uint8_t *rsize);
-#endif
-#endif // XBRIDGE_SUPPORT
-
 private:
 	void update();
 
@@ -101,17 +73,6 @@ private:
 	uint8_t _pin;
 	float _lastHumidity;
 	float _lastTemperature;
-	
-#ifdef XBRIDGE_SUPPORT_NOTIFY
-	uint8_t	_evtMask;
-	uint8_t _evtCheck;
-	float _tempSensitive;
-	float _humiSensitive;
-	float _preHumidity;
-	float _preTemperature;
-#endif
-
-
 };
 
 #endif //__XHUMITURE_H__

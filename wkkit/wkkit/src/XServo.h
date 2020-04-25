@@ -28,8 +28,6 @@
 #include <XBlock.h>
 #include <Servo.h>
 
-#define XServo_API_setAngle	(0x01)
-#define XServo_API_getAngle	(0x02)
 
 class XServo : public XNBlock {
 public:
@@ -37,41 +35,35 @@ public:
     ~XServo();
 
 	/*
-	¹¦ÄÜ£º	³õÊ¼»¯¡°À©Õ¹Ä£¿é¡±
-	²ÎÊı£º	model, Ä£¿éĞÍºÅ
-			port, Á¬½Óµ½Ö÷¿Ø°åµÄ¶Ë¿Ú±àºÅ
-	½á¹û£º	³É¹¦·µ»Ø0£¬Ê§°Ü·µ»Ø¸ºÊı
+	??:	???“????”
+	??:	model, ????
+			port, ???????????
+	??:	????0,??????
 	*/
 	int setup(const char *model, const char *port);
 
 	/*
-	¹¦ÄÜ£º	³õÊ¼»¯¡°°åÔØÄ£¿é¡±
-	²ÎÊı£º	label, Ä£¿éÔÚÖ÷¿Ø°åÉÏµÄ±êÌù
-	½á¹û£º	³É¹¦·µ»Ø0£¬Ê§°Ü·µ»Ø¸ºÊı
+	??:	???“????”
+	??:	label, ??????????
+	??:	????0,??????
 	*/
 	int setup(const char *label);
 
 	void reset();
 
 	/*
-	¹¦ÄÜ£º	ÉèÖÃ¶æ»ú½Ç¶È
-	²ÎÊı£º	angle, ½Ç¶ÈÖµ£¬0~359
-	½á¹û£º	ÎŞ
+	??:	??????
+	??:	angle, ???,0~359
+	??:	?
 	*/
 	void setAngle(uint16_t angle);
 
 	/*
-	¹¦ÄÜ£º	»ñÈ¡¶æ»ú½Ç¶È
-	²ÎÊı£º	ÎŞ
-	½á¹û£º	½Ç¶ÈÖµ£¬0~359
+	??:	??????
+	??:	?
+	??:	???,0~359
 	*/
 	uint16_t getAngle();
-
-#ifdef XBRIDGE_SUPPORT
-protected:
-    /*!< XNBlock interface */
-    int8_t onAccess(uint8_t api, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize);
-#endif // XBRIDGE_SUPPORT
 
 private:
 	int8_t _portId;

@@ -117,28 +117,6 @@ void XServo::reset()
 	}
 }
 
-#ifdef XBRIDGE_SUPPORT
-int8_t XServo::onAccess(uint8_t api, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize)
-{
-	LOGN("XServo::onAccess()");
-	(void)psize;
-
-    if (api == XServo_API_setAngle) {
-        uint16_t angle;
-		param = fetchU16(param, &angle);
-        setAngle(angle);    //!< FIXME: May be CPU not support unaligned access.
-        *rsize = 0;
-    } else if (api == XServo_API_getAngle) {
-        fillU16(result, getAngle());
-        *rsize = 1;
-	} else {
-		*rsize = 0;
-		return -1;
-    }
-	return 0;
-}
-#endif // XBRIDGE_SUPPORT
-
 void XServo::setAngle(uint16_t angle)
 {
 	LOGN("XServo::setAngle():");

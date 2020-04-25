@@ -107,36 +107,7 @@ void XHumiture::reset()
 {
 	_lastHumidity = 0;
 	_lastTemperature = 0;
-#ifdef XBRIDGE_SUPPORT_NOTIFY
-	_evtMask = 0;
-	_evtCheck = 0;
-	_tempSensitive = 1;
-	_humiSensitive = 1;
-	_preHumidity = 999;
-	_preTemperature = 999;
-#endif
 }
-
-#ifdef XBRIDGE_SUPPORT
-int8_t XHumiture::onAccess(uint8_t api, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize)
-{
-	LOGN("XHumiture::onAccess()");
-	(void)param; (void)psize;
-	
-    if (api == XHumiture_API_getHumidity) {
-        result = fillFloat(result, getHumidity());
-        *rsize = 4;
-    }else if (api == XHumiture_API_getTemperature) {
-        result = fillFloat(result, getTemperature());
-        *rsize = 4;		
-    } else {
-        *rsize = 0;
-        return -1;
-    }
-
-    return 0;
-}
-#endif // XBRIDGE_SUPPORT
 
 float XHumiture::getHumidity()
 {
@@ -149,71 +120,6 @@ float XHumiture::getTemperature ()
 	update();
 	return _lastTemperature;
 }
-
-
-#ifdef XBRIDGE_SUPPORT_NOTIFY
-int8_t XHumiture::onNotifyRegister(uint8_t evt, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize)
-{
-	LOGN("XHumiture::onNotifyRegister()");
-	(void)psize;
-
-	if (evt == XHumiture_EVT_Temperature_Change) {
-		_evtMask |= XHumiture_EVT_Temperature_Change;
-		fetchFloat(param, &_tempSensitive);
-		_preTemperature = getTemperature();
-		fillFloat(result, _preTemperature);
-		*rsize = 4;
-	} else if (evt == XHumiture_EVT_Humidity_Change) {
-		_evtMask |= XHumiture_EVT_Humidity_Change;
-		fetchFloat(param, &_humiSensitive);
-		_preHumidity = getHumidity();
-		fillFloat(result, _preHumidity);
-		*rsize = 4;
-	}
-	return 0;
-}
-
-int8_t XHumiture::onNotifyCheck(uint8_t *evt, uint8_t *result, uint8_t *rsize)
-{
-	float diff;
-	LOGN("XHumiture::onNotifyRegister()");
-
-	if (_evtCheck == 0) {
-		_evtCheck = _evtMask;
-	}
-
-	if (_evtCheck & XHumiture_EVT_Temperature_Change) {
-		float temperature = getTemperature();
-		diff = (_preTemperature > temperature) ?
-				(_preTemperature - temperature) :
-				(temperature - _preTemperature);
-		if (diff >= _tempSensitive) {
-			_preTemperature = temperature;
-			fillFloat(result, temperature);
-			*evt = XHumiture_EVT_Temperature_Change;
-			*rsize = 4;
-			_evtCheck &= ~XHumiture_EVT_Temperature_Change;
-			return _evtCheck;
-		}
-	} else if (_evtCheck & XHumiture_EVT_Humidity_Change) {
-		float humidity = getHumidity();
-		diff = (_preHumidity > humidity) ?
-				(_preHumidity - humidity) :
-				(humidity - _preHumidity);
-		if (diff >= _humiSensitive) {
-			_preHumidity = humidity;
-			fillFloat(result, humidity);
-			*evt = XHumiture_EVT_Humidity_Change;
-			*rsize = 4;
-			_evtCheck &= ~XHumiture_EVT_Humidity_Change;
-			return _evtCheck;
-		}
-	}
-
-	return -1;
-}
-#endif	// XBRIDGE_SUPPORT_NOTIFY
-
 
 void XHumiture::update()
 {

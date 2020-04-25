@@ -108,11 +108,6 @@ int XSoundSensor::setup(const char *label)
 
 void XSoundSensor::reset()
 {
-#ifdef XBRIDGE_SUPPORT_NOTIFY
-	_evtMask = 0;
-	_sensitive = 4;
-	_volume = 0xFF;
-#endif
 }
 
 uint8_t XSoundSensor::getVolume()
@@ -138,60 +133,3 @@ uint8_t XSoundSensor::getVolume()
 #endif
 	return (uint8_t)value;
 }
-
-#ifdef XBRIDGE_SUPPORT
-int8_t XSoundSensor::onAccess(uint8_t api, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize)
-{
-	LOGN("XSoundSensor::onAccess()");
-	(void)param; (void)psize;
-
-    if (api == XSoundSensor_API_getVolume) {
-        result = fillU8(result, getVolume());
-        *rsize  = 1;
-    }
-    else {
-        *rsize = 0;
-        return -1;
-    }
-
-    return 0;
-}
-
-#ifdef XBRIDGE_SUPPORT_NOTIFY
-int8_t XSoundSensor::onNotifyRegister(uint8_t evt, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize)
-{
-	LOGN("XSoundSensor::onNotifyRegister()");
-	(void)psize;
-	(void)evt;
-
-	//if (evt == XSoundSensor_EVT_Change) {
-		fetchU8(param, &_sensitive);
-		_evtMask |= XSoundSensor_EVT_Change;
-		_volume = getVolume();
-		fillU8(result, _volume);
-		*rsize = 1;
-	//}
-	return 0;
-}
-
-int8_t XSoundSensor::onNotifyCheck(uint8_t *evt, uint8_t *result, uint8_t *rsize)
-{
-	uint8_t volume, diff;
-	LOGN("XSoundSensor::onNotifyCheck()");
-
-	if (_evtMask & XSoundSensor_EVT_Change) {
-		volume = getVolume();
-		diff = (volume > _volume) ? (volume - _volume) : (_volume - volume);
-		if (diff >= _sensitive) {
-			_volume = volume;
-			fillU8(result, volume);
-			*evt = XSoundSensor_EVT_Change;
-			*rsize = 1;
-			return 0;
-		}
-	}
-
-	return -1;
-}
-#endif	// XBRIDGE_SUPPORT_NOTIFY
-#endif // XBRIDGE_SUPPORT

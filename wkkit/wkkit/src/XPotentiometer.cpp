@@ -101,11 +101,6 @@ int XPotentiometer::setup(const char *label)
 
 void XPotentiometer::reset()
 {
-#ifdef XBRIDGE_SUPPORT_NOTIFY
-	_evtMask = 0;
-	_value = 0xFF;
-	_sensitive = 1;
-#endif
 }
 
 uint8_t XPotentiometer::getValue()
@@ -126,59 +121,3 @@ uint8_t XPotentiometer::getValue()
 	return (uint8_t)value;
 }
 
-#ifdef XBRIDGE_SUPPORT
-int8_t XPotentiometer::onAccess(uint8_t api, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize)
-{
-	LOGN("XPotentiometer::onAccess()");
-	(void)param; (void)psize;
-
-    if (api == XPotentiometer_API_getValue) {
-        result = fillU8(result, getValue());
-        *rsize  = 1;
-    }
-    else {
-        *rsize = 0;
-        return -1;
-    }
-
-    return 0;
-}
-
-#ifdef XBRIDGE_SUPPORT_NOTIFY
-int8_t XPotentiometer::onNotifyRegister(uint8_t evt, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize)
-{
-	LOGN("XPotentiometer::onNotifyRegister()");
-	(void)psize;
-	(void)evt;
-
-	//if (evt == XPotentiometer_EVT_Change) {
-		fetchU8(param, &_sensitive);
-		_evtMask |= XPotentiometer_EVT_Change;
-		_value = getValue();
-		fillU8(result, _value);
-		*rsize = 1;
-	//}
-	return 0;
-}
-
-int8_t XPotentiometer::onNotifyCheck(uint8_t *evt, uint8_t *result, uint8_t *rsize)
-{
-	uint8_t value, diff;
-	LOGN("XPotentiometer::onNotifyCheck()");
-
-	if (_evtMask & XPotentiometer_EVT_Change) {
-		value = getValue();
-		diff = (value > _value) ? (value - _value) : (_value - value);
-		if (diff >= _sensitive) {
-			_value = value;
-			fillU8(result, value);
-			*evt = XPotentiometer_EVT_Change;
-			*rsize = 1;
-			return 0;
-		}
-	}
-
-	return -1;
-}
-#endif	// XBRIDGE_SUPPORT_NOTIFY
-#endif // XBRIDGE_SUPPORT

@@ -129,10 +129,6 @@ int XIRAvoiding::setup(const char *label)
 
 void XIRAvoiding::reset()
 {
-#ifdef XBRIDGE_SUPPORT_NOTIFY
-	_evtMask = 0;
-	_status = 0xFF;
-#endif
 }
 
 void XIRAvoiding::start(uint8_t sensitive)
@@ -164,7 +160,7 @@ void XIRAvoiding::start(uint8_t sensitive)
 		digitalWrite(_enPin, HIGH);
 		delay(hlvl_time);
 		digitalWrite(_enPin, LOW);
-		delay(2); //避免两次连续调用时单片机误将sensitive值叠加到一起从而出错                  
+		delay(2);                  
 	}
 }
 
@@ -182,7 +178,7 @@ void XIRAvoiding::stop()
 		digitalWrite(_enPin, HIGH);
 		delay(2); // 2 means close detects
 		digitalWrite(_enPin, LOW);
-		delay(2); //避免两次连续调用时单片机误将sensitive值叠加到一起从而出错 
+		delay(2);
 	}
 }
 
@@ -198,55 +194,3 @@ uint8_t XIRAvoiding::getStatus()
 	return digitalRead(_pin) ? 0 : 1;
 }
 
-#ifdef XBRIDGE_SUPPORT
-int8_t XIRAvoiding::onAccess(uint8_t api, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize)
-{
-	LOGN("XIRAvoiding::onAccess()");
-	(void)param; (void)psize;
-
-    if (api == XIRAvoiding_API_getStatus) {
-        result = fillU8(result, getStatus());
-        *rsize  = 1;
-    } else {
-        *rsize = 0;
-        return -1;
-    }
-    return 0;
-}
-
-#ifdef XBRIDGE_SUPPORT_NOTIFY
-int8_t XIRAvoiding::onNotifyRegister(uint8_t evt, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize)
-{
-	LOGN("XIRAvoiding::onNotifyRegister()");
-	(void)param; (void)psize;
-	(void)evt;
-
-	//if (evt == XIRAvoiding_EVT_Change) {
-		_evtMask |= XIRAvoiding_EVT_Change;
-		_status = getStatus();
-		fillU8(result, _status);
-		*rsize = 1;
-	//}
-	return 0;
-}
-
-int8_t XIRAvoiding::onNotifyCheck(uint8_t *evt, uint8_t *result, uint8_t *rsize)
-{
-	uint8_t status;
-	LOGN("XIRAvoiding::onNotifyCheck()");
-
-	if (_evtMask & XIRAvoiding_EVT_Change) {
-		status = getStatus();
-		if (status != _status) {
-			_status = status;
-			fillU8(result, status);
-			*evt = XIRAvoiding_EVT_Change;
-			*rsize = 1;
-			return 0;
-		}
-	}
-
-	return -1;
-}
-#endif	// XBRIDGE_SUPPORT_NOTIFY
-#endif // XBRIDGE_SUPPORT

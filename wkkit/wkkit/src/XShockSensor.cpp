@@ -97,10 +97,7 @@ int XShockSensor::setup(const char *label)
 
 void XShockSensor::reset()
 {
-#ifdef XBRIDGE_SUPPORT_NOTIFY
-	_evtMask = 0;
-	_status = 0xFF;
-#endif
+
 }
 
 
@@ -115,55 +112,4 @@ uint8_t XShockSensor::isShocking()
 
 	return digitalRead(_pin);
 }
-#ifdef XBRIDGE_SUPPORT
-int8_t XShockSensor::onAccess(uint8_t api, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize)
-{
-	LOGN("XShockSensor::onAccess()");
-	(void)param; (void)psize;
-	
-    if (api == XShockSensor_API_isShocking) {
-        result = fillU8(result, isShocking());
-        *rsize  = 1;
-    } else {
-        *rsize = 0;
-        return -1;
-    }
-    return 0;
-}
 
-#ifdef XBRIDGE_SUPPORT_NOTIFY
-int8_t XShockSensor::onNotifyRegister(uint8_t evt, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize)
-{
-	LOGN("XShockSensor::onNotifyRegister()");
-	(void)param; (void)psize;
-	(void)evt;
-
-	//if (evt == XShockSensor_EVT_Change) {
-		_evtMask |= XShockSensor_EVT_Change;
-		_status = isShocking();
-		fillU8(result, _status);
-		*rsize = 1;
-	//}
-	return 0;
-}
-
-int8_t XShockSensor::onNotifyCheck(uint8_t *evt, uint8_t *result, uint8_t *rsize)
-{
-	uint8_t status;
-	LOGN("XShockSensor::onNotifyCheck()");
-
-	if (_evtMask & XShockSensor_EVT_Change) {
-		status = isShocking();
-		if (status != _status) {
-			_status = status;
-			fillU8(result, status);
-			*evt = XShockSensor_EVT_Change;
-			*rsize = 1;
-			return 0;
-		}
-	}
-
-	return -1;
-}
-#endif	// XBRIDGE_SUPPORT_NOTIFY
-#endif // XBRIDGE_SUPPORT

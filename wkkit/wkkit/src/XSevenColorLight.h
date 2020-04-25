@@ -28,11 +28,6 @@
 #include <XBlock.h>
 
 
-#define XSevenColorLight_API_showColor 			(0x01)	/*!< void showColor(uint8_t index, uint8_t color) */
-#define XSevenColorLight_API_clear 				(0x02)	/*!< void clear(uint8_t index) */
-
-
-
 #define SCL_COLOR_BLACK		0
 #define SCL_COLOR_RED		1
 #define SCL_COLOR_GREEN		2
@@ -79,14 +74,6 @@ public:
 	结果：	无
 	*/
 	void clear(uint8_t index);
-
-#ifdef XBRIDGE_SUPPORT
-protected:
-#if 1
-    /*!< XNBlock interface */
-    int8_t onAccess(uint8_t api, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize);
-#endif
-#endif // XBRIDGE_SUPPORT
 
 private:
 	int8_t	_portId;

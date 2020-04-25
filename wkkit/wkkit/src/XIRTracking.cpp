@@ -131,10 +131,6 @@ int XIRTracking::setup(const char *label)
 
 void XIRTracking::reset()
 {
-#ifdef XBRIDGE_SUPPORT_NOTIFY
-	_evtMask = 0;
-	_preStatus = 0xFF;
-#endif
 }
 
 uint8_t XIRTracking::getStatus()
@@ -165,57 +161,3 @@ uint8_t XIRTracking::getStatus()
 	}
 	return status;
 }
-
-#ifdef XBRIDGE_SUPPORT
-int8_t XIRTracking::onAccess(uint8_t api, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize)
-{
-	LOGN("XIRTracking::onAccess()");
-	(void)param; (void)psize;
-	
-    if (api == XIRTracking_API_getStatus) {
-        result = fillU8(result, getStatus());
-        *rsize  = 1;
-    } else {
-        *rsize = 0;
-        return -1;
-    }
-    return 0;
-}
-
-#ifdef XBRIDGE_SUPPORT_NOTIFY
-int8_t XIRTracking::onNotifyRegister(uint8_t evt, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize)
-{
-	LOGN("XIRTracking::onNotifyRegister()");
-	(void)param; (void)psize;
-	(void)evt;
-
-	//if (evt == XIRTracking_EVT_Change) {
-		_evtMask |= XIRTracking_EVT_Change;
-		_preStatus = getStatus();
-		fillU8(result, _preStatus);
-		*rsize = 1;
-	//}
-	return 0;
-}
-
-int8_t XIRTracking::onNotifyCheck(uint8_t *evt, uint8_t *result, uint8_t *rsize)
-{
-	uint8_t status;
-
-	LOGN("XIRTracking::onNotifyCheck()");
-
-	if (_evtMask & XIRTracking_EVT_Change) {
-		status = getStatus();
-		if (status != _preStatus) {
-			_preStatus = status;
-			fillU8(result, status);
-			*evt = XIRTracking_EVT_Change;
-			*rsize = 1;
-			return 0;
-		}
-	}
-
-	return -1;
-}
-#endif	// XBRIDGE_SUPPORT_NOTIFY
-#endif // XBRIDGE_SUPPORT

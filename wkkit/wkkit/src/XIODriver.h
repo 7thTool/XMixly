@@ -79,12 +79,6 @@ public:
 	int32_t analogRead(uint8_t sno);
 	
 
-#ifdef XBRIDGE_SUPPORT
-protected:
-    /*!< XNBlock interface */
-    int8_t onAccess(uint8_t api, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize);
-#endif // XBRIDGE_SUPPORT
-
 private:
 	int8_t _portId;
 	uint8_t _pin1;

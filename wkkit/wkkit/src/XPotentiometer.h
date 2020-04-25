@@ -26,13 +26,6 @@
 
 #include <XBlock.h>
 
-#define XPotentiometer_API_getValue 	(1)
-
-/*	pdata 
- *		- register: nouse
- *		- notify: uint8_t value;
- */
-#define XPotentiometer_EVT_Change		(0x01)
 
 
 class XPotentiometer : public XNBlock {
@@ -64,24 +57,10 @@ public:
 	*/
 	uint8_t getValue();
 
-#ifdef XBRIDGE_SUPPORT
-protected:
-    /*!< XNBlock interface */
-    int8_t onAccess(uint8_t api, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize);
-#ifdef XBRIDGE_SUPPORT_NOTIFY
-	int8_t onNotifyRegister(uint8_t evt, const uint8_t *param, uint8_t psize, uint8_t *result, uint8_t *rsize);
-	int8_t onNotifyCheck(uint8_t *evt, uint8_t *result, uint8_t *rsize);
-#endif
-#endif // XBRIDGE_SUPPORT
 
 private:
 	int8_t _portId;
 	uint8_t _pin;
-#ifdef XBRIDGE_SUPPORT_NOTIFY
-	uint8_t	_evtMask;
-	uint8_t	_value;
-	uint8_t _sensitive;
-#endif
 };
 
 #endif //__XPOTENTIOMETER_H__
