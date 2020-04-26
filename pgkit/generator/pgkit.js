@@ -1130,6 +1130,12 @@ Blockly.Arduino.pgkit_xpgkaudioplayer_playNote = function () {
 Communicator - 通信模块
 *********************************************/
 
+Blockly.Arduino.pgkit_xirreceiver_presskey = function() {
+  var dropdown_press_key = this.getFieldValue('PRESSKEY');
+var code = dropdown_press_key;
+return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
 Blockly.Arduino.pgkit_xirreceiver_enableLongPress = function() {
   Blockly.Arduino.PGKit_addGlobal();
   var port = this.getFieldValue('XIRReceiver');
@@ -1137,8 +1143,9 @@ Blockly.Arduino.pgkit_xirreceiver_enableLongPress = function() {
     Blockly.Arduino.PGKit_addOnBoardModule('XIRReceiver',port);
   }
   var name = Blockly.Arduino.PGKit_getModuleName('XIRReceiver',port);
-  var val = Blockly.Arduino.valueToCode(this, 'VALUE',
-      Blockly.Arduino.ORDER_NONE) || 0;
+  // var val = Blockly.Arduino.valueToCode(this, 'VALUE',
+  //     Blockly.Arduino.ORDER_NONE) || 0;
+  var val = this.getFieldValue('PRESSKEY');
   var code = name + '.enableLongPress(' + val + ');\n';
   return code;
 };
@@ -1161,8 +1168,9 @@ Blockly.Arduino.pgkit_xirreceiver_receiveNumber = function() {
     Blockly.Arduino.PGKit_addOnBoardModule('XIRReceiver',port);
   }
   var name = Blockly.Arduino.PGKit_getModuleName('XIRReceiver',port);
-  var val = Blockly.Arduino.valueToCode(this, 'VALUE',
-      Blockly.Arduino.ORDER_NONE) || 0;
+  // var val = Blockly.Arduino.valueToCode(this, 'VALUE',
+  //     Blockly.Arduino.ORDER_NONE) || 0;
+  var val = this.getFieldValue('PRESSKEY');
   var code = '(' + val + '==' + name + '.pick())';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };

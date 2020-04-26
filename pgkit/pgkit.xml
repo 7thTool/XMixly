@@ -284,21 +284,11 @@
   <!--通信模块-->
   <category id="pgkit_communicator" name="通信模块" colour="#3EDAFF">
     <block type="pgkit_xirreceiver_enableLongPress">
-        <value name="VALUE">
-            <shadow type="math_number">
-                <field name="NUM">1</field>
-            </shadow>
-        </value>
     </block>
     <block type="pgkit_xirreceiver_available"></block>
     <block type="pgkit_xirreceiver_waitMessage">
     </block>
     <block type="pgkit_xirreceiver_receiveNumber">
-        <value name="VALUE">
-            <shadow type="math_number">
-                <field name="NUM">1</field>
-            </shadow>
-        </value>
     </block>
   </category>
   <!--系统模块-->

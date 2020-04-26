@@ -15,9 +15,9 @@
   <!--连接模块-->
   <category id="wkkit_construct" name="连接模块" colour="#3EDAFF">
         <block type="wkkit_construct_XPORTS"></block>
-        <block type="wkkit_xiodriver_digitalRead"></block>
+        <!--<block type="wkkit_xiodriver_digitalRead"></block>
         <block type="wkkit_xiodriver_analogRead"></block>
-        <block type="wkkit_xiodriver_digitalWrite"></block>
+        <block type="wkkit_xiodriver_digitalWrite"></block>-->
       	<!--<block type="wkkit_led">
           <value name="PIN">
               <shadow type="pins_digital"></shadow>
@@ -285,21 +285,11 @@
   <!--通信模块-->
   <category id="wkkit_communicator" name="通信模块" colour="#3EDAFF">
     <block type="wkkit_xirreceiver_enableLongPress">
-        <value name="VALUE">
-            <shadow type="math_number">
-                <field name="NUM">1</field>
-            </shadow>
-        </value>
     </block>
     <block type="wkkit_xirreceiver_available"></block>
     <block type="wkkit_xirreceiver_waitMessage">
     </block>
     <block type="wkkit_xirreceiver_receiveNumber">
-        <value name="VALUE">
-            <shadow type="math_number">
-                <field name="NUM">1</field>
-            </shadow>
-        </value>
     </block>
   </category>
   <!--系统模块-->

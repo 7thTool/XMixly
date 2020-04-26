@@ -580,7 +580,7 @@ var wkkit_robotColor_system = '#FF6767';   //系统
 
   window.WKKit = WKKit;
     
-  var jsonObjects = '{"modules":[{"type":"XIRTracking","name":"红外循迹传感器","models":[{"func":"H###","type":"XRJ25","id":"IRT3320"}],"objects":[]},{"type":"XIRTracking6","name":"六路红外循迹传感器","models":[{"func":"####","type":"XRJ25","id":"IRT3360"}],"objects":[]},{"type":"XUltrasonic","name":"超声波传感器","models":[{"func":"H###","type":"XRJ25","id":"ULS3600"}],"objects":[]},{"type":"XSegDisplay","name":"数码管","models":[{"func":"H###","type":"XRJ25","id":"SGD4300"}],"objects":[]},{"type":"XLEDMatrix","name":"LED面板","models":[{"func":"####","type":"XRJ25","id":"LMT3300"}],"objects":[]},{"type":"XVoiceBroadcast","name":"语音播报器","models":[{"func":"####","type":"XRJ25","id":"VBC3300"}],"objects":[]},{"type":"XIRAvoiding","name":"红外避障传感器","models":[{"func":"H###","type":"XRJ25","id":"IRA3300"}],"objects":[]},{"type":"XPotentiometer","name":"电位器","models":[{"func":"A###","type":"XRJ25","id":"PTM3300"}],"objects":[]},{"type":"XButton","name":"按钮","models":[{"func":"A###","type":"XRJ25","id":"BTN3300"}],"objects":[{"id":"BTN","model":"BTN3000","name":"板载-BTN"}]},{"type":"XIODriver","name":"IO驱动","models":[{"func":"####","type":"XRJ25","id":"-"}],"objects":[]},{"type":"XBluetooth","name":"蓝牙","models":[{"func":"U###","type":"XIP45","id":"BLT4140"}],"objects":[]},{"type":"XSoundSensor","name":"","models":[],"objects":[{"id":"SND","model":"SND3000","name":"板载-SND"}]},{"type":"XLightSensor","name":"","models":[],"objects":[{"id":"LIG","model":"LIG4000","name":"板载-LIG"}]},{"type":"XBuzzer","name":"","models":[],"objects":[{"id":"BUZ","model":"BUZ4000","name":"板载-BUZ"}]},{"type":"XRGBLed","name":"","models":[],"objects":[{"id":"RGB","model":"RGB3060","name":"板载-RGB"}]},{"type":"XIRReceiver","name":"","models":[],"objects":[{"id":"IRR","model":"IRR3000","name":"板载-IRR"}]},{"type":"XDualDCMotor","name":"","models":[],"objects":[{"id":"DDM","model":"DDM3001","name":"板载-DDM"}]},{"type":"XServo","name":"","models":[],"objects":[{"id":"SVO","model":"SVO3000","name":"板载-SVO"}]},{"name":"端口","type":"XPORTS","models":[{"name":"端口 1","id":"1","type":"XRJ25","func":"DHAK"},{"name":"端口 2","id":"2","type":"XRJ25","func":"DHP#"},{"name":"端口 3","id":"3","type":"XRJ25","func":"DHA#"},{"name":"端口 4","id":"4","type":"XRJ25","func":"DHP#"},{"name":"端口 5","id":"5","type":"XIP45","func":"U###"}]}]}';
+  var jsonObjects = '{"modules":[{"type":"XIRTracking","name":"红外循迹传感器","models":[{"func":"H###","type":"XRJ25","id":"IRT3320"}],"objects":[]},{"type":"XIRTracking6","name":"六路红外循迹传感器","models":[{"func":"####","type":"XRJ25","id":"IRT3360"}],"objects":[]},{"type":"XUltrasonic","name":"超声波传感器","models":[{"func":"H###","type":"XRJ25","id":"ULS3600"}],"objects":[]},{"type":"XSegDisplay","name":"数码管","models":[{"func":"H###","type":"XRJ25","id":"SGD4300"}],"objects":[]},{"type":"XLEDMatrix","name":"LED面板","models":[{"func":"####","type":"XRJ25","id":"LMT3300"}],"objects":[]},{"type":"XVoiceBroadcast","name":"语音播报器","models":[{"func":"####","type":"XRJ25","id":"VBC3300"}],"objects":[]},{"type":"XIRAvoiding","name":"红外避障传感器","models":[{"func":"H###","type":"XRJ25","id":"IRA3300"}],"objects":[]},{"type":"XPotentiometer","name":"电位器","models":[{"func":"A###","type":"XRJ25","id":"PTM3300"}],"objects":[]},{"type":"XButton","name":"按钮","models":[{"func":"A###","type":"XRJ25","id":"BTN3300"}],"objects":[{"id":"BTN","model":"BTN3000","name":"板载-BTN"}]},{"type":"XBluetooth","name":"蓝牙","models":[{"func":"U###","type":"XIP45","id":"BLT4140"}],"objects":[]},{"type":"XSoundSensor","name":"","models":[],"objects":[{"id":"SND","model":"SND3000","name":"板载-SND"}]},{"type":"XLightSensor","name":"","models":[],"objects":[{"id":"LIG","model":"LIG4000","name":"板载-LIG"}]},{"type":"XBuzzer","name":"","models":[],"objects":[{"id":"BUZ","model":"BUZ4000","name":"板载-BUZ"}]},{"type":"XRGBLed","name":"","models":[],"objects":[{"id":"RGB","model":"RGB3060","name":"板载-RGB"}]},{"type":"XIRReceiver","name":"","models":[],"objects":[{"id":"IRR","model":"IRR3000","name":"板载-IRR"}]},{"type":"XDualDCMotor","name":"","models":[],"objects":[{"id":"DDM","model":"DDM3001","name":"板载-DDM"}]},{"type":"XServo","name":"","models":[],"objects":[{"id":"SVO","model":"SVO3000","name":"板载-SVO"}]},{"name":"端口","type":"XPORTS","models":[{"name":"端口 1","id":"1","type":"XRJ25","func":"DHAK"},{"name":"端口 2","id":"2","type":"XRJ25","func":"DHP#"},{"name":"端口 3","id":"3","type":"XRJ25","func":"DHA#"},{"name":"端口 4","id":"4","type":"XRJ25","func":"DHP#"},{"name":"端口 5","id":"5","type":"XIP45","func":"U###"}]}]}';
   window.WKKit.init(JSON.parse(jsonObjects));
 })();
 
@@ -3443,22 +3443,76 @@ Blockly.Blocks.wkkit_xwkkaudioplayer_stop = {
 Communicator - 通信模块
 *********************************************/
 
+Blockly.Blocks.wkkit_xirreceiver_presskey = {
+  init: function () {
+    var PRESSKEYS =
+      [['1', '1'],
+      ['2', '2'],
+      ['3', '3'],
+      ['4', '4'],
+      ['5', '5'],
+      ['6', '6'],
+      ['7', '7'],
+      ['8', '8'],
+      ['9', '9'],
+      ['A', '10'],
+      ['B', '11'],
+      ['C', '12'],
+      ['D', '13'],
+      ['E', '14'],
+      ['F', '15'],
+      ['↑', '16'],
+      ['↓', '17'],
+      ['←', '18'],
+      ['→', '19'],
+      ['OK', '20']];
+    this.appendDummyInput()
+      .appendField(new Blockly.FieldDropdown(PRESSKEYS), "PRESSKEY");
+    this.setOutput(true, Number);
+    this.setColour(wkkit_robotColor_communicator);
+    this.setTooltip("");
+    this.setHelpUrl("");
+  }
+};
+
 Blockly.Blocks.wkkit_xirreceiver_enableLongPress = {
   init: function () {
     function getMyVars() {
       return Blockly.getWKKitNameObjsByType('XIRReceiver',[Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
+    var PRESSKEYS = [['1', '1'],
+    ['2', '2'],
+    ['3', '3'],
+    ['4', '4'],
+    ['5', '5'],
+    ['6', '6'],
+    ['7', '7'],
+    ['8', '8'],
+    ['9', '9'],
+    ['A', '10'],
+    ['B', '11'],
+    ['C', '12'],
+    ['D', '13'],
+    ['E', '14'],
+    ['F', '15'],
+    ['↑', '16'],
+    ['↓', '17'],
+    ['←', '18'],
+    ['→', '19'],
+    ['OK', '20']];
     this.appendDummyInput()
         .appendField("")
         .appendField(new Blockly.FieldImage("../../media/wkkit/XIRReceiver.png", 16, 16, "*"));
     this.appendDummyInput()
-      .appendField(Blockly.Msg.MY_XIRRECEIVER_1)
-      .appendField(dropdownInstances, "XIRReceiver")
-      .appendField(Blockly.Msg.MY_XIRRECEIVER_2)
-      .appendField(Blockly.Msg.MY_XIRRECEIVER_ENABLELONGPRESS);
-    this.appendValueInput('VALUE')
-      .setCheck(Number);
+        .appendField(Blockly.Msg.MY_XIRRECEIVER_1)
+        .appendField(dropdownInstances, "XIRReceiver")
+        .appendField(Blockly.Msg.MY_XIRRECEIVER_2)
+        .appendField(Blockly.Msg.MY_XIRRECEIVER_ENABLELONGPRESS);
+    // this.appendValueInput('VALUE')
+    //   .setCheck(Number);
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldDropdown(PRESSKEYS), "PRESSKEY");
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -3502,16 +3556,38 @@ Blockly.Blocks.wkkit_xirreceiver_receiveNumber = {
       return Blockly.getWKKitNameObjsByType('XIRReceiver',[Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
+    var PRESSKEYS = [['1', '1'],
+    ['2', '2'],
+    ['3', '3'],
+    ['4', '4'],
+    ['5', '5'],
+    ['6', '6'],
+    ['7', '7'],
+    ['8', '8'],
+    ['9', '9'],
+    ['A', '10'],
+    ['B', '11'],
+    ['C', '12'],
+    ['D', '13'],
+    ['E', '14'],
+    ['F', '15'],
+    ['↑', '16'],
+    ['↓', '17'],
+    ['←', '18'],
+    ['→', '19'],
+    ['OK', '20']];
     this.appendDummyInput()
         .appendField("")
         .appendField(new Blockly.FieldImage("../../media/wkkit/XIRReceiver.png", 16, 16, "*"));
     this.appendDummyInput()
-      .appendField(Blockly.Msg.MY_XIRRECEIVER_1)
-      .appendField(dropdownInstances, "XIRReceiver")
-      .appendField(Blockly.Msg.MY_XIRRECEIVER_2)
-      .appendField(Blockly.Msg.MY_XIRRECEIVER_RECEIVE);
-    this.appendValueInput('VALUE')
-      .setCheck(Number);
+        .appendField(Blockly.Msg.MY_XIRRECEIVER_1)
+        .appendField(dropdownInstances, "XIRReceiver")
+        .appendField(Blockly.Msg.MY_XIRRECEIVER_2)
+        .appendField(Blockly.Msg.MY_XIRRECEIVER_RECEIVE);
+    // this.appendValueInput('VALUE')
+    //     .setCheck(Number);
+    this.appendDummyInput()
+        .appendField(new Blockly.FieldDropdown(PRESSKEYS), "PRESSKEY");
     this.setInputsInline(true);
     //this.setPreviousStatement(true, null);
     //this.setNextStatement(true, null);
