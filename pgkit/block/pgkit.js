@@ -3312,7 +3312,8 @@ Communicator - 通信模块
 Blockly.Blocks.pgkit_xirreceiver_presskey = {
   init: function () {
     var PRESSKEYS =
-      [['1', '1'],
+      [['0', '0'],
+      ['1', '1'],
       ['2', '2'],
       ['3', '3'],
       ['4', '4'],
@@ -3347,7 +3348,8 @@ Blockly.Blocks.pgkit_xirreceiver_enableLongPress = {
       return Blockly.getPGKitNameObjsByType('XIRReceiver',[Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
-    var PRESSKEYS = [['1', '1'],
+    var PRESSKEYS = [['0', '0'],
+    ['1', '1'],
     ['2', '2'],
     ['3', '3'],
     ['4', '4'],
@@ -3422,7 +3424,8 @@ Blockly.Blocks.pgkit_xirreceiver_receiveNumber = {
       return Blockly.getPGKitNameObjsByType('XIRReceiver',[Blockly.Msg.MY_NULL, '']);
     }
     var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
-    var PRESSKEYS = [['1', '1'],
+    var PRESSKEYS = [['0', '0'],
+    ['1', '1'],
     ['2', '2'],
     ['3', '3'],
     ['4', '4'],
