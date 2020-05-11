@@ -736,13 +736,13 @@ Blockly.Blocks.xblockly_construct_INIT = {
         .appendField("")
         .appendField(new Blockly.FieldImage("../../media/xblockly/XIODriver.png", 16, 16, "*"));
     this.appendDummyInput()
-      .appendField(Blockly.Msg.MY_XMAINBOARD_1)
+      .appendField('Blockly.Msg.MY_XMAINBOARD_1')
       .appendField(dropdownInstances, "XMainBoard")
-      .appendField(Blockly.Msg.MY_XMAINBOARD_2);
+      .appendField("Blockly.Msg.MY_XMAINBOARD_2");
     this.setInputsInline(true);
     //this.setPreviousStatement(true, null);
-    //this.setNextStatement(true, null);
-    this.setOutput(true, Boolean);
+    this.setNextStatement(true, null);
+    //this.setOutput(true, Boolean);
     this.setColour(xblockly_robotColor_construct);
     this.setTooltip("");
     this.setHelpUrl("");

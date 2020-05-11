@@ -37,9 +37,9 @@ Blockly.Arduino.XBlockly_addSetup = function (tag, code) {
 
 Blockly.Arduino.XBlockly_addGlobal = function () {
   //只要使用了xblockly，强制添加xblockly全局代码
-  Blockly.Arduino.XBlockly_addInclude('Arduino', '#include <Arduino.h>');
-  Blockly.Arduino.XBlockly_addInclude('PGKSystem', '#include <PGKSystem.h>');
-  Blockly.Arduino.XBlockly_addSetup('PGKSystem', 'XSystem.setup();');
+  // Blockly.Arduino.XBlockly_addInclude('Arduino', '#include <Arduino.h>');
+  // Blockly.Arduino.XBlockly_addInclude('PGKSystem', '#include <PGKSystem.h>');
+  // Blockly.Arduino.XBlockly_addSetup('PGKSystem', 'XSystem.setup();');
 }
 
 Blockly.Arduino.XBlockly_addOnBoardModule = function (type, label) {
