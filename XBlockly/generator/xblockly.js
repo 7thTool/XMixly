@@ -116,31 +116,27 @@ Construct - 连接模块
 
 Blockly.Arduino.xblockly_construct_INIT = function() {
   var main_board = this.getFieldValue('XMainBoard');
-  if(window.XBlockly.MainBoard == main_board) {
-    return '';
+  if(window.XBlockly.MainBoard != main_board) {
+    window.XBlockly.MainBoard = main_board;
+    // var jsonObjects = '{"modules":[]}';
+    // window.XBlockly.init(JSON.parse(jsonObjects));
   }
-  window.XBlockly.MainBoard = main_board;
+  window.XBlockly.resetNoBoardObj();
   switch(main_board)
   {
     case 'PanGu': {
-      var jsonObjects = '{"modules":[{"type":"XDualDCMotor","name":"双直流电机","models":[{"func":"####","type":"XRJ25","id":"DDM3300"}],"objects":[]},{"type":"XBuzzer","name":"蜂鸣器","models":[{"func":"D###","type":"XRJ25","id":"BUZ3300"}],"objects":[]},{"type":"XButton","name":"按钮","models":[{"func":"A###","type":"XRJ25","id":"BTN3300"}],"objects":[]},{"type":"XLightSensor","name":"光线传感器","models":[{"func":"A###","type":"XRJ25","id":"LIG3300"}],"objects":[]},{"type":"XSoundSensor","name":"声音传感器","models":[{"func":"A###","type":"XRJ25","id":"SND3300"}],"objects":[]},{"type":"XIRReceiver","name":"红外接收器","models":[{"func":"H###","type":"XRJ25","id":"IRR3300"}],"objects":[]},{"type":"XIRTracking","name":"红外循迹传感器","models":[{"func":"H###","type":"XRJ25","id":"IRT3320"}],"objects":[]},{"type":"XIRTracking6","name":"六路红外循迹传感器","models":[{"func":"####","type":"XRJ25","id":"IRT3360"}],"objects":[]},{"type":"XUltrasonic","name":"超声波传感器","models":[{"func":"H###","type":"XRJ25","id":"ULS3600"}],"objects":[]},{"type":"XSegDisplay","name":"数码管","models":[{"func":"H###","type":"XRJ25","id":"SGD4300"}],"objects":[]},{"type":"XLEDMatrix","name":"LED面板","models":[{"func":"####","type":"XRJ25","id":"LMT3300"}],"objects":[]},{"type":"XVoiceBroadcast","name":"语音播报器","models":[{"func":"####","type":"XRJ25","id":"VBC3300"}],"objects":[]},{"type":"XIRAvoiding","name":"红外避障传感器","models":[{"func":"H###","type":"XRJ25","id":"IRA3300"}],"objects":[]},{"type":"XPotentiometer","name":"电位器","models":[{"func":"A###","type":"XRJ25","id":"PTM3300"}],"objects":[]},{"type":"XRGBLed","name":"RGB彩灯","models":[{"func":"D###","type":"XRJ25","id":"RGB3340"}],"objects":[]},{"type":"XHumiture","name":"温湿度传感器","models":[{"func":"D###","type":"XRJ25","id":"HUM3300"}],"objects":[]},{"type":"XPIR","name":"人体红外传感器","models":[{"func":"D###","type":"XRJ25","id":"PIR3300"}],"objects":[]},{"type":"XShockSensor","name":"震动传感器","models":[{"func":"D###","type":"XRJ25","id":"SKS3300"}],"objects":[]},{"type":"XBluetooth","name":"蓝牙","models":[{"func":"U###","type":"XIP45","id":"BLT4140"}],"objects":[]},{"type":"XServo","name":"","models":[],"objects":[{"id":"SVO1","model":"SVO3000","name":"板载-SVO1"},{"id":"SVO2","model":"SVO3000","name":"板载-SVO2"}]},{"name":"端口","type":"XPORTS","models":[{"name":"端口 1","id":"1","type":"XRJ25","func":"DHP#"},{"name":"端口 2","id":"2","type":"XRJ25","func":"DHAK"},{"name":"端口 3","id":"3","type":"XRJ25","func":"DHP#"},{"name":"端口 4","id":"4","type":"XRJ25","func":"DHP#"},{"name":"端口 5","id":"5","type":"XRJ25","func":"DHPR"},{"name":"端口 6","id":"6","type":"XRJ25","func":"DHA#"},{"name":"端口 7","id":"7","type":"XRJ25","func":"DHA#"},{"name":"端口 8","id":"8","type":"XRJ25","func":"DHP#"},{"name":"端口 9","id":"9","type":"XIP45","func":"U###"}]}]}';
-      window.XBlockly.init(JSON.parse(jsonObjects));
       Blockly.Arduino.XBlockly_addInclude('Arduino', '#include <Arduino.h>');
       Blockly.Arduino.XBlockly_addInclude('PGKSystem', '#include <PGKSystem.h>');
       Blockly.Arduino.XBlockly_addSetup('PGKSystem', 'XSystem.setup();');
     }
     break;
     case 'WuKong': {
-      var jsonObjects = '{"modules":[{"type":"XIRTracking","name":"红外循迹传感器","models":[{"func":"H###","type":"XRJ25","id":"IRT3320"}],"objects":[]},{"type":"XIRTracking6","name":"六路红外循迹传感器","models":[{"func":"####","type":"XRJ25","id":"IRT3360"}],"objects":[]},{"type":"XUltrasonic","name":"超声波传感器","models":[{"func":"H###","type":"XRJ25","id":"ULS3600"}],"objects":[]},{"type":"XSegDisplay","name":"数码管","models":[{"func":"H###","type":"XRJ25","id":"SGD4300"}],"objects":[]},{"type":"XLEDMatrix","name":"LED面板","models":[{"func":"####","type":"XRJ25","id":"LMT3300"}],"objects":[]},{"type":"XVoiceBroadcast","name":"语音播报器","models":[{"func":"####","type":"XRJ25","id":"VBC3300"}],"objects":[]},{"type":"XIRAvoiding","name":"红外避障传感器","models":[{"func":"H###","type":"XRJ25","id":"IRA3300"}],"objects":[]},{"type":"XPotentiometer","name":"电位器","models":[{"func":"A###","type":"XRJ25","id":"PTM3300"}],"objects":[]},{"type":"XButton","name":"按钮","models":[{"func":"A###","type":"XRJ25","id":"BTN3300"}],"objects":[{"id":"BTN","model":"BTN3000","name":"板载-BTN"}]},{"type":"XBluetooth","name":"蓝牙","models":[{"func":"U###","type":"XIP45","id":"BLT4140"}],"objects":[]},{"type":"XSoundSensor","name":"","models":[],"objects":[{"id":"SND","model":"SND3000","name":"板载-SND"}]},{"type":"XLightSensor","name":"","models":[],"objects":[{"id":"LIG","model":"LIG4000","name":"板载-LIG"}]},{"type":"XBuzzer","name":"","models":[],"objects":[{"id":"BUZ","model":"BUZ4000","name":"板载-BUZ"}]},{"type":"XRGBLed","name":"","models":[],"objects":[{"id":"RGB","model":"RGB3060","name":"板载-RGB"}]},{"type":"XIRReceiver","name":"","models":[],"objects":[{"id":"IRR","model":"IRR3000","name":"板载-IRR"}]},{"type":"XDualDCMotor","name":"","models":[],"objects":[{"id":"DDM","model":"DDM3001","name":"板载-DDM"}]},{"type":"XServo","name":"","models":[],"objects":[{"id":"SVO","model":"SVO3000","name":"板载-SVO"}]},{"name":"端口","type":"XPORTS","models":[{"name":"端口 1","id":"1","type":"XRJ25","func":"DHAK"},{"name":"端口 2","id":"2","type":"XRJ25","func":"DHP#"},{"name":"端口 3","id":"3","type":"XRJ25","func":"DHA#"},{"name":"端口 4","id":"4","type":"XRJ25","func":"DHP#"},{"name":"端口 5","id":"5","type":"XIP45","func":"U###"}]}]}';
-      window.XBlockly.init(JSON.parse(jsonObjects));
       Blockly.Arduino.XBlockly_addInclude('Arduino', '#include <Arduino.h>');
       Blockly.Arduino.XBlockly_addInclude('PGKSystem', '#include <WKKSystem.h>');
       Blockly.Arduino.XBlockly_addSetup('PGKSystem', 'XSystem.setup();');
     }
     break;
     default: {
-        var jsonObjects = '{"modules":[]}';
-        window.XBlockly.init(JSON.parse(jsonObjects));
     }
     break;
   }
@@ -149,9 +145,12 @@ Blockly.Arduino.xblockly_construct_INIT = function() {
 
 Blockly.Arduino.xblockly_construct_XPORTS = function () {
   Blockly.Arduino.XBlockly_addGlobal();
+  var name = this.getFieldValue('VAR');
   var port = this.getFieldValue('PORT');
   var type = this.getFieldValue('TYPE');
   var model = this.getFieldValue('MODEL');
+  
+  window.XBlockly.addOrUpdateObj(type,name,name);
   Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
 
   var objName = Blockly.Arduino.XBlockly_getModuleName(type,port);
