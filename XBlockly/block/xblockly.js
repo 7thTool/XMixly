@@ -238,15 +238,13 @@ var xblockly_robotColor_system = '#FF6767';   //系统
             if (XBlockly.Obj) {
                 for (var i = 0; i < XBlockly.Obj.modules.length; i++) {
                     var m = XBlockly.Obj.modules[i];
-                    //if (m.objects && m.type && m.type == type) {
+                    if (m.type != 'XPORTS' && m.objects) {
                         for(var j = m.objects.length-1; j >= 0; j--) {
                             if(!m.objects[j].hasOwnProperty("model")) {
                                 m.objects.splice(j, 1);
-                                break;
                             }
                         }
-                        return;
-                    //}
+                    }
                 }
             }
         //}
