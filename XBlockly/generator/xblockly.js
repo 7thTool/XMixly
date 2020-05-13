@@ -128,6 +128,28 @@ Blockly.Arduino.xblockly_construct_XPORTS = function () {
   return '';
 };
 
+Blockly.Arduino.xblockly_xbuzzer_INIT = function () {
+  var name = this.getFieldValue('VAR');
+  var pin = this.getFieldValue('PIN');
+  var type = 'XBuzzer';//this.getFieldValue('TYPE');
+  var model = this.getFieldValue('MODEL');
+  
+  window.XBlockly.addOrUpdateObj(type,name,name);
+  Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
+
+  var globalCode = type + ' ' + name + ';';
+  Blockly.Arduino.XBlockly_addDeclaration(name, globalCode);
+
+  var setupCode = name + '.setup(\"'
+    + model
+    + '\", \"'
+    + pin
+    + '\");';
+  Blockly.Arduino.XBlockly_addSetup(name, setupCode);
+
+  return '';
+};
+
 Blockly.Arduino.xblockly_xiodriver_digitalRead = function() {
   var name = this.getFieldValue('XIODriver');
   if(Blockly.Arduino.XBlockly_isOnBoardModule('XIODriver', name)) {
@@ -158,17 +180,6 @@ Blockly.Arduino.xblockly_xiodriver_digitalWrite = function () {
   var code = name + '.digitalWrite(' + index + ',' + value + ');\n';
   return code;
 };
-
-  // Led
-  Blockly.Arduino.xblockly_led = function() {
-    var dropdown_pin = Blockly.Arduino.valueToCode(this, 'PIN',Blockly.Arduino.ORDER_ATOMIC);
-    var dropdown_stat = Blockly.Arduino.valueToCode(this, 'STAT', Blockly.Arduino.ORDER_ATOMIC);
-    // var dropdown_pin = this.getFieldValue('PIN');
-    // var dropdown_stat = this.getFieldValue('STAT');
-    Blockly.Arduino.setups_['setup_output_'+dropdown_pin] = 'pinMode('+dropdown_pin+', OUTPUT);';
-    var code = 'digitalWrite('+dropdown_pin+','+dropdown_stat+');\n'
-    return code;
-  };
 
 
 /********************************************
@@ -950,8 +961,8 @@ Blockly.Arduino.xblockly_xpgklightshow_clear = function () {
 
 Blockly.Arduino.xblockly_xpgkaudioplayer_playTone = function() {
   var name = this.getFieldValue('XBuzzer');
-  if (Blockly.Arduino.XBlockly_isOnBoardModule('XBuzzer', port)) {
-    name = Blockly.Arduino.XBlockly_addOnBoardModule('XBuzzer', port);
+  if (Blockly.Arduino.XBlockly_isOnBoardModule('XBuzzer', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XBuzzer', name);
   }
   var arrObjs = [name];
   var objName = Blockly.Arduino.XBlockly_addService('PGKAudioPlayer', 'adp', arrObjs);
@@ -965,8 +976,8 @@ Blockly.Arduino.xblockly_xpgkaudioplayer_playTone = function() {
 
 Blockly.Arduino.xblockly_xpgkaudioplayer_setNoteParameter = function () {
   var name = this.getFieldValue('XBuzzer');
-  if (Blockly.Arduino.XBlockly_isOnBoardModule('XBuzzer', port)) {
-    name = Blockly.Arduino.XBlockly_addOnBoardModule('XBuzzer', port);
+  if (Blockly.Arduino.XBlockly_isOnBoardModule('XBuzzer', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XBuzzer', name);
   }
   var arrObjs = [name];
   var objName = Blockly.Arduino.XBlockly_addService('PGKAudioPlayer', 'adp', arrObjs);
@@ -985,8 +996,8 @@ Blockly.Arduino.xblockly_xpgkaudioplayer_setNoteParameter = function () {
 
 Blockly.Arduino.xblockly_xpgkaudioplayer_playNote = function () {
   var name = this.getFieldValue('XBuzzer');
-  if (Blockly.Arduino.XBlockly_isOnBoardModule('XBuzzer', port)) {
-    name = Blockly.Arduino.XBlockly_addOnBoardModule('XBuzzer', port);
+  if (Blockly.Arduino.XBlockly_isOnBoardModule('XBuzzer', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XBuzzer', name);
   }
   var arrObjs = [name];
   var objName = Blockly.Arduino.XBlockly_addService('PGKAudioPlayer', 'adp', arrObjs);

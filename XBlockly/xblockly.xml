@@ -16,17 +16,10 @@
   <category id="xblockly_construct" name="连接模块" colour="#3EDAFF">
         <block type="xblockly_construct_INIT"></block>
         <block type="xblockly_construct_XPORTS"></block>
+        <block type="xblockly_xbuzzer_INIT"></block>
         <!--<block type="xblockly_xiodriver_digitalRead"></block>
         <block type="xblockly_xiodriver_analogRead"></block>
         <block type="xblockly_xiodriver_digitalWrite"></block>-->
-      <!--<block type="xblockly_led">
-          <value name="PIN">
-              <shadow type="pins_digital"></shadow>
-          </value>
-          <value name="STAT">
-            <shadow type="inout_highlow"></shadow>
-          </value>
-        </block>-->
   </category>
   <!--运动模块-->
   <category id="xblockly_actuator" name="运动模块" colour="#3EDAFF">

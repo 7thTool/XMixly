@@ -780,6 +780,23 @@ Blockly.getXBlocklyVarName = function (type, port) {
     return name;
 }
 
+Blockly.getXBlocklyVarNameByPin = function (type, pin1, pin2) {
+  var name = "";
+  var typeObj = window.XBlockly.getTypeObj(type);
+  if (typeObj) {
+      if (typeObj.type == 'XIODriver') {
+          name = ('io_' + pin1 + (pin2 ? '_' + pin2 : '')).toLowerCase();
+      } else {
+          if (typeObj.models && typeObj.models.length > 0) {
+              name = (typeObj.models[0].id.substring(0, 3) + '_' + pin1 + (pin2 ? '_' + pin2 : '')).toLowerCase();
+          } else {
+              name = (port).toLowerCase();
+          }
+      }
+  }
+  return name;
+}
+
 /********************************************
 Construct - 连接模块
 *********************************************/
@@ -897,6 +914,53 @@ Blockly.Blocks.xblockly_construct_XPORTS = {
   }
 };
 
+Blockly.Blocks.xblockly_xbuzzer_INIT = {
+  init: function () {
+    var _this = this;
+    var textInputVar = this.textInputVar = new Blockly.FieldTextInput('');
+    function getMyModels() {
+      return Blockly.getXBlocklyNameModelsByType('XBuzzer', [Blockly.MIXLY_MY_NULL, '']);
+    }
+    var dropdownModels = this.dropdownModels = new Blockly.FieldDropdown(getMyModels);
+    function getMyPorts() {
+      return Blockly.getXBlocklyNamePorts([Blockly.MIXLY_MY_NULL, '']);
+    }
+    var dropdownPorts = this.dropdownPorts = new Blockly.FieldDropdown(getMyPorts);
+    textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XBuzzer', '0'));
+    dropdownPorts.onItemSelected = function (menu, menuItem) {
+        var value = menuItem.getValue();
+        if (this.sourceBlock_) {
+            value = this.callValidator(value);
+
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XBuzzer', value));
+        }
+        if (value !== null) {
+            this.setValue(value);
+        }
+    };
+    this.appendDummyInput()
+        .appendField("")
+        .appendField(new Blockly.FieldImage("../../media/xblockly/XBuzzer.png", 16, 16, "*"));
+    this.appendDummyInput()
+        .appendField('初始化蜂鸣器 命名')
+        .appendField(textInputVar, 'VAR')
+        .appendField("");
+    this.appendDummyInput()
+        .appendField(Blockly.MIXLY_MY_CONSTRUCT_XPORTS_MODEL_1)
+        .appendField(dropdownModels, "MODEL")
+        .appendField(Blockly.MIXLY_MY_CONSTRUCT_XPORTS_MODEL_2);
+    this.appendDummyInput()
+        .appendField(Blockly.MIXLY_MY_CONSTRUCT_XPORTS_1)
+        .appendField(dropdownPorts, "PIN")
+        .appendField(Blockly.MIXLY_MY_CONSTRUCT_XPORTS_2);
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    //this.setOutput(true, 'String');
+    this.setColour(xblockly_robotColor_construct);
+  }
+};
+
 Blockly.Blocks.xblockly_xiodriver_digitalRead = {
   init: function () {
     function getMyVars() {
@@ -997,30 +1061,6 @@ Blockly.Blocks.xblockly_xiodriver_digitalWrite = {
     this.setHelpUrl("");
   }
 };
-
-  // LED - led
-  Blockly.Blocks.xblockly_led = {
-    init: function() {
-      this.setColour(xblockly_robotColor_construct);
-      this.appendDummyInput()
-          .appendField(Blockly.MIXLY_PGKIT_LED)
-          .appendField(new Blockly.FieldImage("../../media/xblockly/led.png", 52, 32))
-      this.appendValueInput("PIN", Number)
-          .appendField(Blockly.MIXLY_PIN)
-          .setCheck(Number);
-      this.appendValueInput("STAT")
-          .appendField(Blockly.MIXLY_STAT)
-          .setCheck([Number,Boolean]);
-      // this.appendDummyInput()
-      //     .appendField(Blockly.MIXLY_STAT)
-      //     .appendField(new Blockly.FieldDropdown([[Blockly.MIXLY_HIGH, "HIGH"], 
-      //[Blockly.MIXLY_LOW, "LOW"]]), "STAT");
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
-      this.setInputsInline(true);
-      this.setTooltip(Blockly.LANG_INOUT_DIGITAL_WRITE_TOOLTIP);
-    }
-  };
 
 
 /********************************************
