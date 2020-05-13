@@ -169,17 +169,6 @@ Blockly.Arduino.pgkit_xiodriver_digitalWrite = function () {
   return code;
 };
 
-  // Led
-  Blockly.Arduino.pgkit_led = function() {
-    var dropdown_pin = Blockly.Arduino.valueToCode(this, 'PIN',Blockly.Arduino.ORDER_ATOMIC);
-    var dropdown_stat = Blockly.Arduino.valueToCode(this, 'STAT', Blockly.Arduino.ORDER_ATOMIC);
-    // var dropdown_pin = this.getFieldValue('PIN');
-    // var dropdown_stat = this.getFieldValue('STAT');
-    Blockly.Arduino.setups_['setup_output_'+dropdown_pin] = 'pinMode('+dropdown_pin+', OUTPUT);';
-    var code = 'digitalWrite('+dropdown_pin+','+dropdown_stat+');\n'
-    return code;
-  };
-
 
 /********************************************
 Move - 运动模块

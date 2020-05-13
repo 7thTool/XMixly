@@ -750,11 +750,11 @@ Blockly.Blocks.wkkit_construct_XPORTS = {
     var _this = this;
     this.blockType = 'XPORTS';
     function getMyPorts() {
-      return Blockly.getWKKitNamePorts([Blockly.MIXLY_MY_NULL, '']);
+      return Blockly.getWKKitNamePorts([Blockly.Msg.MY_NULL, '']);
     }
     var dropdownPorts = this.dropdownPorts = new Blockly.FieldDropdown(getMyPorts);
     function getMyTypes() {
-      return Blockly.getWKKitConnectableNameTypesByPort(dropdownPorts.value_, [Blockly.MIXLY_MY_NULL, '']);
+      return Blockly.getWKKitConnectableNameTypesByPort(dropdownPorts.value_, [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownTypes = this.dropdownTypes = new Blockly.FieldDropdown(getMyTypes);
     /*dropdownPorts.onItemSelected = function (menu, menuItem) {
@@ -763,9 +763,9 @@ Blockly.Blocks.wkkit_construct_XPORTS = {
             // Call any validation function, and allow it to override.
             value = this.callValidator(value);
 
-            var types = Blockly.getWKKitConnectableNameTypesByPort(value, [Blockly.MIXLY_MY_NULL, '']);
+            var types = Blockly.getWKKitConnectableNameTypesByPort(value, [Blockly.Msg.MY_NULL, '']);
             _this.dropdownTypes.setValue(types[0][1]);
-            var models = Blockly.getWKKitConnectableNameModelsByPort(value, types[0][1], [Blockly.MIXLY_MY_NULL, '']);
+            var models = Blockly.getWKKitConnectableNameModelsByPort(value, types[0][1], [Blockly.Msg.MY_NULL, '']);
              _this.dropdownModels.setValue(models[0][1]);
         }
         if (value !== null) {
@@ -773,7 +773,7 @@ Blockly.Blocks.wkkit_construct_XPORTS = {
         }
     };*/
     function getMyModels() {
-      return Blockly.getWKKitConnectableNameModelsByPort(dropdownPorts.value_, dropdownTypes.value_, [Blockly.MIXLY_MY_NULL, '']);
+      return Blockly.getWKKitConnectableNameModelsByPort(dropdownPorts.value_, dropdownTypes.value_, [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownModels = this.dropdownModels = new Blockly.FieldDropdown(getMyModels);
     dropdownTypes.onItemSelected = function (menu, menuItem) {
@@ -781,7 +781,7 @@ Blockly.Blocks.wkkit_construct_XPORTS = {
         if (this.sourceBlock_) {
             value = this.callValidator(value);
 
-            var models = Blockly.getWKKitConnectableNameModelsByPort(dropdownPorts.value_, value, [Blockly.MIXLY_MY_NULL, '']);
+            var models = Blockly.getWKKitConnectableNameModelsByPort(dropdownPorts.value_, value, [Blockly.Msg.MY_NULL, '']);
             _this.dropdownModels.setValue(models[0][1]);
         }
         if (value !== null) {
@@ -789,17 +789,17 @@ Blockly.Blocks.wkkit_construct_XPORTS = {
         }
     };
     this.appendDummyInput()
-      .appendField(Blockly.MIXLY_MY_CONSTRUCT_XPORTS_1)
+      .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_1)
       .appendField(dropdownPorts, "PORT")
-      .appendField(Blockly.MIXLY_MY_CONSTRUCT_XPORTS_2);
+      .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_2);
     this.appendDummyInput()
-      .appendField(Blockly.MIXLY_MY_CONSTRUCT_XPORTS_TYPE_1)
+      .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_TYPE_1)
       .appendField(dropdownTypes, "TYPE")
-      .appendField(Blockly.MIXLY_MY_CONSTRUCT_XPORTS_TYPE_2);
+      .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_TYPE_2);
     this.appendDummyInput()
-      .appendField(Blockly.MIXLY_MY_CONSTRUCT_XPORTS_MODEL_1)
+      .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_1)
       .appendField(dropdownModels, "MODEL")
-      .appendField(Blockly.MIXLY_MY_CONSTRUCT_XPORTS_MODEL_2);
+      .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_2);
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -912,30 +912,6 @@ Blockly.Blocks.wkkit_xiodriver_digitalWrite = {
     this.setHelpUrl("");
   }
 };
-
-  // LED - led
-  Blockly.Blocks.wkkit_led = {
-    init: function() {
-      this.setColour(wkkit_robotColor_construct);
-      this.appendDummyInput()
-          .appendField(Blockly.MIXLY_WKKIT_LED)
-          .appendField(new Blockly.FieldImage("../../media/wkkit/led.png", 52, 32))
-      this.appendValueInput("PIN", Number)
-          .appendField(Blockly.MIXLY_PIN)
-          .setCheck(Number);
-      this.appendValueInput("STAT")
-          .appendField(Blockly.MIXLY_STAT)
-          .setCheck([Number,Boolean]);
-      // this.appendDummyInput()
-      //     .appendField(Blockly.MIXLY_STAT)
-      //     .appendField(new Blockly.FieldDropdown([[Blockly.MIXLY_HIGH, "HIGH"], 
-      //[Blockly.MIXLY_LOW, "LOW"]]), "STAT");
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
-      this.setInputsInline(true);
-      this.setTooltip(Blockly.LANG_INOUT_DIGITAL_WRITE_TOOLTIP);
-    }
-  };
 
 
 /********************************************

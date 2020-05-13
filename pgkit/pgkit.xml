@@ -18,14 +18,6 @@
         <!--<block type="pgkit_xiodriver_digitalRead"></block>
         <block type="pgkit_xiodriver_analogRead"></block>
         <block type="pgkit_xiodriver_digitalWrite"></block>-->
-      <!--<block type="pgkit_led">
-          <value name="PIN">
-              <shadow type="pins_digital"></shadow>
-          </value>
-          <value name="STAT">
-            <shadow type="inout_highlow"></shadow>
-          </value>
-        </block>-->
   </category>
   <!--运动模块-->
   <category id="pgkit_actuator" name="运动模块" colour="#3EDAFF">

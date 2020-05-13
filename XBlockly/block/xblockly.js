@@ -804,16 +804,16 @@ Construct - 连接模块
 Blockly.Blocks.xblockly_construct_INIT = {
   init: function () {
     var dropdownInstances = new Blockly.FieldDropdown([
-      ['Arduino', 'Arduino']
-      ,['PanGu', 'PanGu']
-      ,['WuKong', 'WuKong']]);
+      [Blockly.Msg.MY_XMAINBOARD_UNO, 'Arduino UNO']
+      ,[Blockly.Msg.MY_XMAINBOARD_PANGU, 'PanGu']
+      ,[Blockly.Msg.MY_XMAINBOARD_WUKONG, 'WuKong']]);
     this.appendDummyInput()
         .appendField("")
         .appendField(new Blockly.FieldImage("../../media/xblockly/XIODriver.png", 16, 16, "*"));
     this.appendDummyInput()
-      .appendField('Blockly.Msg.MY_XMAINBOARD_1')
+      .appendField(Blockly.Msg.MY_XMAINBOARD_1)
       .appendField(dropdownInstances, "XMainBoard")
-      .appendField("Blockly.Msg.MY_XMAINBOARD_2");
+      .appendField(Blockly.Msg.MY_XMAINBOARD_2);
     this.setInputsInline(true);
     //this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -850,15 +850,15 @@ Blockly.Blocks.xblockly_construct_XPORTS = {
     this.blockType = 'XPORTS';
     var textInputVar = this.textInputVar = new Blockly.FieldTextInput('');
     function getMyTypes() {
-      return Blockly.getXBlocklyNameTypes([Blockly.MIXLY_MY_NULL, '']);
+      return Blockly.getXBlocklyNameTypes([Blockly.Msg.MY_NULL, '']);
     }
     var dropdownTypes = this.dropdownTypes = new Blockly.FieldDropdown(getMyTypes);
     function getMyModels() {
-      return Blockly.getXBlocklyNameModelsByType(dropdownTypes.value_, [Blockly.MIXLY_MY_NULL, '']);
+      return Blockly.getXBlocklyNameModelsByType(dropdownTypes.value_, [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownModels = this.dropdownModels = new Blockly.FieldDropdown(getMyModels);
     function getMyPorts() {
-      return Blockly.getXBlocklyNamePorts([Blockly.MIXLY_MY_NULL, '']);
+      return Blockly.getXBlocklyNamePorts([Blockly.Msg.MY_NULL, '']);
     }
     var dropdownPorts = this.dropdownPorts = new Blockly.FieldDropdown(getMyPorts);
     textInputVar.setValue(Blockly.getXBlocklyVarName(getMyTypes()[0][1], getMyPorts()[0][1]));
@@ -867,7 +867,7 @@ Blockly.Blocks.xblockly_construct_XPORTS = {
         if (this.sourceBlock_) {
             value = this.callValidator(value);
 
-            var models = Blockly.getXBlocklyNameModelsByType(value, [Blockly.MIXLY_MY_NULL, '']);
+            var models = Blockly.getXBlocklyNameModelsByType(value, [Blockly.Msg.MY_NULL, '']);
             _this.textInputVar.setValue(Blockly.getXBlocklyVarName(value, dropdownPorts.value_));
             _this.dropdownModels.setValue(models[0][1]);
         }
@@ -887,21 +887,24 @@ Blockly.Blocks.xblockly_construct_XPORTS = {
         }
     };
     this.appendDummyInput()
-        .appendField(Blockly.MIXLY_MY_CONSTRUCT_XPORTS_TYPE_1)
+        .appendField("")
+        .appendField(new Blockly.FieldImage("../../media/xblockly/XIODriver.png", 16, 16, "*"));
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_TYPE_1)
         .appendField(dropdownTypes, "TYPE")
-        .appendField(Blockly.MIXLY_MY_CONSTRUCT_XPORTS_TYPE_2);
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_TYPE_2);
     this.appendDummyInput()
-        .appendField('VAR')
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_1)
         .appendField(textInputVar, 'VAR')
-        .appendField("");
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_2);
     this.appendDummyInput()
-        .appendField(Blockly.MIXLY_MY_CONSTRUCT_XPORTS_MODEL_1)
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_1)
         .appendField(dropdownModels, "MODEL")
-        .appendField(Blockly.MIXLY_MY_CONSTRUCT_XPORTS_MODEL_2);
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_2);
     this.appendDummyInput()
-        .appendField(Blockly.MIXLY_MY_CONSTRUCT_XPORTS_1)
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_1)
         .appendField(dropdownPorts, "PORT")
-        .appendField(Blockly.MIXLY_MY_CONSTRUCT_XPORTS_2);
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_2);
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -919,11 +922,11 @@ Blockly.Blocks.xblockly_xbuzzer_INIT = {
     var _this = this;
     var textInputVar = this.textInputVar = new Blockly.FieldTextInput('');
     function getMyModels() {
-      return Blockly.getXBlocklyNameModelsByType('XBuzzer', [Blockly.MIXLY_MY_NULL, '']);
+      return Blockly.getXBlocklyNameModelsByType('XBuzzer', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownModels = this.dropdownModels = new Blockly.FieldDropdown(getMyModels);
     function getMyPorts() {
-      return Blockly.getXBlocklyNamePorts([Blockly.MIXLY_MY_NULL, '']);
+      return Blockly.getXBlocklyNamePorts([Blockly.Msg.MY_NULL, '']);
     }
     var dropdownPorts = this.dropdownPorts = new Blockly.FieldDropdown(getMyPorts);
     textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XBuzzer', '0'));
@@ -940,19 +943,20 @@ Blockly.Blocks.xblockly_xbuzzer_INIT = {
     };
     this.appendDummyInput()
         .appendField("")
-        .appendField(new Blockly.FieldImage("../../media/xblockly/XBuzzer.png", 16, 16, "*"));
+        .appendField(new Blockly.FieldImage("../../media/xblockly/XBuzzer.png", 16, 16, "*"))
+        .appendField('初始化蜂鸣器');
     this.appendDummyInput()
-        .appendField('初始化蜂鸣器 命名')
+        .appendField('命名')
         .appendField(textInputVar, 'VAR')
         .appendField("");
     this.appendDummyInput()
-        .appendField(Blockly.MIXLY_MY_CONSTRUCT_XPORTS_MODEL_1)
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_1)
         .appendField(dropdownModels, "MODEL")
-        .appendField(Blockly.MIXLY_MY_CONSTRUCT_XPORTS_MODEL_2);
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_2);
     this.appendDummyInput()
-        .appendField(Blockly.MIXLY_MY_CONSTRUCT_XPORTS_1)
+        .appendField('管脚#')
         .appendField(dropdownPorts, "PIN")
-        .appendField(Blockly.MIXLY_MY_CONSTRUCT_XPORTS_2);
+        .appendField('');
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
