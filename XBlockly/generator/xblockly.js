@@ -35,80 +35,43 @@ Blockly.Arduino.XBlockly_addSetup = function (tag, code) {
   Blockly.Arduino.setups_['setup_' + tag] = code;
 }
 
-Blockly.Arduino.XBlockly_addGlobal = function () {
-  //只要使用了xblockly，强制添加xblockly全局代码
-  // Blockly.Arduino.XBlockly_addInclude('Arduino', '#include <Arduino.h>');
-  // Blockly.Arduino.XBlockly_addInclude('PGKSystem', '#include <PGKSystem.h>');
-  // Blockly.Arduino.XBlockly_addSetup('PGKSystem', 'XSystem.setup();');
-}
-
 Blockly.Arduino.XBlockly_addOnBoardModule = function (type, label) {
   Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
-  var objName = label.toLowerCase();
+  var objName = label;//.toLowerCase();
   var globalCode = type + ' ' + objName + ';';
   Blockly.Arduino.XBlockly_addDeclaration(objName, globalCode);
   var setupCode = objName + '.setup(\"' + label + '\");';
   Blockly.Arduino.XBlockly_addSetup(objName, setupCode);
   //Blockly.Arduino.reservePort(label,objName);
+  return objName;
 }
 
 Blockly.Arduino.XBlockly_isOnBoardModule = function (type, label) {
   if(type && label) {
-      if(isNaN(label)) { //简单判断一下
-          return true;
-      }
+      var obj = window.XBlockly.getObjByTypeId(type,label);
+      return window.XBlockly.IsOnBoardObj(obj);
   }
   return false;
 }
 
-Blockly.Arduino.XBlockly_getModuleName = function (type,port) {
-  var name = "";
-  var typeObj = window.XBlockly.getTypeObj(type);
-  if (typeObj) {
-      if (typeObj.type == 'XIODriver') {
-          name = ('io_' + port).toLowerCase();
-      } else {
-          if (Blockly.Arduino.XBlockly_isOnBoardModule(typeObj.type, port)) {
-              name = (port).toLowerCase();
-          } else {
-              if (typeObj.models && typeObj.models.length > 0) {
-                  name = (typeObj.models[0].id.substring(0, 3) + '_' + port).toLowerCase();
-              } else {
-                  name = (port).toLowerCase();
-              }
-          }
-      }
-  }
-return name;
-}
-
-//obj = [{type='',port=''}]
 Blockly.Arduino.XBlockly_addService = function (type, n3c, objs) {
   Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
   var objName = n3c;
   for(var i=0;i<objs.length;i++) {
-      objName += '_' + Blockly.Arduino.XBlockly_getModuleName(objs[i].type, objs[i].port);
+      objName += '_' + objs[i];
   }
   var globalCode = type + ' ' + objName + ';';
   Blockly.Arduino.XBlockly_addDeclaration(objName, globalCode);
   var setupCode = objName + '.setup(';
   for(var i=0;i<objs.length;i++) {
-      setupCode += '&' + Blockly.Arduino.XBlockly_getModuleName(objs[i].type, objs[i].port);
+      setupCode += '&' + objs[i];
   }
   setupCode += ');';
   Blockly.Arduino.XBlockly_addSetup(objName, setupCode);
   //var loopCode = objName + '.loop();';
   //Blockly.Arduino.addLoop(objName, loopCode, true);
-}
-
-Blockly.Arduino.XBlockly_getServiceName = function (type, n3c, objs) {
-  var objName = n3c;
-  for(var i=0;i<objs.length;i++) {
-      objName += '_' + Blockly.Arduino.XBlockly_getModuleName(objs[i].type, objs[i].port);
-  }
   return objName;
 }
-
 
 /********************************************
 Construct - 连接模块
@@ -144,7 +107,6 @@ Blockly.Arduino.xblockly_construct_INIT = function() {
 };
 
 Blockly.Arduino.xblockly_construct_XPORTS = function () {
-  Blockly.Arduino.XBlockly_addGlobal();
   var name = this.getFieldValue('VAR');
   var port = this.getFieldValue('PORT');
   var type = this.getFieldValue('TYPE');
@@ -153,48 +115,44 @@ Blockly.Arduino.xblockly_construct_XPORTS = function () {
   window.XBlockly.addOrUpdateObj(type,name,name);
   Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
 
-  var objName = Blockly.Arduino.XBlockly_getModuleName(type,port);
-  var globalCode = type + ' ' + objName + ';';
-  Blockly.Arduino.XBlockly_addDeclaration(objName, globalCode);
+  var globalCode = type + ' ' + name + ';';
+  Blockly.Arduino.XBlockly_addDeclaration(name, globalCode);
 
-  var setupCode = objName + '.setup(\"'
+  var setupCode = name + '.setup(\"'
     + model
     + '\", \"'
     + port
     + '\");';
-  Blockly.Arduino.XBlockly_addSetup(objName, setupCode);
+  Blockly.Arduino.XBlockly_addSetup(name, setupCode);
 
   return '';
 };
 
 Blockly.Arduino.xblockly_xiodriver_digitalRead = function() {
-  var port = this.getFieldValue('XIODriver');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XIODriver',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XIODriver',port);
+  var name = this.getFieldValue('XIODriver');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XIODriver', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XIODriver', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XIODriver',port);
   var index = this.getFieldValue('INDEX');
   var code = name + '.digitalRead(' + index + ')';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
 Blockly.Arduino.xblockly_xiodriver_analogRead = function() {
-  var port = this.getFieldValue('XIODriver');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XIODriver',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XIODriver',port);
+  var name = this.getFieldValue('XIODriver');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XIODriver', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XIODriver', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XIODriver',port);
   var index = this.getFieldValue('INDEX');
   var code = name + '.analogRead(' + index + ')';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
 Blockly.Arduino.xblockly_xiodriver_digitalWrite = function () {
-  var port = this.getFieldValue('XIODriver');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XIODriver',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XIODriver',port);
+  var name = this.getFieldValue('XIODriver');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XIODriver', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XIODriver', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XIODriver',port);
   var index = this.getFieldValue('INDEX');
   var value = this.getFieldValue('VALUE');
   var code = name + '.digitalWrite(' + index + ',' + value + ');\n';
@@ -218,12 +176,10 @@ Move - 运动模块
 *********************************************/
   
 Blockly.Arduino.xblockly_xservo_setAngle = function() {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XServo');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XServo',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XServo',port);
+  var name = this.getFieldValue('XServo');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XServo', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XServo', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XServo',port);
   var angle = Blockly.Arduino.valueToCode(this, 'ANGLE',
           Blockly.Arduino.ORDER_ATOMIC) || 0;
   var code = name + '.setAngle(' + angle + ');\n';
@@ -231,23 +187,19 @@ Blockly.Arduino.xblockly_xservo_setAngle = function() {
 };
 
 Blockly.Arduino.xblockly_xservo_getAngle = function() {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XServo');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XServo',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XServo',port);
+  var name = this.getFieldValue('XServo');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XServo', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XServo', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XServo',port);
   var code = name + '.getAngle()';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
 Blockly.Arduino.xblockly_xdualdcmotor_turn = function() {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XDualDCMotor');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XDualDCMotor',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XDualDCMotor',port);
+  var name = this.getFieldValue('XDualDCMotor');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XDualDCMotor', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XDualDCMotor', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XDualDCMotor',port);
   var index = this.getFieldValue('MOTOR');
   var dir = this.getFieldValue('DIR');
   var speed = Blockly.Arduino.valueToCode(this, 'SPEED',
@@ -266,12 +218,10 @@ Blockly.Arduino.xblockly_xdualdcmotor_turn = function() {
 };
 
 Blockly.Arduino.xblockly_xdualdcmotor_stop = function() {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XDualDCMotor');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XDualDCMotor',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XDualDCMotor',port);
+  var name = this.getFieldValue('XDualDCMotor');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XDualDCMotor', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XDualDCMotor', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XDualDCMotor',port);
   var index = this.getFieldValue('MOTOR');
   // TODO: Assemble JavaScript into code variable.
   var code;
@@ -288,45 +238,37 @@ Sensor - 感知模块
 *********************************************/
 
 Blockly.Arduino.xblockly_xbutton_isPressed = function() {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XButton');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XButton',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XButton',port);
+  var name = this.getFieldValue('XButton');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XButton', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XButton', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XButton',port);
   var code = name + '.isPressed()';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
 Blockly.Arduino.xblockly_xbutton_waitPressed = function() {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XButton');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XButton',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XButton',port);
+  var name = this.getFieldValue('XButton');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XButton', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XButton', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XButton',port);
   var code = 'while(!' + name + '.isKnocked());\n';
   return code;
 };
 
 Blockly.Arduino.xblockly_xlightsensor_getLuminance = function() {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XLightSensor');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XLightSensor',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XLightSensor',port);
+  var name = this.getFieldValue('XLightSensor');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XLightSensor', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XLightSensor', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XLightSensor',port);
   var code = name + '.getLuminance()';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
 Blockly.Arduino.xblockly_xlightsensor_waitLuminance = function() {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XLightSensor');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XLightSensor',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XLightSensor',port);
+  var name = this.getFieldValue('XLightSensor');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XLightSensor', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XLightSensor', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XLightSensor',port);
   var event = this.getFieldValue('INDEX');
   var value = Blockly.Arduino.valueToCode(this, 'VALUE',
       Blockly.Arduino.ORDER_ATOMIC) || 0;
@@ -340,23 +282,19 @@ Blockly.Arduino.xblockly_xlightsensor_waitLuminance = function() {
 };
 
 Blockly.Arduino.xblockly_xsoundsensor_getVolume = function() {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XSoundSensor');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XSoundSensor',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XSoundSensor',port);
+  var name = this.getFieldValue('XSoundSensor');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XSoundSensor', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XSoundSensor', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XSoundSensor',port);
   var code = name + '.getVolume()';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
 Blockly.Arduino.xblockly_xsoundsensor_waitVolume = function () {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XSoundSensor');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XSoundSensor',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XSoundSensor',port);
+  var name = this.getFieldValue('XSoundSensor');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XSoundSensor', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XSoundSensor', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XSoundSensor',port);
   var event = this.getFieldValue('INDEX');
   var value = Blockly.Arduino.valueToCode(this, 'VALUE',
       Blockly.Arduino.ORDER_ATOMIC) || 0;
@@ -370,24 +308,20 @@ Blockly.Arduino.xblockly_xsoundsensor_waitVolume = function () {
 };
 
 Blockly.Arduino.xblockly_xirtracking_hasStatus = function() {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XIRTracking');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XIRTracking',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XIRTracking',port);
+  var name = this.getFieldValue('XIRTracking');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XIRTracking', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XIRTracking', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XIRTracking',port);
   var status = this.getFieldValue('STATUS');
   var code = '(' + status + '==' + name + '.getStatus())';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
 Blockly.Arduino.xblockly_xirtracking_waitStatus = function () {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XIRTracking');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XIRTracking',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XIRTracking',port);
+  var name = this.getFieldValue('XIRTracking');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XIRTracking', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XIRTracking', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XIRTracking',port);
   var event = this.getFieldValue('INDEX');
   var status = this.getFieldValue('STATUS');
   var code = '';
@@ -400,12 +334,10 @@ Blockly.Arduino.xblockly_xirtracking_waitStatus = function () {
 };
 
 Blockly.Arduino.xblockly_xirtracking6_hasStatus = function() {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XIRTracking6');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XIRTracking6',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XIRTracking6',port);
+  var name = this.getFieldValue('XIRTracking6');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XIRTracking6', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XIRTracking6', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XIRTracking6',port);
   var status = this.getFieldValue('S1') | this.getFieldValue('S2') | this.getFieldValue('S3') 
   | this.getFieldValue('S4') | this.getFieldValue('S5') | this.getFieldValue('S6');
   var code = '(' + status + '==' + name + '.getStatus())';
@@ -413,12 +345,10 @@ Blockly.Arduino.xblockly_xirtracking6_hasStatus = function() {
 };
 
 Blockly.Arduino.xblockly_xirtracking6_waitStatus = function () {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XIRTracking6');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XIRTracking6',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XIRTracking6',port);
+  var name = this.getFieldValue('XIRTracking6');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XIRTracking6', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XIRTracking6', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XIRTracking6',port);
   var event = this.getFieldValue('INDEX');
   var status = this.getFieldValue('S1') | this.getFieldValue('S2') | this.getFieldValue('S3') 
   | this.getFieldValue('S4') | this.getFieldValue('S5') | this.getFieldValue('S6');
@@ -432,23 +362,19 @@ Blockly.Arduino.xblockly_xirtracking6_waitStatus = function () {
 };
 
 Blockly.Arduino.xblockly_xultrasonic_getDistance = function() {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XUltrasonic');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XUltrasonic',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XUltrasonic',port);
+  var name = this.getFieldValue('XUltrasonic');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XUltrasonic', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XUltrasonic', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XUltrasonic',port);
   var code = '(' + name + '.getDistance()/10)';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
 Blockly.Arduino.xblockly_xultrasonic_waitDistance = function() {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XUltrasonic');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XUltrasonic',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XUltrasonic',port);
+  var name = this.getFieldValue('XUltrasonic');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XUltrasonic', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XUltrasonic', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XUltrasonic',port);
   var event = this.getFieldValue('INDEX');
   var value = Blockly.Arduino.valueToCode(this, 'VALUE',
       Blockly.Arduino.ORDER_ATOMIC) || 0;
@@ -462,12 +388,10 @@ Blockly.Arduino.xblockly_xultrasonic_waitDistance = function() {
 };
 
 Blockly.Arduino.xblockly_xiravoiding_start = function () {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XIRAvoiding');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XIRAvoiding',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XIRAvoiding',port);
+  var name = this.getFieldValue('XIRAvoiding');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XIRAvoiding', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XIRAvoiding', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XIRAvoiding',port);
   var sensitive = Blockly.Arduino.valueToCode(this, 'SENSITIVE',
     Blockly.Arduino.ORDER_NONE) || 0;
   var code = name + '.start(' + sensitive + ');\n';
@@ -475,34 +399,28 @@ Blockly.Arduino.xblockly_xiravoiding_start = function () {
 };
 
 Blockly.Arduino.xblockly_xiravoiding_stop = function () {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XIRAvoiding');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XIRAvoiding',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XIRAvoiding',port);
+  var name = this.getFieldValue('XIRAvoiding');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XIRAvoiding', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XIRAvoiding', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XIRAvoiding',port);
   var code = name + '.stop();\n';
   return code;
 };
 
 Blockly.Arduino.xblockly_xiravoiding_getStatus = function() {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XIRAvoiding');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XIRAvoiding',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XIRAvoiding',port);
+  var name = this.getFieldValue('XIRAvoiding');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XIRAvoiding', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XIRAvoiding', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XIRAvoiding',port);
   var code = '(' + name + '.getStatus()==1)';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
 Blockly.Arduino.xblockly_xiravoiding_waitStatus = function () {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XIRAvoiding');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XIRAvoiding',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XIRAvoiding',port);
+  var name = this.getFieldValue('XIRAvoiding');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XIRAvoiding', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XIRAvoiding', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XIRAvoiding',port);
   var event = this.getFieldValue('EVENT');
   var code;
   if(event==1) {
@@ -514,23 +432,19 @@ Blockly.Arduino.xblockly_xiravoiding_waitStatus = function () {
 };
 
 Blockly.Arduino.xblockly_xpotentiometer_getValue = function() {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XPotentiometer');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XPotentiometer',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XPotentiometer',port);
+  var name = this.getFieldValue('XPotentiometer');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XPotentiometer', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XPotentiometer', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XPotentiometer',port);
   var code = name + '.getValue()';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
 Blockly.Arduino.xblockly_xpotentiometer_waitValue = function () {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XPotentiometer');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XPotentiometer',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XPotentiometer',port);
+  var name = this.getFieldValue('XPotentiometer');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XPotentiometer', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XPotentiometer', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XPotentiometer',port);
   var event = this.getFieldValue('INDEX');
   var value = Blockly.Arduino.valueToCode(this, 'VALUE',
       Blockly.Arduino.ORDER_ATOMIC) || 0;
@@ -544,34 +458,28 @@ Blockly.Arduino.xblockly_xpotentiometer_waitValue = function () {
 };
 
 Blockly.Arduino.xblockly_xhumiture_getHumidity = function() {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XHumiture');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XHumiture',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XHumiture',port);
+  var name = this.getFieldValue('XHumiture');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XHumiture', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XHumiture', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XHumiture',port);
   var code = name + '.getHumidity()';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
 Blockly.Arduino.xblockly_xhumiture_getTemperature = function() {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XHumiture');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XHumiture',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XHumiture',port);
+  var name = this.getFieldValue('XHumiture');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XHumiture', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XHumiture', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XHumiture',port);
   var code = name + '.getTemperature()';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
 Blockly.Arduino.xblockly_xhumiture_waitHumidity = function() {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XHumiture');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XHumiture',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XHumiture',port);
+  var name = this.getFieldValue('XHumiture');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XHumiture', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XHumiture', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XHumiture',port);
   var event = this.getFieldValue('INDEX');
   var value = Blockly.Arduino.valueToCode(this, 'VALUE',
     Blockly.Arduino.ORDER_NONE) || 0;
@@ -585,12 +493,10 @@ Blockly.Arduino.xblockly_xhumiture_waitHumidity = function() {
 };
 
 Blockly.Arduino.xblockly_xhumiture_waitTemperature = function() {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XHumiture');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XHumiture',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XHumiture',port);
+  var name = this.getFieldValue('XHumiture');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XHumiture', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XHumiture', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XHumiture',port);
   var event = this.getFieldValue('INDEX');
   var value = Blockly.Arduino.valueToCode(this, 'VALUE',
     Blockly.Arduino.ORDER_NONE) || 0;
@@ -604,23 +510,19 @@ Blockly.Arduino.xblockly_xhumiture_waitTemperature = function() {
 };
 
 Blockly.Arduino.xblockly_xpir_isMotionDetected = function() {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XPIR');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XPIR',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XPIR',port);
+  var name = this.getFieldValue('XPIR');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XPIR', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XPIR', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XPIR',port);
   var code = name + '.isHumanMotionDetected()';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
 Blockly.Arduino.xblockly_xpir_waitMotion = function() {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XPIR');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XPIR',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XPIR',port);
+  var name = this.getFieldValue('XPIR');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XPIR', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XPIR', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XPIR',port);
   var event = this.getFieldValue('INDEX');
   var code = '';
   if(event==1) {
@@ -632,23 +534,19 @@ Blockly.Arduino.xblockly_xpir_waitMotion = function() {
 };
 
 Blockly.Arduino.xblockly_xshocksensor_isShocking = function() {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XShockSensor');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XShockSensor',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XShockSensor',port);
+  var name = this.getFieldValue('XShockSensor');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XShockSensor', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XShockSensor', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XShockSensor',port);
   var code = '(' + name + '.isShocking()==1)';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
 Blockly.Arduino.xblockly_xshocksensor_waitStatus = function () {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XShockSensor');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XShockSensor',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XShockSensor',port);
+  var name = this.getFieldValue('XShockSensor');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XShockSensor', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XShockSensor', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XShockSensor',port);
   var event = this.getFieldValue('EVENT');
   var code;
   if(event==1) {
@@ -664,12 +562,10 @@ Display - 展示模块
 *********************************************/
 
 Blockly.Arduino.xblockly_xsegdisplay_showNumber = function() {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XSegDisplay');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XSegDisplay',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XSegDisplay',port);
+  var name = this.getFieldValue('XSegDisplay');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XSegDisplay', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XSegDisplay', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XSegDisplay',port);
   var number = Blockly.Arduino.valueToCode(this, 'VALUE',
       Blockly.Arduino.ORDER_ATOMIC) || 0;
   var code = name + '.showNumber((float)' + number + ');\n';
@@ -677,12 +573,10 @@ Blockly.Arduino.xblockly_xsegdisplay_showNumber = function() {
 };
 
 Blockly.Arduino.xblockly_xsegdisplay_showNumberEx = function() {
-  Blockly.Arduino.XBlockly_addGlobal();
-var port = this.getFieldValue('XSegDisplay');
-if(Blockly.Arduino.XBlockly_isOnBoardModule('XSegDisplay',port)) {
-  Blockly.Arduino.XBlockly_addOnBoardModule('XSegDisplay',port);
+var name = this.getFieldValue('XSegDisplay');
+if(Blockly.Arduino.XBlockly_isOnBoardModule('XSegDisplay', name)) {
+  name = Blockly.Arduino.XBlockly_addOnBoardModule('XSegDisplay', name);
 }
-var name = Blockly.Arduino.XBlockly_getModuleName('XSegDisplay',port);
 var number = Blockly.Arduino.valueToCode(this, 'VALUE',
     Blockly.Arduino.ORDER_ATOMIC) || 0;
 var format = this.getFieldValue('FORMAT');
@@ -691,12 +585,10 @@ return code;
 };
 
 Blockly.Arduino.xblockly_xsegdisplay_showCharacter = function() {
-  Blockly.Arduino.XBlockly_addGlobal();
-var port = this.getFieldValue('XSegDisplay');
-if(Blockly.Arduino.XBlockly_isOnBoardModule('XSegDisplay',port)) {
-  Blockly.Arduino.XBlockly_addOnBoardModule('XSegDisplay',port);
+var name = this.getFieldValue('XSegDisplay');
+if(Blockly.Arduino.XBlockly_isOnBoardModule('XSegDisplay', name)) {
+  name = Blockly.Arduino.XBlockly_addOnBoardModule('XSegDisplay', name);
 }
-var name = Blockly.Arduino.XBlockly_getModuleName('XSegDisplay',port);
 var index = this.getFieldValue('INDEX');
 var number = Blockly.Arduino.valueToCode(this, 'VALUE',
     Blockly.Arduino.ORDER_ATOMIC) || 0;
@@ -705,12 +597,10 @@ return code;
 };
 
 Blockly.Arduino.xblockly_xsegdisplay_showSegment = function() {
-  Blockly.Arduino.XBlockly_addGlobal();
-var port = this.getFieldValue('XSegDisplay');
-if(Blockly.Arduino.XBlockly_isOnBoardModule('XSegDisplay',port)) {
-  Blockly.Arduino.XBlockly_addOnBoardModule('XSegDisplay',port);
+var name = this.getFieldValue('XSegDisplay');
+if(Blockly.Arduino.XBlockly_isOnBoardModule('XSegDisplay', name)) {
+  name = Blockly.Arduino.XBlockly_addOnBoardModule('XSegDisplay', name);
 }
-var name = Blockly.Arduino.XBlockly_getModuleName('XSegDisplay',port);
 var index = this.getFieldValue('INDEX');
 var segment = this.getFieldValue('VALUE');
 var code = name + '.showSegment(' + index + ',\'' + segment + '\');\n';
@@ -718,12 +608,10 @@ return code;
 };
 
 Blockly.Arduino.xblockly_xsegdisplay_clearSegment = function() {
-  Blockly.Arduino.XBlockly_addGlobal();
-var port = this.getFieldValue('XSegDisplay');
-if(Blockly.Arduino.XBlockly_isOnBoardModule('XSegDisplay',port)) {
-  Blockly.Arduino.XBlockly_addOnBoardModule('XSegDisplay',port);
+var name = this.getFieldValue('XSegDisplay');
+if(Blockly.Arduino.XBlockly_isOnBoardModule('XSegDisplay', name)) {
+  name = Blockly.Arduino.XBlockly_addOnBoardModule('XSegDisplay', name);
 }
-var name = Blockly.Arduino.XBlockly_getModuleName('XSegDisplay',port);
 var index = this.getFieldValue('INDEX');
 var segment = this.getFieldValue('VALUE');
 var code = name + '.clearSegment(' + index + ',\'' + segment + '\');\n';
@@ -731,24 +619,20 @@ return code;
 };
 
 Blockly.Arduino.xblockly_xsegdisplay_clear = function() {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XSegDisplay');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XSegDisplay',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XSegDisplay',port);
+  var name = this.getFieldValue('XSegDisplay');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XSegDisplay', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XSegDisplay', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XSegDisplay',port);
   var index = this.getFieldValue('INDEX');
   var code = name + '.clear(' + index + ');\n';
   return code;
 };
 
 Blockly.Arduino.xblockly_xledmatrix_move = function () {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XLEDMatrix');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XLEDMatrix',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XLEDMatrix',port);
+  var name = this.getFieldValue('XLEDMatrix');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XLEDMatrix', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XLEDMatrix', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XLEDMatrix',port);
   var x = Blockly.Arduino.valueToCode(this, 'X',
     Blockly.Arduino.ORDER_NONE) || 0;
   var y = Blockly.Arduino.valueToCode(this, 'Y',
@@ -758,36 +642,30 @@ Blockly.Arduino.xblockly_xledmatrix_move = function () {
 };
 
 Blockly.Arduino.xblockly_xledmatrix_setBrightness = function () {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XLEDMatrix');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XLEDMatrix',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XLEDMatrix',port);
+  var name = this.getFieldValue('XLEDMatrix');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XLEDMatrix', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XLEDMatrix', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XLEDMatrix',port);
   var val = this.getFieldValue('VALUE');
   var code = name + '.setBrightness(' + val + ');\n';
   return code;
 };
 
 Blockly.Arduino.xblockly_xledmatrix_setColorInverse = function () {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XLEDMatrix');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XLEDMatrix',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XLEDMatrix',port);
+  var name = this.getFieldValue('XLEDMatrix');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XLEDMatrix', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XLEDMatrix', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XLEDMatrix',port);
   var val = this.getFieldValue('VALUE');
   var code = name + '.setColorInverse(' + val + ');\n';
   return code;
 };
 
 Blockly.Arduino.xblockly_xledmatrix_setEffect = function () {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XLEDMatrix');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XLEDMatrix',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XLEDMatrix',port);
+  var name = this.getFieldValue('XLEDMatrix');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XLEDMatrix', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XLEDMatrix', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XLEDMatrix',port);
   var effect = this.getFieldValue('EFFECT');
   var speed = this.getFieldValue('SPEED');
   var code = name + '.setEffect(' + effect + ',' + speed + ');\n';
@@ -813,11 +691,10 @@ Blockly.Arduino.xblockly_xledmatrix_matrix = function() {
 };
 
 Blockly.Arduino.xblockly_xledmatrix_showBitmap = function () {
-  var port = this.getFieldValue('XLEDMatrix');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XLEDMatrix',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XLEDMatrix',port);
+  var name = this.getFieldValue('XLEDMatrix');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XLEDMatrix', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XLEDMatrix', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XLEDMatrix',port);
   var val = Blockly.Arduino.valueToCode(this, 'VALUE',
     Blockly.Arduino.ORDER_NONE) || '';
   var code = '';
@@ -860,12 +737,10 @@ Blockly.Arduino.xblockly_xledmatrix_showBitmap = function () {
 };
 
 Blockly.Arduino.xblockly_xledmatrix_showNumber = function () {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XLEDMatrix');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XLEDMatrix',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XLEDMatrix',port);
+  var name = this.getFieldValue('XLEDMatrix');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XLEDMatrix', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XLEDMatrix', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XLEDMatrix',port);
   var num = Blockly.Arduino.valueToCode(this, 'NUM',
     Blockly.Arduino.ORDER_NONE) || 0;
   var code = name + '.showNumber(' + num + ');\n';
@@ -873,12 +748,10 @@ Blockly.Arduino.xblockly_xledmatrix_showNumber = function () {
 };
 
 Blockly.Arduino.xblockly_xledmatrix_showNumberPair = function () {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XLEDMatrix');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XLEDMatrix',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XLEDMatrix',port);
+  var name = this.getFieldValue('XLEDMatrix');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XLEDMatrix', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XLEDMatrix', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XLEDMatrix',port);
   var a = Blockly.Arduino.valueToCode(this, 'A',
     Blockly.Arduino.ORDER_NONE) || 0;
   var b = Blockly.Arduino.valueToCode(this, 'B',
@@ -888,12 +761,10 @@ Blockly.Arduino.xblockly_xledmatrix_showNumberPair = function () {
 };
 
 Blockly.Arduino.xblockly_xledmatrix_showString = function () {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XLEDMatrix');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XLEDMatrix',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XLEDMatrix',port);
+  var name = this.getFieldValue('XLEDMatrix');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XLEDMatrix', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XLEDMatrix', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XLEDMatrix',port);
   var val = Blockly.Arduino.valueToCode(this, 'VALUE',
     Blockly.Arduino.ORDER_NONE) || '';
   var code = name + '.showString(' + val + ');\n';
@@ -901,24 +772,20 @@ Blockly.Arduino.xblockly_xledmatrix_showString = function () {
 };
 
 Blockly.Arduino.xblockly_xledmatrix_showEmoticon = function () {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XLEDMatrix');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XLEDMatrix',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XLEDMatrix',port);
+  var name = this.getFieldValue('XLEDMatrix');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XLEDMatrix', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XLEDMatrix', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XLEDMatrix',port);
   var emot = this.getFieldValue('EMOTION');
   var code = name + '.showEmoticon(' + emot + ');\n';
   return code;
 };
 
 Blockly.Arduino.xblockly_xledmatrix_showFlag = function () {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XLEDMatrix');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XLEDMatrix',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XLEDMatrix',port);
+  var name = this.getFieldValue('XLEDMatrix');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XLEDMatrix', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XLEDMatrix', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XLEDMatrix',port);
   var index = this.getFieldValue('INDEX');
   var value = this.getFieldValue('VALUE');
   var code = name + '.showFlag(' + value + ');\n';
@@ -926,23 +793,19 @@ Blockly.Arduino.xblockly_xledmatrix_showFlag = function () {
 };
 
 Blockly.Arduino.xblockly_xledmatrix_clear = function () {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XLEDMatrix');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XLEDMatrix',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XLEDMatrix',port);
+  var name = this.getFieldValue('XLEDMatrix');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XLEDMatrix', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XLEDMatrix', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XLEDMatrix',port);
   var code = name + '.clear();\n';
   return code;
 };
 
 Blockly.Arduino.xblockly_xvoicebroadcast_reportObject = function () {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XVoiceBroadcast');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XVoiceBroadcast',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XVoiceBroadcast',port);
+  var name = this.getFieldValue('XVoiceBroadcast');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XVoiceBroadcast', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XVoiceBroadcast', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XVoiceBroadcast',port);
   var index = this.getFieldValue('INDEX');
   var value = Blockly.Arduino.valueToCode(this, 'VALUE',
       Blockly.Arduino.ORDER_NONE) || 0;
@@ -952,12 +815,10 @@ Blockly.Arduino.xblockly_xvoicebroadcast_reportObject = function () {
 };
 
 Blockly.Arduino.xblockly_xvoicebroadcast_reportTime = function () {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XVoiceBroadcast');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XVoiceBroadcast',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XVoiceBroadcast',port);
+  var name = this.getFieldValue('XVoiceBroadcast');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XVoiceBroadcast', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XVoiceBroadcast', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XVoiceBroadcast',port);
   //var time = Blockly.Arduino.valueToCode(this, 'VALUE',
   //    Blockly.Arduino.ORDER_NONE) || 0;
   var hour = Blockly.Arduino.valueToCode(this, 'HOUR',
@@ -972,12 +833,10 @@ Blockly.Arduino.xblockly_xvoicebroadcast_reportTime = function () {
 };
 
 Blockly.Arduino.xblockly_xvoicebroadcast_reportDate = function () {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XVoiceBroadcast');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XVoiceBroadcast',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XVoiceBroadcast',port);
+  var name = this.getFieldValue('XVoiceBroadcast');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XVoiceBroadcast', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XVoiceBroadcast', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XVoiceBroadcast',port);
   //var date = Blockly.Arduino.valueToCode(this, 'VALUE',
   //    Blockly.Arduino.ORDER_NONE) || 0;
   var year = Blockly.Arduino.valueToCode(this, 'YEAR',
@@ -993,12 +852,10 @@ Blockly.Arduino.xblockly_xvoicebroadcast_reportDate = function () {
 };
 
 Blockly.Arduino.xblockly_xvoicebroadcast_reportOperator = function () {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XVoiceBroadcast');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XVoiceBroadcast',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XVoiceBroadcast',port);
+  var name = this.getFieldValue('XVoiceBroadcast');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XVoiceBroadcast', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XVoiceBroadcast', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XVoiceBroadcast',port);
   var index = this.getFieldValue('INDEX');
   // TODO: Assemble Arduino into code variable.
   var code = name + '.reportOperator(' + index + ');\n';
@@ -1006,12 +863,10 @@ Blockly.Arduino.xblockly_xvoicebroadcast_reportOperator = function () {
 };
 
 Blockly.Arduino.xblockly_xvoicebroadcast_reportSound = function () {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XVoiceBroadcast');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XVoiceBroadcast',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XVoiceBroadcast',port);
+  var name = this.getFieldValue('XVoiceBroadcast');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XVoiceBroadcast', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XVoiceBroadcast', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XVoiceBroadcast',port);
   //var index = this.getFieldValue('INDEX');
   var value = this.getFieldValue('VALUE');
   var repeat = (this.getFieldValue('REPEAT') == 'TRUE') ? 1 : 0;
@@ -1021,37 +876,31 @@ Blockly.Arduino.xblockly_xvoicebroadcast_reportSound = function () {
 };
 
 Blockly.Arduino.xblockly_xvoicebroadcast_stop = function () {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XVoiceBroadcast');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XVoiceBroadcast',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XVoiceBroadcast',port);
+  var name = this.getFieldValue('XVoiceBroadcast');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XVoiceBroadcast', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XVoiceBroadcast', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XVoiceBroadcast',port);
   // TODO: Assemble Arduino into code variable.
   var code = name + '.stop();\n';
   return code;
 };
 
 Blockly.Arduino.xblockly_xvoicebroadcast_isPlaying = function() {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XVoiceBroadcast');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XVoiceBroadcast',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XVoiceBroadcast',port);
+  var name = this.getFieldValue('XVoiceBroadcast');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XVoiceBroadcast', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XVoiceBroadcast', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XVoiceBroadcast',port);
   var code = name + '.isPlaying()';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
 Blockly.Arduino.xblockly_xpgklightshow_showColor = function () {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XRGBLed');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XRGBLed',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XRGBLed',port);
+  var name = this.getFieldValue('XRGBLed');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XRGBLed', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XRGBLed', name);
   }
-  var arrObjs = [{type:'XRGBLed',port:port}];
-  Blockly.Arduino.XBlockly_addService('PGKLightShow', 'lgs', arrObjs);
-  var objName = Blockly.Arduino.XBlockly_getServiceName('PGKLightShow', 'lgs', arrObjs);
+  var arrObjs = [name];
+  var objName = Blockly.Arduino.XBlockly_addService('PGKLightShow', 'lgs', arrObjs);
   var index = this.getFieldValue('INDEX');
   // var color = Blockly.Arduino.valueToCode(this, 'COLOR',
   //         Blockly.Arduino.ORDER_ATOMIC) || 0;
@@ -1069,12 +918,11 @@ Blockly.Arduino.xblockly_xpgklightshow_showColor = function () {
 };
 
 Blockly.Arduino.xblockly_xpgklightshow_showRGB = function () {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XRGBLed');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XRGBLed',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XRGBLed',port);
+  var name = this.getFieldValue('XRGBLed');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XRGBLed', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XRGBLed', name);
   }
-  var arrObjs = [{type:'XRGBLed',port:port}];
+  var arrObjs = [name];
   Blockly.Arduino.XBlockly_addService('PGKLightShow', 'lgs', arrObjs);
   var objName = Blockly.Arduino.XBlockly_getServiceName('PGKLightShow', 'lgs', arrObjs);
   var index = this.getFieldValue('INDEX');
@@ -1089,28 +937,24 @@ Blockly.Arduino.xblockly_xpgklightshow_showRGB = function () {
 };
 
 Blockly.Arduino.xblockly_xpgklightshow_clear = function () {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XRGBLed');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XRGBLed',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XRGBLed',port);
+  var name = this.getFieldValue('XRGBLed');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XRGBLed', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XRGBLed', name);
   }
-  var arrObjs = [{type:'XRGBLed',port:port}];
-  Blockly.Arduino.XBlockly_addService('PGKLightShow', 'lgs', arrObjs);
-  var objName = Blockly.Arduino.XBlockly_getServiceName('PGKLightShow', 'lgs', arrObjs);
+  var arrObjs = [name];
+  var objName = Blockly.Arduino.XBlockly_addService('PGKLightShow', 'lgs', arrObjs);
   var index = this.getFieldValue('INDEX');
   var code = objName + '.clear(' + index + ');\n';
   return code;
 };
 
 Blockly.Arduino.xblockly_xpgkaudioplayer_playTone = function() {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XBuzzer');
+  var name = this.getFieldValue('XBuzzer');
   if (Blockly.Arduino.XBlockly_isOnBoardModule('XBuzzer', port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XBuzzer', port);
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XBuzzer', port);
   }
-  var arrObjs = [{ type: 'XBuzzer', port: port }];
-  Blockly.Arduino.XBlockly_addService('PGKAudioPlayer', 'adp', arrObjs);
-  var objName = Blockly.Arduino.XBlockly_getServiceName('PGKAudioPlayer', 'adp', arrObjs);
+  var arrObjs = [name];
+  var objName = Blockly.Arduino.XBlockly_addService('PGKAudioPlayer', 'adp', arrObjs);
   var frequency = Blockly.Arduino.valueToCode(this, 'FREQUENCY',
       Blockly.Arduino.ORDER_ATOMIC) || 0;
   var duration = Blockly.Arduino.valueToCode(this, 'DURATION',
@@ -1120,14 +964,12 @@ Blockly.Arduino.xblockly_xpgkaudioplayer_playTone = function() {
 };
 
 Blockly.Arduino.xblockly_xpgkaudioplayer_setNoteParameter = function () {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XBuzzer');
+  var name = this.getFieldValue('XBuzzer');
   if (Blockly.Arduino.XBlockly_isOnBoardModule('XBuzzer', port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XBuzzer', port);
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XBuzzer', port);
   }
-  var arrObjs = [{ type: 'XBuzzer', port: port }];
-  Blockly.Arduino.XBlockly_addService('PGKAudioPlayer', 'adp', arrObjs);
-  var objName = Blockly.Arduino.XBlockly_getServiceName('PGKAudioPlayer', 'adp', arrObjs);
+  var arrObjs = [name];
+  var objName = Blockly.Arduino.XBlockly_addService('PGKAudioPlayer', 'adp', arrObjs);
   var beattime = Blockly.Arduino.valueToCode(this, 'BEATTIME',
     Blockly.Arduino.ORDER_ATOMIC) || 0;
   //0.1秒就是100ms, 2秒就是2000，对应beatTime分别就是10和200, 然后转换为一个字节
@@ -1142,14 +984,12 @@ Blockly.Arduino.xblockly_xpgkaudioplayer_setNoteParameter = function () {
 };
 
 Blockly.Arduino.xblockly_xpgkaudioplayer_playNote = function () {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XBuzzer');
+  var name = this.getFieldValue('XBuzzer');
   if (Blockly.Arduino.XBlockly_isOnBoardModule('XBuzzer', port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XBuzzer', port);
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XBuzzer', port);
   }
-  var arrObjs = [{ type: 'XBuzzer', port: port }];
-  Blockly.Arduino.XBlockly_addService('PGKAudioPlayer', 'adp', arrObjs);
-  var objName = Blockly.Arduino.XBlockly_getServiceName('PGKAudioPlayer', 'adp', arrObjs);
+  var arrObjs = [name];
+  var objName = Blockly.Arduino.XBlockly_addService('PGKAudioPlayer', 'adp', arrObjs);
   var note = this.getFieldValue('NOTE');
   var scale = this.getFieldValue('SCALE');
   var tone = this.getFieldValue('TONE');
@@ -1164,17 +1004,15 @@ Communicator - 通信模块
 
 Blockly.Arduino.xblockly_xirreceiver_presskey = function() {
   var dropdown_press_key = this.getFieldValue('PRESSKEY');
-var code = dropdown_press_key;
-return [code, Blockly.Arduino.ORDER_ATOMIC];
+  var code = dropdown_press_key;
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
 Blockly.Arduino.xblockly_xirreceiver_enableLongPress = function() {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XIRReceiver');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XIRReceiver',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XIRReceiver',port);
+  var name = this.getFieldValue('XIRReceiver');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XIRReceiver', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XIRReceiver', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XIRReceiver',port);
   // var val = Blockly.Arduino.valueToCode(this, 'VALUE',
   //     Blockly.Arduino.ORDER_NONE) || 0;
   var val = this.getFieldValue('PRESSKEY');
@@ -1183,23 +1021,19 @@ Blockly.Arduino.xblockly_xirreceiver_enableLongPress = function() {
 };
 
 Blockly.Arduino.xblockly_xirreceiver_available = function() {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XIRReceiver');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XIRReceiver',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XIRReceiver',port);
+  var name = this.getFieldValue('XIRReceiver');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XIRReceiver', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XIRReceiver', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XIRReceiver',port);
   var code = '(0xFF!=' + name + '.receive())';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
 Blockly.Arduino.xblockly_xirreceiver_receiveNumber = function() {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XIRReceiver');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XIRReceiver',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XIRReceiver',port);
+  var name = this.getFieldValue('XIRReceiver');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XIRReceiver', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XIRReceiver', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XIRReceiver',port);
   // var val = Blockly.Arduino.valueToCode(this, 'VALUE',
   //     Blockly.Arduino.ORDER_NONE) || 0;
   var val = this.getFieldValue('PRESSKEY');
@@ -1208,12 +1042,10 @@ Blockly.Arduino.xblockly_xirreceiver_receiveNumber = function() {
 };
 
 Blockly.Arduino.xblockly_xirreceiver_waitMessage = function() {
-  Blockly.Arduino.XBlockly_addGlobal();
-  var port = this.getFieldValue('XIRReceiver');
-  if(Blockly.Arduino.XBlockly_isOnBoardModule('XIRReceiver',port)) {
-    Blockly.Arduino.XBlockly_addOnBoardModule('XIRReceiver',port);
+  var name = this.getFieldValue('XIRReceiver');
+  if(Blockly.Arduino.XBlockly_isOnBoardModule('XIRReceiver', name)) {
+    name = Blockly.Arduino.XBlockly_addOnBoardModule('XIRReceiver', name);
   }
-  var name = Blockly.Arduino.XBlockly_getModuleName('XIRReceiver',port);
   var code = name + '.wait();\n';
   return code;
 };

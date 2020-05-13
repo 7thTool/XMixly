@@ -233,6 +233,13 @@ var xblockly_robotColor_system = '#FF6767';   //系统
         }
     }
 
+    XBlockly.IsOnBoardObj = function (obj) {
+        if(obj && obj.hasOwnProperty("model")) {
+            return true;
+        }
+        return false;
+    }
+
     XBlockly.resetNoBoardObj = function () {
         //if (type && type.length > 0 && name && name.length > 0 && id && id.length > 0) {
             if (XBlockly.Obj) {
@@ -626,6 +633,9 @@ var xblockly_robotColor_system = '#FF6767';   //系统
 
 Blockly.getXBlocklyNameTypes = function (defVar) {
     var myVars = [];
+    if (defVar) {
+        myVars.push(defVar);
+    }
     var myTypes = window.XBlockly.getTypeObjs();
     if (myTypes) {
         for (var i = 0; i < myTypes.length; i++) {
@@ -633,11 +643,11 @@ Blockly.getXBlocklyNameTypes = function (defVar) {
             myVars.push([o.name, o.type]);
         }
     }
-    if (myVars.length <= 0) {
-        if (defVar) {
-            myVars.push(defVar);
-        }
-    }
+    // if (myVars.length <= 0) {
+    //     if (defVar) {
+    //         myVars.push(defVar);
+    //     }
+    // }
     return myVars;
 }
 
@@ -752,6 +762,27 @@ Blockly.getXBlocklyModelObj = function (port) {
     return null;
 }
 
+Blockly.getXBlocklyVarName = function (type, port) {
+    var name = "";
+    var typeObj = window.XBlockly.getTypeObj(type);
+    if (typeObj) {
+        if (typeObj.type == 'XIODriver') {
+            name = ('io_' + port).toLowerCase();
+        } else {
+            // if (window.XBlockly.isOnBoardModule(typeObj.type, port)) {
+            //     name = (port).toLowerCase();
+            // } else {
+                if (typeObj.models && typeObj.models.length > 0) {
+                    name = (typeObj.models[0].id.substring(0, 3) + '_p' + port).toLowerCase();
+                } else {
+                    name = (port).toLowerCase();
+                }
+            // }
+        }
+    }
+    return name;
+}
+
 /********************************************
 Construct - 连接模块
 *********************************************/
@@ -822,8 +853,19 @@ Blockly.Blocks.xblockly_construct_XPORTS = {
             value = this.callValidator(value);
 
             var models = Blockly.getXBlocklyNameModelsByType(value, [Blockly.MIXLY_MY_NULL, '']);
-            _this.textInputVar.setValue(models[0][1].substr(0,3));
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarName(value, dropdownPorts.value_));
             _this.dropdownModels.setValue(models[0][1]);
+        }
+        if (value !== null) {
+            this.setValue(value);
+        }
+    };
+    dropdownPorts.onItemSelected = function (menu, menuItem) {
+        var value = menuItem.getValue();
+        if (this.sourceBlock_) {
+            value = this.callValidator(value);
+
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarName(dropdownTypes.value_, value));
         }
         if (value !== null) {
             this.setValue(value);
