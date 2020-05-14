@@ -126,7 +126,7 @@ var xblockly_robotColor_system = '#FF6767';   //系统
     }
 
     XBlockly.getObjsByType = function (type, defObj) {
-        var objests = [];
+        var objects = [];
         if (XBlockly.Obj) {
             if (type != 'XPORTS') {
                 for (var i = 0; i < XBlockly.Obj.controls.length; i++) {
@@ -134,7 +134,7 @@ var xblockly_robotColor_system = '#FF6767';   //系统
                     if (m.objects && m.type && m.type == type) {
                         for (var j = 0; j < m.objects.length; j++) {
                             var v = m.objects[j];
-                            objests.push(v);
+                            objects.push(v);
                         }
                     }
                 }
@@ -143,18 +143,18 @@ var xblockly_robotColor_system = '#FF6767';   //系统
                     if (m.objects && m.type && m.type == type) {
                         for (var j = 0; j < m.objects.length; j++) {
                             var v = m.objects[j];
-                            objests.push(v);
+                            objects.push(v);
                         }
                     }
                 }
             }
         }
-        if (objests.length <= 0) {
+        if (objects.length <= 0) {
             if (defObj) {
-                objests.push(defObj);
+                objects.push(defObj);
             }
         }
-        return objests;
+        return objects;
     }
 
     XBlockly.getObjById = function (id) {
@@ -233,28 +233,40 @@ var xblockly_robotColor_system = '#FF6767';   //系统
         }
     }
 
-    XBlockly.IsOnBoardObj = function (obj) {
-        if(obj && obj.hasOwnProperty("model")) {
-            return true;
+    XBlockly.resetAllObjs = function () {
+        if (XBlockly.Obj) {
+            for (var i = 0; i < XBlockly.Obj.modules.length; i++) {
+                var m = XBlockly.Obj.modules[i];
+                if (m.type != 'XPORTS' && m.objects) {
+                    for (var j = m.objects.length - 1; j >= 0; j--) {
+                        m.objects.splice(j, 1);
+                    }
+                }
+            }
         }
-        return false;
     }
 
-    XBlockly.resetNoBoardObj = function () {
-        //if (type && type.length > 0 && name && name.length > 0 && id && id.length > 0) {
-            if (XBlockly.Obj) {
+    XBlockly.getOnBoardObjsByType = function (type, defObj) {
+        var objects = [];
+        if (XBlockly.Obj) {
+            if (type != 'XPORTS') {
                 for (var i = 0; i < XBlockly.Obj.modules.length; i++) {
                     var m = XBlockly.Obj.modules[i];
-                    if (m.type != 'XPORTS' && m.objects) {
-                        for(var j = m.objects.length-1; j >= 0; j--) {
-                            if(!m.objects[j].hasOwnProperty("model")) {
-                                m.objects.splice(j, 1);
-                            }
+                    if (m.onboards && m.type && m.type == type) {
+                        for (var j = 0; j < m.onboards.length; j++) {
+                            var v = m.onboards[j];
+                            objects.push(v);
                         }
                     }
                 }
             }
-        //}
+        }
+        if (objects.length <= 0) {
+            if (defObj) {
+                objects.push(defObj);
+            }
+        }
+        return objects;
     }
 
     XBlockly.isPortConnectable = function (portObj, modelObj) {
@@ -274,7 +286,7 @@ var xblockly_robotColor_system = '#FF6767';   //系统
     }
 
     XBlockly.getConnectablePortObjs = function (defObj) {
-        var objests = [];
+        var objects = [];
         if (XBlockly.Obj) {
             for (var i = 0; i < XBlockly.Obj.modules.length; i++) {
                 var m = XBlockly.Obj.modules[i];
@@ -282,18 +294,18 @@ var xblockly_robotColor_system = '#FF6767';   //系统
                     for (var j = 0; j < m.models.length; j++) {
                         var o = m.models[j];
                         if (!XBlockly.isPortConnected(o.id)) {
-                            objests.push(o);
+                            objects.push(o);
                         }
                     }
                 }
             }
         }
-        if (objests.length <= 0) {
+        if (objects.length <= 0) {
             if (defObj) {
-                objests.push(defObj);
+                objects.push(defObj);
             }
         }
-        return objests;
+        return objects;
     }
 
     XBlockly.getConnectableTypeObjsByPort = function (port, defObj) {
@@ -627,7 +639,7 @@ var xblockly_robotColor_system = '#FF6767';   //系统
 
   window.XBlockly = XBlockly;
     
-  var jsonObjects = '{"modules":[{"type":"XDualDCMotor","name":"双直流电机","models":[{"func":"####","type":"XRJ25","id":"DDM3300"}],"objects":[]},{"type":"XBuzzer","name":"蜂鸣器","models":[{"func":"D###","type":"XRJ25","id":"BUZ3300"}],"objects":[]},{"type":"XButton","name":"按钮","models":[{"func":"A###","type":"XRJ25","id":"BTN3300"}],"objects":[]},{"type":"XLightSensor","name":"光线传感器","models":[{"func":"A###","type":"XRJ25","id":"LIG3300"}],"objects":[]},{"type":"XSoundSensor","name":"声音传感器","models":[{"func":"A###","type":"XRJ25","id":"SND3300"}],"objects":[]},{"type":"XIRReceiver","name":"红外接收器","models":[{"func":"H###","type":"XRJ25","id":"IRR3300"}],"objects":[]},{"type":"XIRTracking","name":"红外循迹传感器","models":[{"func":"H###","type":"XRJ25","id":"IRT3320"}],"objects":[]},{"type":"XIRTracking6","name":"六路红外循迹传感器","models":[{"func":"####","type":"XRJ25","id":"IRT3360"}],"objects":[]},{"type":"XUltrasonic","name":"超声波传感器","models":[{"func":"H###","type":"XRJ25","id":"ULS3600"}],"objects":[]},{"type":"XSegDisplay","name":"数码管","models":[{"func":"H###","type":"XRJ25","id":"SGD4300"}],"objects":[]},{"type":"XLEDMatrix","name":"LED面板","models":[{"func":"####","type":"XRJ25","id":"LMT3300"}],"objects":[]},{"type":"XVoiceBroadcast","name":"语音播报器","models":[{"func":"####","type":"XRJ25","id":"VBC3300"}],"objects":[]},{"type":"XIRAvoiding","name":"红外避障传感器","models":[{"func":"H###","type":"XRJ25","id":"IRA3300"}],"objects":[]},{"type":"XPotentiometer","name":"电位器","models":[{"func":"A###","type":"XRJ25","id":"PTM3300"}],"objects":[]},{"type":"XRGBLed","name":"RGB彩灯","models":[{"func":"D###","type":"XRJ25","id":"RGB3340"}],"objects":[]},{"type":"XHumiture","name":"温湿度传感器","models":[{"func":"D###","type":"XRJ25","id":"HUM3300"}],"objects":[]},{"type":"XPIR","name":"人体红外传感器","models":[{"func":"D###","type":"XRJ25","id":"PIR3300"}],"objects":[]},{"type":"XShockSensor","name":"震动传感器","models":[{"func":"D###","type":"XRJ25","id":"SKS3300"}],"objects":[]},{"type":"XBluetooth","name":"蓝牙","models":[{"func":"U###","type":"XIP45","id":"BLT4140"}],"objects":[]},{"type":"XServo","name":"舵机","models":[],"objects":[{"id":"SVO1","model":"SVO3000","name":"板载-SVO1"},{"id":"SVO2","model":"SVO3000","name":"板载-SVO2"}]},{"name":"端口","type":"XPORTS","models":[{"name":"端口 1","id":"1","type":"XRJ25","func":"DHP#"},{"name":"端口 2","id":"2","type":"XRJ25","func":"DHAK"},{"name":"端口 3","id":"3","type":"XRJ25","func":"DHP#"},{"name":"端口 4","id":"4","type":"XRJ25","func":"DHP#"},{"name":"端口 5","id":"5","type":"XRJ25","func":"DHPR"},{"name":"端口 6","id":"6","type":"XRJ25","func":"DHA#"},{"name":"端口 7","id":"7","type":"XRJ25","func":"DHA#"},{"name":"端口 8","id":"8","type":"XRJ25","func":"DHP#"},{"name":"端口 9","id":"9","type":"XIP45","func":"U###"}]}]}';
+  var jsonObjects = '{"modules":[{"type":"XDualDCMotor","name":"双直流电机","models":[{"func":"####","type":"XRJ25","id":"DDM3300"}],"objects":[]},{"type":"XBuzzer","name":"蜂鸣器","models":[{"func":"D###","type":"XRJ25","id":"BUZ3300"}],"objects":[]},{"type":"XButton","name":"按钮","models":[{"func":"A###","type":"XRJ25","id":"BTN3300"}],"objects":[]},{"type":"XLightSensor","name":"光线传感器","models":[{"func":"A###","type":"XRJ25","id":"LIG3300"}],"objects":[]},{"type":"XSoundSensor","name":"声音传感器","models":[{"func":"A###","type":"XRJ25","id":"SND3300"}],"objects":[]},{"type":"XIRReceiver","name":"红外接收器","models":[{"func":"H###","type":"XRJ25","id":"IRR3300"}],"objects":[]},{"type":"XIRTracking","name":"红外循迹传感器","models":[{"func":"H###","type":"XRJ25","id":"IRT3320"}],"objects":[]},{"type":"XIRTracking6","name":"六路红外循迹传感器","models":[{"func":"####","type":"XRJ25","id":"IRT3360"}],"objects":[]},{"type":"XUltrasonic","name":"超声波传感器","models":[{"func":"H###","type":"XRJ25","id":"ULS3600"}],"objects":[]},{"type":"XSegDisplay","name":"数码管","models":[{"func":"H###","type":"XRJ25","id":"SGD4300"}],"objects":[]},{"type":"XLEDMatrix","name":"LED面板","models":[{"func":"####","type":"XRJ25","id":"LMT3300"}],"objects":[]},{"type":"XVoiceBroadcast","name":"语音播报器","models":[{"func":"####","type":"XRJ25","id":"VBC3300"}],"objects":[]},{"type":"XIRAvoiding","name":"红外避障传感器","models":[{"func":"H###","type":"XRJ25","id":"IRA3300"}],"objects":[]},{"type":"XPotentiometer","name":"电位器","models":[{"func":"A###","type":"XRJ25","id":"PTM3300"}],"objects":[]},{"type":"XRGBLed","name":"RGB彩灯","models":[{"func":"D###","type":"XRJ25","id":"RGB3340"}],"objects":[]},{"type":"XHumiture","name":"温湿度传感器","models":[{"func":"D###","type":"XRJ25","id":"HUM3300"}],"objects":[]},{"type":"XPIR","name":"人体红外传感器","models":[{"func":"D###","type":"XRJ25","id":"PIR3300"}],"objects":[]},{"type":"XShockSensor","name":"震动传感器","models":[{"func":"D###","type":"XRJ25","id":"SKS3300"}],"objects":[]},{"type":"XBluetooth","name":"蓝牙","models":[{"func":"U###","type":"XIP45","id":"BLT4140"}],"objects":[]},{"type":"XServo","name":"舵机","models":[],"objects":[],"onboards":[{"id":"SVO1","model":"SVO3000","name":"板载-SVO1"},{"id":"SVO2","model":"SVO3000","name":"板载-SVO2"}]},{"name":"端口","type":"XPORTS","models":[{"name":"端口 1","id":"1","type":"XRJ25","func":"DHP#"},{"name":"端口 2","id":"2","type":"XRJ25","func":"DHAK"},{"name":"端口 3","id":"3","type":"XRJ25","func":"DHP#"},{"name":"端口 4","id":"4","type":"XRJ25","func":"DHP#"},{"name":"端口 5","id":"5","type":"XRJ25","func":"DHPR"},{"name":"端口 6","id":"6","type":"XRJ25","func":"DHA#"},{"name":"端口 7","id":"7","type":"XRJ25","func":"DHA#"},{"name":"端口 8","id":"8","type":"XRJ25","func":"DHP#"},{"name":"端口 9","id":"9","type":"XIP45","func":"U###"}]}]}';
   window.XBlockly.init(JSON.parse(jsonObjects));
 })();
 
@@ -638,6 +650,25 @@ Blockly.getXBlocklyNameTypes = function (defVar) {
         for (var i = 0; i < myTypes.length; i++) {
             var o = myTypes[i];
             myVars.push([o.name, o.type]);
+        }
+    }
+    if (myVars.length <= 0) {
+        if (defVar) {
+            myVars.push(defVar);
+        }
+    }
+    return myVars;
+}
+
+Blockly.getXBlocklyOnBoardNameTypes = function (defVar) {
+    var myVars = [];
+    var myTypes = window.XBlockly.getTypeObjs();
+    if (myTypes) {
+        for (var i = 0; i < myTypes.length; i++) {
+            var o = myTypes[i];
+            if(o.onboards && o.onboards.length > 0) {
+                myVars.push([o.name, o.type]);
+            }
         }
     }
     if (myVars.length <= 0) {
@@ -667,6 +698,25 @@ Blockly.getXBlocklyNameModelsByType = function (type, defVar) {
     return myVars;
 }
 
+Blockly.getXBlocklyOnBoardNameLabelsByType = function (type, defVar) {
+  var myVars = [];
+  if (type) {
+      var myOnBoardObjs = window.XBlockly.getOnBoardObjsByType(type);
+      if (myOnBoardObjs) {
+          for (var i = 0; i < myOnBoardObjs.length; i++) {
+              var o = myOnBoardObjs[i];
+              myVars.push([o.id, o.id]);
+          }
+      }
+  }
+  if (myVars.length <= 0) {
+      if (defVar) {
+          myVars.push(defVar);
+      }
+  }
+  return myVars;
+}
+
 Blockly.getXBlocklyNameObjsByType = function (type, defVar) {
     var myVars = [];
     if (type) {
@@ -692,7 +742,7 @@ Blockly.getXBlocklyNamePorts = function (defVar) {
     if (myPorts) {
         for (var i = 0; i < myPorts.length; i++) {
             var o = myPorts[i];
-            myVars.push([o.name, o.id]);
+            myVars.push([o.id, o.id]);
         }
     }
     if (myVars.length <= 0) {
@@ -780,6 +830,19 @@ Blockly.getXBlocklyVarName = function (type, port) {
     return name;
 }
 
+Blockly.getXBlocklyVarNameByLabel = function (type, label) {
+    var name = "";
+    var typeObj = window.XBlockly.getTypeObj(type);
+    if (typeObj) {
+        if (typeObj.type == 'XIODriver') {
+            name = ('io_' + label).toLowerCase();
+        } else {
+            name = (label + '_onboard').toLowerCase();
+        }
+    }
+    return name;
+}
+
 Blockly.getXBlocklyVarNameByPin = function (type, pin1, pin2) {
   var name = "";
   var typeObj = window.XBlockly.getTypeObj(type);
@@ -804,9 +867,9 @@ Construct - 连接模块
 Blockly.Blocks.xblockly_construct_INIT = {
   init: function () {
     var dropdownInstances = new Blockly.FieldDropdown([
-      [Blockly.Msg.MY_XMAINBOARD_UNO, 'Arduino UNO']
-      ,[Blockly.Msg.MY_XMAINBOARD_PANGU, 'PanGu']
-      ,[Blockly.Msg.MY_XMAINBOARD_WUKONG, 'WuKong']]);
+      [Blockly.Msg.MY_XMAINBOARD_UNO, 'Uno']
+      ,[Blockly.Msg.MY_XMAINBOARD_WUKONG, 'WuKong']
+      ,[Blockly.Msg.MY_XMAINBOARD_PANGU, 'PanGu']]);
     this.appendDummyInput()
         .appendField("")
         .appendField(new Blockly.FieldImage("../../media/xblockly/XIODriver.png", 16, 16, "*"));
@@ -888,7 +951,8 @@ Blockly.Blocks.xblockly_construct_XPORTS = {
     };
     this.appendDummyInput()
         .appendField("")
-        .appendField(new Blockly.FieldImage("../../media/xblockly/XIODriver.png", 16, 16, "*"));
+        .appendField(new Blockly.FieldImage("../../media/xblockly/XIODriver.png", 16, 16, "*"))
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS);
     this.appendDummyInput()
         .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_TYPE_1)
         .appendField(dropdownTypes, "TYPE")
@@ -898,13 +962,67 @@ Blockly.Blocks.xblockly_construct_XPORTS = {
         .appendField(textInputVar, 'VAR')
         .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_2);
     this.appendDummyInput()
-        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_1)
-        .appendField(dropdownModels, "MODEL")
-        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_2);
-    this.appendDummyInput()
         .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_1)
         .appendField(dropdownPorts, "PORT")
         .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_1)
+        .appendField(dropdownModels, "MODEL")
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_2);
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    //this.setOutput(true, 'String');
+    this.setColour(xblockly_robotColor_construct);
+  },
+
+  onchange: function() {
+    construct_onchange.apply(this,[]);
+  }
+};
+
+Blockly.Blocks.xblockly_construct_ONBOARD = {
+  init: function () {
+    var _this = this;
+    var textInputVar = this.textInputVar = new Blockly.FieldTextInput('');
+    function getMyTypes() {
+      return Blockly.getXBlocklyOnBoardNameTypes([Blockly.Msg.MY_NULL, '']);
+    }
+    var dropdownTypes = this.dropdownTypes = new Blockly.FieldDropdown(getMyTypes);
+    function getMyLabels() {
+      return Blockly.getXBlocklyOnBoardNameLabelsByType(dropdownTypes.value_, [Blockly.Msg.MY_NULL, '']);
+    }
+    var dropdownLabels = this.dropdownLabels = new Blockly.FieldDropdown(getMyLabels);
+    textInputVar.setValue(Blockly.getXBlocklyVarNameByLabel(getMyTypes()[0][1], getMyLabels()[0][1]));
+    dropdownTypes.onItemSelected = function (menu, menuItem) {
+        var value = menuItem.getValue();
+        if (this.sourceBlock_) {
+            value = this.callValidator(value);
+
+            var models = Blockly.getXBlocklyOnBoardNameLabelsByType(value, [Blockly.Msg.MY_NULL, '']);
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByLabel(value, dropdownPorts.value_));
+            _this.dropdownModels.setValue(models[0][1]);
+        }
+        if (value !== null) {
+            this.setValue(value);
+        }
+    };
+    this.appendDummyInput()
+        .appendField("")
+        .appendField(new Blockly.FieldImage("../../media/xblockly/XIODriver.png", 16, 16, "*"))
+        .appendField(Blockly.Msg.MY_CONSTRUCT_ONBOARD);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_TYPE_1)
+        .appendField(dropdownTypes, "TYPE")
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_TYPE_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_1)
+        .appendField(textInputVar, 'VAR')
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_LABEL_1)
+        .appendField(dropdownLabels, "LABEL")
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_LABEL_2);
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -928,9 +1046,32 @@ Blockly.Blocks.xblockly_xbuzzer_INIT = {
     function getMyPorts() {
       return Blockly.getXBlocklyNamePorts([Blockly.Msg.MY_NULL, '']);
     }
-    var dropdownPorts = this.dropdownPorts = new Blockly.FieldDropdown(getMyPorts);
+    var dropdownPins = this.dropdownPins = new Blockly.FieldDropdown([
+      ['0', '0']
+      , ['1', '1']
+      , ['2', '2']
+      , ['3', '3']
+      , ['4', '4']
+      , ['5', '5']
+      , ['6', '6']
+      , ['7', '7']
+      , ['8', '8']
+      , ['9', '9']
+      , ['10', '10']
+      , ['11', '11']
+      , ['12', '12']
+      , ['13', '13']
+      , ['A0', '14']
+      , ['A1', '15']
+      , ['A2', '16']
+      , ['A3', '17']
+      , ['A4', '18']
+      , ['A5', '19']
+      //, ['A6', '20']
+      //, ['A7', '21']
+    ]);
     textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XBuzzer', '0'));
-    dropdownPorts.onItemSelected = function (menu, menuItem) {
+    dropdownPins.onItemSelected = function (menu, menuItem) {
         var value = menuItem.getValue();
         if (this.sourceBlock_) {
             value = this.callValidator(value);
@@ -944,19 +1085,19 @@ Blockly.Blocks.xblockly_xbuzzer_INIT = {
     this.appendDummyInput()
         .appendField("")
         .appendField(new Blockly.FieldImage("../../media/xblockly/XBuzzer.png", 16, 16, "*"))
-        .appendField('初始化蜂鸣器');
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XBUZZER);
     this.appendDummyInput()
-        .appendField('命名')
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_1)
         .appendField(textInputVar, 'VAR')
-        .appendField("");
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_DI)
+        .appendField(dropdownPins, "PIN")
+        .appendField('');
     this.appendDummyInput()
         .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_1)
         .appendField(dropdownModels, "MODEL")
         .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_2);
-    this.appendDummyInput()
-        .appendField('管脚#')
-        .appendField(dropdownPorts, "PIN")
-        .appendField('');
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);

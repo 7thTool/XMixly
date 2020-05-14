@@ -16,6 +16,7 @@
   <category id="xblockly_construct" name="连接模块" colour="#3EDAFF">
         <block type="xblockly_construct_INIT"></block>
         <block type="xblockly_construct_XPORTS"></block>
+        <block type="xblockly_construct_ONBOARD"></block>
         <block type="xblockly_xbuzzer_INIT"></block>
         <!--<block type="xblockly_xiodriver_digitalRead"></block>
         <block type="xblockly_xiodriver_analogRead"></block>
