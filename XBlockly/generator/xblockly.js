@@ -87,13 +87,13 @@ Blockly.Arduino.xblockly_construct_INIT = function() {
   window.XBlockly.resetAllObjs();
   switch(main_board)
   {
-    case 'PanGu': {
+    case 'Arduino/PanGu': {
       Blockly.Arduino.XBlockly_addInclude('Arduino', '#include <Arduino.h>');
       Blockly.Arduino.XBlockly_addInclude('PGKSystem', '#include <PGKSystem.h>');
       Blockly.Arduino.XBlockly_addSetup('PGKSystem', 'XSystem.setup();');
     }
     break;
-    case 'WuKong': {
+    case 'Arduino/WuKong': {
       Blockly.Arduino.XBlockly_addInclude('Arduino', '#include <Arduino.h>');
       Blockly.Arduino.XBlockly_addInclude('PGKSystem', '#include <WKKSystem.h>');
       Blockly.Arduino.XBlockly_addSetup('PGKSystem', 'XSystem.setup();');

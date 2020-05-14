@@ -649,7 +649,9 @@ Blockly.getXBlocklyNameTypes = function (defVar) {
     if (myTypes) {
         for (var i = 0; i < myTypes.length; i++) {
             var o = myTypes[i];
-            myVars.push([o.name, o.type]);
+            if(o.models && o.models.length > 0) {
+              myVars.push([o.name, o.type]);
+            }
         }
     }
     if (myVars.length <= 0) {
@@ -867,9 +869,9 @@ Construct - 连接模块
 Blockly.Blocks.xblockly_construct_INIT = {
   init: function () {
     var dropdownInstances = new Blockly.FieldDropdown([
-      [Blockly.Msg.MY_XMAINBOARD_UNO, 'Uno']
-      ,[Blockly.Msg.MY_XMAINBOARD_WUKONG, 'WuKong']
-      ,[Blockly.Msg.MY_XMAINBOARD_PANGU, 'PanGu']]);
+      ['Arduino/Genuino Uno', 'Arduino/Genuino Uno']
+      ,['Arduino/WuKong', 'Arduino/WuKong']
+      ,['Arduino/PanGu', 'Arduino/PanGu']]);
     this.appendDummyInput()
         .appendField("")
         .appendField(new Blockly.FieldImage("../../media/xblockly/XIODriver.png", 16, 16, "*"));
@@ -958,6 +960,10 @@ Blockly.Blocks.xblockly_construct_XPORTS = {
         .appendField(dropdownTypes, "TYPE")
         .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_TYPE_2);
     this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_1)
+        .appendField(dropdownModels, "MODEL")
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_2);
+    this.appendDummyInput()
         .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_1)
         .appendField(textInputVar, 'VAR')
         .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_2);
@@ -965,10 +971,6 @@ Blockly.Blocks.xblockly_construct_XPORTS = {
         .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_1)
         .appendField(dropdownPorts, "PORT")
         .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_2);
-    this.appendDummyInput()
-        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_1)
-        .appendField(dropdownModels, "MODEL")
-        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_2);
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -999,9 +1001,20 @@ Blockly.Blocks.xblockly_construct_ONBOARD = {
         if (this.sourceBlock_) {
             value = this.callValidator(value);
 
-            var models = Blockly.getXBlocklyOnBoardNameLabelsByType(value, [Blockly.Msg.MY_NULL, '']);
-            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByLabel(value, dropdownPorts.value_));
-            _this.dropdownModels.setValue(models[0][1]);
+            var labels = Blockly.getXBlocklyOnBoardNameLabelsByType(value, [Blockly.Msg.MY_NULL, '']);
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByLabel(value, dropdownLabels.value_));
+            _this.dropdownLabels.setValue(labels[0][1]);
+        }
+        if (value !== null) {
+            this.setValue(value);
+        }
+    };
+    dropdownLabels.onItemSelected = function (menu, menuItem) {
+        var value = menuItem.getValue();
+        if (this.sourceBlock_) {
+            value = this.callValidator(value);
+
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByLabel(dropdownTypes.value_, value));
         }
         if (value !== null) {
             this.setValue(value);
@@ -1016,13 +1029,13 @@ Blockly.Blocks.xblockly_construct_ONBOARD = {
         .appendField(dropdownTypes, "TYPE")
         .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_TYPE_2);
     this.appendDummyInput()
-        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_1)
-        .appendField(textInputVar, 'VAR')
-        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_2);
-    this.appendDummyInput()
         .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_LABEL_1)
         .appendField(dropdownLabels, "LABEL")
         .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_LABEL_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_1)
+        .appendField(textInputVar, 'VAR');
+        //.appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_2);
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -1087,6 +1100,10 @@ Blockly.Blocks.xblockly_xbuzzer_INIT = {
         .appendField(new Blockly.FieldImage("../../media/xblockly/XBuzzer.png", 16, 16, "*"))
         .appendField(Blockly.Msg.MY_CONSTRUCT_XBUZZER);
     this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_1)
+        .appendField(dropdownModels, "MODEL")
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_2);
+    this.appendDummyInput()
         .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_1)
         .appendField(textInputVar, 'VAR')
         .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_2);
@@ -1094,10 +1111,6 @@ Blockly.Blocks.xblockly_xbuzzer_INIT = {
         .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_DI)
         .appendField(dropdownPins, "PIN")
         .appendField('');
-    this.appendDummyInput()
-        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_1)
-        .appendField(dropdownModels, "MODEL")
-        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_2);
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
