@@ -147,6 +147,28 @@ Blockly.Arduino.xblockly_construct_ONBOARD = function () {
   return '';
 };
 
+Blockly.Arduino.xblockly_xbutton_INIT = function () {
+  var name = this.getFieldValue('VAR');
+  var pin = this.getFieldValue('PIN');
+  var type = 'XButton';//this.getFieldValue('TYPE');
+  var model = this.getFieldValue('MODEL');
+  
+  window.XBlockly.addOrUpdateObj(type,name,name);
+  Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
+
+  var globalCode = type + ' ' + name + ';';
+  Blockly.Arduino.XBlockly_addDeclaration(name, globalCode);
+
+  var setupCode = name + '.setup(\"'
+    + model
+    + '\", '
+    + pin
+    + ');';
+  Blockly.Arduino.XBlockly_addSetup(name, setupCode);
+
+  return '';
+};
+
 Blockly.Arduino.xblockly_xbuzzer_INIT = function () {
   var name = this.getFieldValue('VAR');
   var pin = this.getFieldValue('PIN');
@@ -163,6 +185,37 @@ Blockly.Arduino.xblockly_xbuzzer_INIT = function () {
     + model
     + '\", '
     + pin
+    + ');';
+  Blockly.Arduino.XBlockly_addSetup(name, setupCode);
+
+  return '';
+};
+
+Blockly.Arduino.xblockly_xdualdcmotor_INIT = function () {
+  var name = this.getFieldValue('VAR');
+  var sda = this.getFieldValue('SDA');
+  var scl = this.getFieldValue('SCL');
+  var rst = this.getFieldValue('RST');
+  var sel = this.getFieldValue('SEL');
+  var type = 'XDualDCMotor';//this.getFieldValue('TYPE');
+  var model = this.getFieldValue('MODEL');
+  
+  window.XBlockly.addOrUpdateObj(type,name,name);
+  Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
+
+  var globalCode = type + ' ' + name + ';';
+  Blockly.Arduino.XBlockly_addDeclaration(name, globalCode);
+
+  var setupCode = name + '.setup(\"'
+    + model
+    + '\", '
+    + sda
+    + ', '
+    + scl
+    + ', '
+    + rst
+    + ', '
+    + sel
     + ');';
   Blockly.Arduino.XBlockly_addSetup(name, setupCode);
 

@@ -639,7 +639,7 @@ var xblockly_robotColor_system = '#FF6767';   //系统
 
   window.XBlockly = XBlockly;
     
-  var jsonObjects = '{"modules":[{"type":"XDualDCMotor","name":"双直流电机","models":[{"func":"####","type":"XRJ25","id":"DDM3300"}],"objects":[]},{"type":"XBuzzer","name":"蜂鸣器","models":[{"func":"D###","type":"XRJ25","id":"BUZ3300"}],"objects":[]},{"type":"XButton","name":"按钮","models":[{"func":"A###","type":"XRJ25","id":"BTN3300"}],"objects":[]},{"type":"XLightSensor","name":"光线传感器","models":[{"func":"A###","type":"XRJ25","id":"LIG3300"}],"objects":[]},{"type":"XSoundSensor","name":"声音传感器","models":[{"func":"A###","type":"XRJ25","id":"SND3300"}],"objects":[]},{"type":"XIRReceiver","name":"红外接收器","models":[{"func":"H###","type":"XRJ25","id":"IRR3300"}],"objects":[]},{"type":"XIRTracking","name":"红外循迹传感器","models":[{"func":"H###","type":"XRJ25","id":"IRT3320"}],"objects":[]},{"type":"XIRTracking6","name":"六路红外循迹传感器","models":[{"func":"####","type":"XRJ25","id":"IRT3360"}],"objects":[]},{"type":"XUltrasonic","name":"超声波传感器","models":[{"func":"H###","type":"XRJ25","id":"ULS3600"}],"objects":[]},{"type":"XSegDisplay","name":"数码管","models":[{"func":"H###","type":"XRJ25","id":"SGD4300"}],"objects":[]},{"type":"XLEDMatrix","name":"LED面板","models":[{"func":"####","type":"XRJ25","id":"LMT3300"}],"objects":[]},{"type":"XVoiceBroadcast","name":"语音播报器","models":[{"func":"####","type":"XRJ25","id":"VBC3300"}],"objects":[]},{"type":"XIRAvoiding","name":"红外避障传感器","models":[{"func":"H###","type":"XRJ25","id":"IRA3300"}],"objects":[]},{"type":"XPotentiometer","name":"电位器","models":[{"func":"A###","type":"XRJ25","id":"PTM3300"}],"objects":[]},{"type":"XRGBLed","name":"RGB彩灯","models":[{"func":"D###","type":"XRJ25","id":"RGB3340"}],"objects":[]},{"type":"XHumiture","name":"温湿度传感器","models":[{"func":"D###","type":"XRJ25","id":"HUM3300"}],"objects":[]},{"type":"XPIR","name":"人体红外传感器","models":[{"func":"D###","type":"XRJ25","id":"PIR3300"}],"objects":[]},{"type":"XShockSensor","name":"震动传感器","models":[{"func":"D###","type":"XRJ25","id":"SKS3300"}],"objects":[]},{"type":"XBluetooth","name":"蓝牙","models":[{"func":"U###","type":"XIP45","id":"BLT4140"}],"objects":[]},{"type":"XServo","name":"舵机","models":[],"objects":[],"onboards":[{"id":"SVO1","model":"SVO3000","name":"板载-SVO1"},{"id":"SVO2","model":"SVO3000","name":"板载-SVO2"}]},{"name":"端口","type":"XPORTS","models":[{"name":"端口 1","id":"1","type":"XRJ25","func":"DHP#"},{"name":"端口 2","id":"2","type":"XRJ25","func":"DHAK"},{"name":"端口 3","id":"3","type":"XRJ25","func":"DHP#"},{"name":"端口 4","id":"4","type":"XRJ25","func":"DHP#"},{"name":"端口 5","id":"5","type":"XRJ25","func":"DHPR"},{"name":"端口 6","id":"6","type":"XRJ25","func":"DHA#"},{"name":"端口 7","id":"7","type":"XRJ25","func":"DHA#"},{"name":"端口 8","id":"8","type":"XRJ25","func":"DHP#"},{"name":"端口 9","id":"9","type":"XIP45","func":"U###"}]}]}';
+  var jsonObjects = '{"modules":[{"type":"XDualDCMotor","name":"双直流电机","models":[{"func":"####","type":"XRJ25","id":"DDM3300"}],"objects":[],"onboards":[{"id":"DDM","model":"DDM3001","name":"板载-DDM"}]},{"type":"XBuzzer","name":"蜂鸣器","models":[{"func":"D###","type":"XRJ25","id":"BUZ3300"}],"objects":[],"onboards":[{"id":"BUZ","model":"BUZ4000","name":"板载-BUZ"}]},{"type":"XButton","name":"按钮","models":[{"func":"A###","type":"XRJ25","id":"BTN3300"}],"objects":[]},{"type":"XLightSensor","name":"光线传感器","models":[{"func":"A###","type":"XRJ25","id":"LIG3300"}],"objects":[],"onboards":[{"id":"LIG","model":"LIG4000","name":"板载-LIG"}]},{"type":"XSoundSensor","name":"声音传感器","models":[{"func":"A###","type":"XRJ25","id":"SND3300"}],"objects":[],"onboards":[{"id":"SND","model":"SND3000","name":"板载-SND"}]},{"type":"XIRReceiver","name":"红外接收器","models":[{"func":"H###","type":"XRJ25","id":"IRR3300"}],"objects":[],"onboards":[{"id":"IRR","model":"IRR3000","name":"板载-IRR"}]},{"type":"XIRTracking","name":"红外循迹传感器","models":[{"func":"H###","type":"XRJ25","id":"IRT3320"}],"objects":[]},{"type":"XIRTracking6","name":"六路红外循迹传感器","models":[{"func":"####","type":"XRJ25","id":"IRT3360"}],"objects":[]},{"type":"XUltrasonic","name":"超声波传感器","models":[{"func":"H###","type":"XRJ25","id":"ULS3600"}],"objects":[]},{"type":"XSegDisplay","name":"数码管","models":[{"func":"H###","type":"XRJ25","id":"SGD4300"}],"objects":[]},{"type":"XLEDMatrix","name":"LED面板","models":[{"func":"####","type":"XRJ25","id":"LMT3300"}],"objects":[]},{"type":"XVoiceBroadcast","name":"语音播报器","models":[{"func":"####","type":"XRJ25","id":"VBC3300"}],"objects":[]},{"type":"XIRAvoiding","name":"红外避障传感器","models":[{"func":"H###","type":"XRJ25","id":"IRA3300"}],"objects":[]},{"type":"XPotentiometer","name":"电位器","models":[{"func":"A###","type":"XRJ25","id":"PTM3300"}],"objects":[]},{"type":"XRGBLed","name":"RGB彩灯","models":[{"func":"D###","type":"XRJ25","id":"RGB3340"}],"objects":[],"onboards":[{"id":"RGB","model":"RGB3060","name":"板载-RGB"}]},{"type":"XHumiture","name":"温湿度传感器","models":[{"func":"D###","type":"XRJ25","id":"HUM3300"}],"objects":[]},{"type":"XPIR","name":"人体红外传感器","models":[{"func":"D###","type":"XRJ25","id":"PIR3300"}],"objects":[]},{"type":"XShockSensor","name":"震动传感器","models":[{"func":"D###","type":"XRJ25","id":"SKS3300"}],"objects":[]},{"type":"XBluetooth","name":"蓝牙","models":[{"func":"U###","type":"XIP45","id":"BLT4140"}],"objects":[]},{"type":"XServo","name":"舵机","models":[],"objects":[],"onboards":[{"id":"SVO","model":"SVO3000","name":"板载-SVO"},{"id":"SVO1","model":"SVO3000","name":"板载-SVO1"},{"id":"SVO2","model":"SVO3000","name":"板载-SVO2"}]},{"name":"端口","type":"XPORTS","models":[{"name":"端口1","id":"1","type":"XRJ25","func":"DHP#"},{"name":"端口2","id":"2","type":"XRJ25","func":"DHAK"},{"name":"端口3","id":"3","type":"XRJ25","func":"DHP#"},{"name":"端口4","id":"4","type":"XRJ25","func":"DHP#"},{"name":"端口5","id":"5","type":"XRJ25","func":"DHPR"},{"name":"端口6","id":"6","type":"XRJ25","func":"DHA#"},{"name":"端口7","id":"7","type":"XRJ25","func":"DHA#"},{"name":"端口8","id":"8","type":"XRJ25","func":"DHP#"},{"name":"端口9","id":"9","type":"XIP45","func":"U###"}]}]}';
   window.XBlockly.init(JSON.parse(jsonObjects));
 })();
 
@@ -845,18 +845,28 @@ Blockly.getXBlocklyVarNameByLabel = function (type, label) {
     return name;
 }
 
-Blockly.getXBlocklyVarNameByPin = function (type, pin1, pin2) {
+Blockly.getXBlocklyVarPin = function (pin) {
+  var varPin = pin;
+  var intPin = parseInt(pin);
+  if(intPin >= 14) {
+    varPin = 'A' + (intPin - 14).toString();
+  }
+  return varPin;
+}
+
+Blockly.getXBlocklyVarNameByPin = function (type, pin1, pin2, pin3, pin4) {
   var name = "";
   var typeObj = window.XBlockly.getTypeObj(type);
   if (typeObj) {
       if (typeObj.type == 'XIODriver') {
-          name = ('io_' + pin1 + (pin2 ? '_' + pin2 : '')).toLowerCase();
+          name = 'io_' + pin1 + (pin2 ? '_' + pin2 : '') + (pin3 ? '_' + pin3 : '') + (pin4 ? '_' + pin4 : '');
       } else {
           if (typeObj.models && typeObj.models.length > 0) {
-              name = (typeObj.models[0].id.substring(0, 3) + '_' + pin1 + (pin2 ? '_' + pin2 : '')).toLowerCase();
+              name = typeObj.models[0].id.substring(0, 3).toLowerCase();
           } else {
-              name = (port).toLowerCase();
+              name = (type).toLowerCase();
           }
+          name += ('_' + pin1 + (pin2 ? '_' + pin2 : '') + (pin3 ? '_' + pin3 : '') + (pin4 ? '_' + pin4 : ''));
       }
   }
   return name;
@@ -968,6 +978,8 @@ Blockly.Blocks.xblockly_construct_XPORTS = {
         .appendField(textInputVar, 'VAR')
         .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_2);
     this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_CONNECT);
+    this.appendDummyInput()
         .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_1)
         .appendField(dropdownPorts, "PORT")
         .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_2);
@@ -1048,6 +1060,76 @@ Blockly.Blocks.xblockly_construct_ONBOARD = {
   }
 };
 
+Blockly.Blocks.xblockly_xbutton_INIT = {
+  init: function () {
+    var _this = this;
+    var textInputVar = this.textInputVar = new Blockly.FieldTextInput('');
+    function getMyModels() {
+      return Blockly.getXBlocklyNameModelsByType('XButton', [Blockly.Msg.MY_NULL, '']);
+    }
+    var dropdownModels = this.dropdownModels = new Blockly.FieldDropdown(getMyModels);
+    var dropdownPins = this.dropdownPins = new Blockly.FieldDropdown([
+      // ['0', '0']
+      // , ['1', '1']
+      // , ['2', '2']
+      // , ['3', '3']
+      // , ['4', '4']
+      // , ['5', '5']
+      // , ['6', '6']
+      // , ['7', '7']
+      // , ['8', '8']
+      // , ['9', '9']
+      // , ['10', '10']
+      // , ['11', '11']
+      // , ['12', '12']
+      // , ['13', '13']
+      ['A0', '14']
+      , ['A1', '15']
+      , ['A2', '16']
+      , ['A3', '17']
+      , ['A4', '18']
+      , ['A5', '19']
+      , ['A6', '20']
+      , ['A7', '21']
+    ]);
+    textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XButton', '0'));
+    dropdownPins.onItemSelected = function (menu, menuItem) {
+        var value = menuItem.getValue();
+        if (this.sourceBlock_) {
+            value = this.callValidator(value);
+
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XButton', Blockly.getXBlocklyVarPin(value)));
+        }
+        if (value !== null) {
+            this.setValue(value);
+        }
+    };
+    this.appendDummyInput()
+        .appendField("")
+        .appendField(new Blockly.FieldImage("../../media/xblockly/XButton.png", 16, 16, "*"))
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XBUTTON);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_1)
+        .appendField(dropdownModels, "MODEL")
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_1)
+        .appendField(textInputVar, 'VAR')
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_CONNECT);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_AO)
+        .appendField(dropdownPins, "PIN")
+        .appendField('');
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    //this.setOutput(true, 'String');
+    this.setColour(xblockly_robotColor_construct);
+  }
+};
+
 Blockly.Blocks.xblockly_xbuzzer_INIT = {
   init: function () {
     var _this = this;
@@ -1056,9 +1138,6 @@ Blockly.Blocks.xblockly_xbuzzer_INIT = {
       return Blockly.getXBlocklyNameModelsByType('XBuzzer', [Blockly.Msg.MY_NULL, '']);
     }
     var dropdownModels = this.dropdownModels = new Blockly.FieldDropdown(getMyModels);
-    function getMyPorts() {
-      return Blockly.getXBlocklyNamePorts([Blockly.Msg.MY_NULL, '']);
-    }
     var dropdownPins = this.dropdownPins = new Blockly.FieldDropdown([
       ['0', '0']
       , ['1', '1']
@@ -1088,8 +1167,8 @@ Blockly.Blocks.xblockly_xbuzzer_INIT = {
         var value = menuItem.getValue();
         if (this.sourceBlock_) {
             value = this.callValidator(value);
-
-            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XBuzzer', value));
+            
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XBuzzer', Blockly.getXBlocklyVarPin(value)));
         }
         if (value !== null) {
             this.setValue(value);
@@ -1108,8 +1187,202 @@ Blockly.Blocks.xblockly_xbuzzer_INIT = {
         .appendField(textInputVar, 'VAR')
         .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_2);
     this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_CONNECT);
+    this.appendDummyInput()
         .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_DI)
         .appendField(dropdownPins, "PIN")
+        .appendField('');
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    //this.setOutput(true, 'String');
+    this.setColour(xblockly_robotColor_construct);
+  }
+};
+
+Blockly.Blocks.xblockly_xdualdcmotor_INIT = {
+  init: function () {
+    var _this = this;
+    var textInputVar = this.textInputVar = new Blockly.FieldTextInput('');
+    function getMyModels() {
+      return Blockly.getXBlocklyNameModelsByType('XDualDCMotor', [Blockly.Msg.MY_NULL, '']);
+    }
+    var dropdownModels = this.dropdownModels = new Blockly.FieldDropdown(getMyModels);
+    var dropdownSDAs = this.dropdownSDAs = new Blockly.FieldDropdown([
+      // ['0', '0']
+      // , ['1', '1']
+      // , ['2', '2']
+      // , ['3', '3']
+      // , ['4', '4']
+      // , ['5', '5']
+      // , ['6', '6']
+      // , ['7', '7']
+      // , ['8', '8']
+      // , ['9', '9']
+      // , ['10', '10']
+      // , ['11', '11']
+      // , ['12', '12']
+      // , ['13', '13']
+      // , ['A0', '14']
+      // , ['A1', '15']
+      // , ['A2', '16']
+      // , ['A3', '17']
+      ['A4', '18']
+      // , ['A5', '19']
+      // , ['A6', '20']
+      // , ['A7', '21']
+    ]);
+    var dropdownSCLs = this.dropdownSCLs = new Blockly.FieldDropdown([
+      // ['0', '0']
+      // , ['1', '1']
+      // , ['2', '2']
+      // , ['3', '3']
+      // , ['4', '4']
+      // , ['5', '5']
+      // , ['6', '6']
+      // , ['7', '7']
+      // , ['8', '8']
+      // , ['9', '9']
+      // , ['10', '10']
+      // , ['11', '11']
+      // , ['12', '12']
+      // , ['13', '13']
+      // , ['A0', '14']
+      // , ['A1', '15']
+      // , ['A2', '16']
+      // , ['A3', '17']
+      // , ['A4', '18']
+      ['A5', '19']
+      // , ['A6', '20']
+      // , ['A7', '21']
+    ]);
+    var dropdownRSTs = this.dropdownRSTs = new Blockly.FieldDropdown([
+      ['0', '0']
+      , ['1', '1']
+      , ['2', '2']
+      , ['3', '3']
+      , ['4', '4']
+      , ['5', '5']
+      , ['6', '6']
+      , ['7', '7']
+      , ['8', '8']
+      , ['9', '9']
+      , ['10', '10']
+      , ['11', '11']
+      , ['12', '12']
+      , ['13', '13']
+      , ['A0', '14']
+      , ['A1', '15']
+      , ['A2', '16']
+      , ['A3', '17']
+      // , ['A4', '18']
+      // , ['A5', '19']
+      // , ['A6', '20']
+      // , ['A7', '21']
+    ]);
+    var dropdownSELs = this.dropdownSELs = new Blockly.FieldDropdown([
+      ['0', '0']
+      , ['1', '1']
+      , ['2', '2']
+      , ['3', '3']
+      , ['4', '4']
+      , ['5', '5']
+      , ['6', '6']
+      , ['7', '7']
+      , ['8', '8']
+      , ['9', '9']
+      , ['10', '10']
+      , ['11', '11']
+      , ['12', '12']
+      , ['13', '13']
+      , ['A0', '14']
+      , ['A1', '15']
+      , ['A2', '16']
+      , ['A3', '17']
+      // , ['A4', '18']
+      // , ['A5', '19']
+      // , ['A6', '20']
+      // , ['A7', '21']
+    ]);
+    textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XDualDCMotor', 'A4', 'A5', '0', '0'));
+    dropdownSDAs.onItemSelected = function (menu, menuItem) {
+        var value = menuItem.getValue();
+        if (this.sourceBlock_) {
+            value = this.callValidator(value);
+            
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XDualDCMotor'
+            , Blockly.getXBlocklyVarPin(value), Blockly.getXBlocklyVarPin(dropdownSCLs.value_)
+            , Blockly.getXBlocklyVarPin(dropdownRSTs.value_), Blockly.getXBlocklyVarPin(dropdownSELs.value_)));
+        }
+        if (value !== null) {
+            this.setValue(value);
+        }
+    };
+    dropdownSCLs.onItemSelected = function (menu, menuItem) {
+        var value = menuItem.getValue();
+        if (this.sourceBlock_) {
+            value = this.callValidator(value);
+            
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XDualDCMotor'
+            , Blockly.getXBlocklyVarPin(dropdownSDAs.value_), Blockly.getXBlocklyVarPin(value)
+            , Blockly.getXBlocklyVarPin(dropdownRSTs.value_), Blockly.getXBlocklyVarPin(dropdownSELs.value_)));
+        }
+        if (value !== null) {
+            this.setValue(value);
+        }
+    };
+    dropdownRSTs.onItemSelected = function (menu, menuItem) {
+        var value = menuItem.getValue();
+        if (this.sourceBlock_) {
+            value = this.callValidator(value);
+            
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XDualDCMotor'
+            , Blockly.getXBlocklyVarPin(dropdownSDAs.value_), Blockly.getXBlocklyVarPin(dropdownSCLs.value_)
+            , Blockly.getXBlocklyVarPin(value), Blockly.getXBlocklyVarPin(dropdownSELs.value_)));
+        }
+        if (value !== null) {
+            this.setValue(value);
+        }
+    };
+    dropdownSELs.onItemSelected = function (menu, menuItem) {
+        var value = menuItem.getValue();
+        if (this.sourceBlock_) {
+            value = this.callValidator(value);
+            
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XDualDCMotor'
+            , Blockly.getXBlocklyVarPin(dropdownSDAs.value_), Blockly.getXBlocklyVarPin(dropdownSCLs.value_)
+            , Blockly.getXBlocklyVarPin(dropdownRSTs.value_), Blockly.getXBlocklyVarPin(value)));
+        }
+        if (value !== null) {
+            this.setValue(value);
+        }
+    };
+    this.appendDummyInput()
+        .appendField("")
+        .appendField(new Blockly.FieldImage("../../media/xblockly/XDualDCMotor.png", 16, 16, "*"))
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XDUALDCMOTOR);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_1)
+        .appendField(dropdownModels, "MODEL")
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_1)
+        .appendField(textInputVar, 'VAR')
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_CONNECT);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_SDA)
+        .appendField(dropdownSDAs, "SDA")
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_SCL)
+        .appendField(dropdownSCLs, "SCL")
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_RST)
+        .appendField(dropdownRSTs, "RST")
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_SEL)
+        .appendField(dropdownSELs, "SEL")
         .appendField('');
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
