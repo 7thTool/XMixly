@@ -45,10 +45,9 @@
 #define MODEL_CHANNELS_6		2
 
 
-XIRTracking::XIRTracking() :
-	XNBlock(),
-	_portId(-2)
+XIRTracking::XIRTracking()
 {
+	_portId = -1;
 }
 
 XIRTracking::~XIRTracking()
@@ -65,7 +64,6 @@ int XIRTracking::setup(const char *model, const char *port)
 	PortMap pmap;
 
 	LOG("XIRTracking::setup(");LOG(model);LOG(",");LOG(port);LOGN(")");
-	(void)model;
 
 	if ((!strcmp(model, IRT3220_MODEL_NAME))
 		||(!strcmp(model, IRT3320_MODEL_NAME))) {
@@ -122,6 +120,25 @@ int XIRTracking::setup(const char *label)
 	else {
 		LOGN("PortOnBoardSetup() failed");
 		_portId = -2;
+		return -1;
+	}
+
+	reset();
+	return 0;
+}
+
+int XIRTracking::setup(const char *model, const uint8_t s1, const uint8_t s2)
+{
+	if ((!strcmp(model, IRT3220_MODEL_NAME))
+		||(!strcmp(model, IRT3320_MODEL_NAME))) {
+		_model = MODEL_CHANNELS_2;
+		_pin[0] = s1;
+		_pin[1] = s2;
+        pinMode(_pin[0], INPUT);
+        pinMode(_pin[1], INPUT);
+	}
+	else {
+		LOG("Unknown model of ");LOGN(model);
 		return -1;
 	}
 

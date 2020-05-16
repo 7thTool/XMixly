@@ -1,4 +1,4 @@
-/* PGKSystem.h
+/* XSystem.h
  *
  * Copyright (C) 2017-2022 Shanghai Mylecon Electronic Technology Co., Ltd.
  *
@@ -16,14 +16,15 @@
  * along with this program;
  *
  * Description: 
- *     This file is a header file for PGKSystem.cpp.
+ *     This file is a header file for XSystem.cpp.
  *
  * Version: 1.0.0
  */
 
 
-#ifndef __PGKSYSTEM_H__
-#define __PGKSYSTEM_H__
+#ifndef __XSYSTEM_H__
+#define __XSYSTEM_H__
+
 
 
 class _XSystem {
@@ -120,4 +121,4 @@ public:
 extern _XSystem XSystem;
 
 
-#endif //__PGKSYSTEM_H__
+#endif //__XSYSTEM_H__

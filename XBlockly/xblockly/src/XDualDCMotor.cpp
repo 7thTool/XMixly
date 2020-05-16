@@ -38,15 +38,23 @@
 #endif
 
 
+XDualDCMotor::XDualDCMotor()
+{
+	_portId = -1;
+	_impl = NULL;
+	_speed1 = 0;
+	_speed2 = 0;
+}
+
 XDualDCMotor::~XDualDCMotor() 
 {
 	LOGN("XDualDCMotor::~XDualDCMotor()");
 
 	reset();
 
-	if (impl) {
-		delete (DDM3001Impl *)impl;
-		impl = NULL;
+	if (_impl) {
+		delete (DDM3001Impl *)_impl;
+		_impl = NULL;
 	}
 
 	if (_portId >= 0) {
@@ -59,20 +67,19 @@ int XDualDCMotor::setup(const char *model, const char *port)
 	PortMap pmap;
 	
 	LOG("XDualDCMotor::setup(");LOG(model);LOG(",");LOG(port);LOGN(")");
-	(void)model;
 
-	impl = new DDM3001Impl(model);
-	if (!impl) {
+	_impl = new DDM3001Impl(model);
+	if (!_impl) {
 		LOGN("new DDM3001Impl failed");
 		return -1;
 	}
 
 	_portId = PortSetup(port, XPORT_FUNC_I2C, &pmap);
 	if (_portId >= 0) {
-		((DDM3001Impl *)impl)->setup(pmap.plat.io.D2.pin1, pmap.plat.io.D2.pin2);
+		((DDM3001Impl *)_impl)->setup(pmap.plat.io.D2.pin1, pmap.plat.io.D2.pin2);
 	} else{
 		LOGN("PortSetup() failed!");
-		free(impl);
+		free(_impl);
 		return -1;
 	}
 
@@ -90,12 +97,12 @@ int XDualDCMotor::setup(const char *label)
 	LOG("XDualDCMotor::setup(");LOG(label);LOGN(")");
 	
 	if(PortOnBoardSetup(label, model, &pmap)) {
-		impl = new DDM3001Impl(model);
-		if (!impl) {
+		_impl = new DDM3001Impl(model);
+		if (!_impl) {
 			LOGN("new DDM3001Impl failed");
 			return -1;
 		}
-		((DDM3001Impl *)impl)->setup(pmap.plat.io.D2.pin1, pmap.plat.io.D2.pin2);
+		((DDM3001Impl *)_impl)->setup(pmap.plat.io.D2.pin1, pmap.plat.io.D2.pin2);
 	}
 	else {
 		LOGN("PortOnBoardSetup() failed");
@@ -108,6 +115,29 @@ int XDualDCMotor::setup(const char *label)
 	return 0;
 }
 
+int XDualDCMotor::setup(const char *model, const uint8_t sda, const uint8_t scl, const uint8_t rst, const uint8_t sel)
+
+{
+	if ( (PIN_A4 != sda) || (PIN_A5 != scl)) {
+		LOGN("Connect to I2C pin failed!");
+		return -1;
+	}
+
+	_impl = new DDM3001Impl(model);
+	if (!_impl) {
+		LOGN("new DDM3001Impl failed");
+		return -1;
+	}
+
+	((DDM3001Impl *)_impl)->setup(pin1, pin2);
+
+	_speed1 = 0;
+	_speed2 = 0;
+
+	return 0;
+}
+
+
 void XDualDCMotor::reset()
 {
 	stopAllMotor();
@@ -117,7 +147,7 @@ void XDualDCMotor::setMotorSpeed(uint8_t motor, int8_t speed)
 {
 	LOG("XDualDCMotor::setMotorSpeed(");LOG(motor);LOG(",");LOG(speed);LOGN(")");
 
-	if (impl) {
+	if (_impl) {
 		if ((motor != 1) && (motor != 2)) {
 			return;
 		}
@@ -130,14 +160,14 @@ void XDualDCMotor::setMotorSpeed(uint8_t motor, int8_t speed)
 		}
 #if 1
 		if (motor == 1) {
-			((DDM3001Impl *)impl)->setAllSpeed(1, 1);
-			((DDM3001Impl *)impl)->setAllSpeed(speed, _speed2);
+			((DDM3001Impl *)_impl)->setAllSpeed(1, 1);
+			((DDM3001Impl *)_impl)->setAllSpeed(speed, _speed2);
 		} else {
-			((DDM3001Impl *)impl)->setAllSpeed(1, 1);
-			((DDM3001Impl *)impl)->setAllSpeed(_speed1, speed);
+			((DDM3001Impl *)_impl)->setAllSpeed(1, 1);
+			((DDM3001Impl *)_impl)->setAllSpeed(_speed1, speed);
 		}
 #else
-		((DDM3001Impl *)impl)->setMotorSpeed(motor, speed);
+		((DDM3001Impl *)_impl)->setMotorSpeed(motor, speed);
 #endif
 
 		if(motor == 1) {
@@ -152,7 +182,7 @@ void XDualDCMotor::setAllSpeed(int8_t speed1, int8_t speed2)
 {
 	LOGN("XDualDCMotor::setAllSpeed(");LOG(speed1);LOG(",");LOG(speed2);LOGN(")");
 		
-	if (impl) {
+	if (_impl) {
 		speed1 = (speed1 > 100) ? 100 : ((speed1 < -100) ? -100 : speed1);
 		speed2 = (speed2 > 100) ? 100 : ((speed2 < -100) ? -100 : speed2);
 
@@ -172,9 +202,9 @@ void XDualDCMotor::setAllSpeed(int8_t speed1, int8_t speed2)
 		else
 		{
 			if (!((speed1 == 0) && (speed2 == 0))) { // workaround
-				((DDM3001Impl *)impl)->setAllSpeed(1, 1);
+				((DDM3001Impl *)_impl)->setAllSpeed(1, 1);
 			}
-			((DDM3001Impl *)impl)->setAllSpeed(speed1, speed2);
+			((DDM3001Impl *)_impl)->setAllSpeed(speed1, speed2);
 			_speed1 = speed1;
 			_speed2 = speed2;
 		}
@@ -191,11 +221,11 @@ void XDualDCMotor::stopMotor(uint8_t motor)
 		return;
 	}
 
-	if (impl) {
+	if (_impl) {
 		if ((motor != 1) && (motor != 2)) {
 			return;
 		}
-		((DDM3001Impl *)impl)->setMotorSpeed(motor, 0);
+		((DDM3001Impl *)_impl)->setMotorSpeed(motor, 0);
 		
 		if(motor == 1) {
 			_speed1 = 0;
@@ -213,7 +243,7 @@ void XDualDCMotor::stopAllMotor()
 		return;
 	}
 
-	if (impl) {
+	if (_impl) {
 		if(_speed1 == 0)
 		{
 			stopMotor(2);
@@ -224,7 +254,7 @@ void XDualDCMotor::stopAllMotor()
 		}
 		else
 		{
-			((DDM3001Impl *)impl)->setAllSpeed(0, 0);
+			((DDM3001Impl *)_impl)->setAllSpeed(0, 0);
 			_speed1 = 0;
 			_speed2 = 0;
 		}

@@ -25,13 +25,13 @@
 #ifndef __XSERVO_H__
 #define __XSERVO_H__
 
-#include <XBlock.h>
 #include <Servo.h>
 
 
-class XServo : public XNBlock {
+
+class XServo {
 public:
-    XServo() : XNBlock(), _portId(-1), _servo(NULL) {}
+    XServo();
     ~XServo();
 
 	/*
@@ -48,6 +48,8 @@ public:
 	??:	????0,??????
 	*/
 	int setup(const char *label);
+
+	int setup(const char *model, const uint8_t pinP);
 
 	void reset();
 

@@ -36,10 +36,10 @@
 #endif
 
 
-XShockSensor::XShockSensor() :
-	XNBlock(),
-	_portId(-2)
+XShockSensor::XShockSensor()
 {
+	_portId = -1;
+	_pin = 0xFF;
 }
 
 XShockSensor::~XShockSensor()
@@ -95,11 +95,21 @@ int XShockSensor::setup(const char *label)
 	return 0;
 }
 
+int XShockSensor::setup(const char *model, const uint8_t pinD)
+{
+	(void)model;
+
+	_pin = pinD;
+    pinMode(_pin, INPUT);
+
+	reset();
+	return 0;
+}
+
 void XShockSensor::reset()
 {
 
 }
-
 
 uint8_t XShockSensor::isShocking()
 {

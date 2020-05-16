@@ -38,6 +38,12 @@
 #endif
 
 
+XSevenColorLight::XSevenColorLight()
+{
+	_portId = -1;
+	_impl = NULL;
+}
+
 XSevenColorLight::~XSevenColorLight() 
 {
 	LOGN("XSevenColorLight::~XSevenColorLight()");
@@ -98,6 +104,21 @@ int XSevenColorLight::setup(const char *label)
 		LOGN("PortOnBoardSetup() failed");
 		return -1;
 	}
+
+	return 0;
+}
+
+int XSevenColorLight::setup(const char *model, const uint8_t pin1, const uint8_t pin2)
+{
+	(void)model;
+
+	_impl = new SCL3020Impl();
+	if (!_impl) {
+		LOGN("new SCL3020Impl failed");
+		return -1;
+	}
+
+	((SCL3020Impl *)_impl)->setup(pin1, pin2);
 
 	return 0;
 }

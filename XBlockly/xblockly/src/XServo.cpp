@@ -45,7 +45,14 @@
 #endif
 
 
-XServo::~XServo() {
+XServo::XServo()
+{
+	_portId = -1;
+	_servo = NULL;
+}
+
+XServo::~XServo()
+{
 	LOGN("XServo::~XServo()");
 	
 	if(_servo){
@@ -58,7 +65,6 @@ XServo::~XServo() {
 		PortRelease(_portId);
 	}
 }
-
 
 int XServo::setup(const char *model, const char *port)
 {
@@ -105,6 +111,21 @@ int XServo::setup(const char *label)
 		LOGN("PortOnBoardSetup() failed");
 		return -1;
 	}
+
+	reset();
+	return 0;
+}
+
+int XServo::setup(const char *model, const uint8_t pinP)
+{
+	(void)model;
+
+	_servo = new Servo;
+	if (_servo) {
+		LOGN("new Servo failed");
+		return -1;
+	}
+	_servo->attach(pinP);
 
 	reset();
 	return 0;

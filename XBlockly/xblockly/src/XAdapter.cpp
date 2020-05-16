@@ -28,6 +28,13 @@
 #include <XAdapter.h>
 
 
+XAdapter::XAdapter()
+{
+	_portId = -1;
+	_pin1 = 0xFF;
+	_pin2 = 0xFF;
+}
+
 XAdapter::~XAdapter()
 {
 	if (_portId >= 0) {
@@ -48,6 +55,16 @@ int XAdapter::setup(const char *model, const char *port)
 	} else{
 		return -1;
 	}
+
+	return 0;
+}
+
+int XAdapter::setup(const char *model, const uint8_t pin1, const uint8_t pin2)
+{
+	(void)model;
+
+	_pin1 = pin1;
+	_pin2 = pin2;
 
 	return 0;
 }

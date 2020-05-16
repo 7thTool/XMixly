@@ -37,6 +37,13 @@
 #endif
 
 
+XDCMotor::XDCMotor()
+{
+	_portId = -1;
+	_pwmPin = 0xFF;
+	_dirPin = 0xFF;
+}
+
 XDCMotor::~XDCMotor() 
 {
 	LOGN("XDCMotor::~XDCMotor()");
@@ -99,6 +106,16 @@ int XDCMotor::setup(const char *label)
 		LOGN("PortOnBoardSetup() failed");
 		return -1;
 	}
+
+	return 0;
+}
+
+int XDCMotor::setup(const char *model, const uint8_t pinP, const uint8_t pinD)
+{
+	(void)model;
+
+	_pwmPin = pinP;
+	_dirPin = pinD;
 
 	return 0;
 }

@@ -26,12 +26,10 @@
 #define __XIRTRACKING_H__
 
 
-#include <XBlock.h>
-
 
 #define MAX_CHANNEL 2
 
-class XIRTracking : public XNBlock  {
+class XIRTracking {
 public:
 	XIRTracking();
 	~XIRTracking();
@@ -50,6 +48,8 @@ public:
 	结果：	成功返回0，失败返回负数
 	*/
 	int setup(const char *label);
+
+	int setup(const char *model, const uint8_t s1, const uint8_t s2);
 
 	void reset();
 

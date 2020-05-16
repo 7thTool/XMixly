@@ -105,14 +105,13 @@ static int MATCH(int measured, int desired) {return measured >= TICKS_LOW(desire
 static int MATCH_MARK(int measured_ticks, int desired_us) {return MATCH(measured_ticks, (desired_us + MARK_EXCESS));}
 static int MATCH_SPACE(int measured_ticks, int desired_us) {return MATCH(measured_ticks, (desired_us - MARK_EXCESS));}
 
-XIRReceiver::XIRReceiver() :
-	XNBlock(),
-	_portId(-1),
-	_key(0xff),
-	_longPressMark(0x0),
-	_model(0),
-	_impl(NULL)
+XIRReceiver::XIRReceiver()
 {
+	_portId = -1;
+	_key = 0xff;
+	_longPressMark = 0x0;
+	_model = 0;
+	_impl = NULL;
 }
 	
 XIRReceiver::~XIRReceiver() 
@@ -186,6 +185,25 @@ int XIRReceiver::setup(const char *label)
 	} else{
 		LOGN("PortOnBoardSetup() failed");
 		_portId = -2;
+		return -1;
+	}
+
+	reset();
+	return 0;
+}
+
+int XIRReceiver::setup(const char *model, const uint8_t sta, const uint8_t dat)
+{
+	if(!strcmp(model, IRR3300_MODEL_NAME)) {
+		_model = MODEL_IRR3300;
+		_impl = new IRR3300Impl(model);
+		if (!_impl) {
+			LOGN("new IRR3300Impl failed");
+			return -1;
+		}
+		((IRR3300Impl *)_impl)->setup(sta, dat);
+	} else {
+		LOG("Unknown model of ");LOGN(model);
 		return -1;
 	}
 

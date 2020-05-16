@@ -26,12 +26,11 @@
 #define __XRGBLED_H__
 
 
-#include <XBlock.h>
 
 #define DEFAULT_MAX_LED_NUMBER  	(32)
 
 
-class XRGBLed : public XNBlock{
+class XRGBLed {
 public:
 	XRGBLed();
 	~XRGBLed();
@@ -50,6 +49,8 @@ public:
 	结果：	成功返回0，失败返回负数
 	*/
 	int setup(const char *label);
+
+	int setup(const char *model, const uint8_t pinD);
 
 	void reset();
 

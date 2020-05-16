@@ -1,4 +1,4 @@
-/* PGKSystem.cpp
+/* XSystem.cpp
  *
  * Copyright (C) 2017-2022 Shanghai Mylecon Electronic Technology Co., Ltd.
  *
@@ -16,7 +16,7 @@
  * along with this program;
  *
  * Description: 
- *     This file is an implement of pangu-kit xsystem function.
+ *     This file is an implement of wukong-kit xsystem function.
  *
  * History:
  * Version: 1.0.0
@@ -28,7 +28,7 @@
 #include <avr/wdt.h>
 #include <EEPROM.h>
 #include <xport.h>
-#include <PGKSystem.h>
+#include <XSystem.h>
 
 
 _XSystem XSystem;
@@ -44,6 +44,7 @@ _XSystem XSystem;
 #endif
 
 
+
 _XSystem::_XSystem()
 {
 	LOGN("_XSystem::_XSystem()");
@@ -57,6 +58,14 @@ _XSystem::~_XSystem()
 int _XSystem::setup()
 {
 	LOGN("_XSystem::setup()");
+
+#ifdef BOARD_WUKONG
+	// reset co-processor
+	pinMode(10, OUTPUT);
+	digitalWrite(10, 1);
+	delay(1);
+	digitalWrite(10, 0);
+#endif
 
 	PortInit(); //MUST < 150ms
 

@@ -39,6 +39,11 @@
 #define LOGN(x)
 #endif
 
+XBuzzer::XBuzzer()
+{
+	_portId = -1;
+	_pin = 0xFF;
+}
 
 XBuzzer::~XBuzzer()
 {
@@ -87,6 +92,16 @@ int XBuzzer::setup(const char *label)
 		LOGN("PortOnBoardSetup failed!");
 		return -1;
 	}
+
+	reset();
+	return 0;
+}
+
+int XBuzzer::setup(const char *model, const uint8_t pinD)
+{
+	(void)model;
+
+	_pin = pinD;
 
 	reset();
 	return 0;

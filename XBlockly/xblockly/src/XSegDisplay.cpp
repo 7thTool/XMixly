@@ -51,6 +51,13 @@
 #endif
 
 
+XSegDisplay::XSegDisplay()
+{
+	_portId = -1;
+	_model = 0;
+	_impl = NULL; 
+}
+
 XSegDisplay::~XSegDisplay()
 {
 	LOGN("~XSegDisplay()");
@@ -113,6 +120,36 @@ int XSegDisplay::setup(const char *label)
 	LOG("XSegDisplay::setup(");LOG(label);LOGN(")");
 	(void)label;
 	return -1;
+}
+
+int XSegDisplay::setup(const char *model, const uint8_t dat, const uint8_t clk)
+{
+	if ((!strcmp(model, SGD4200_MODEL_NAME))
+		||(!strcmp(model, SGD4300_MODEL_NAME))) {
+		_model = MODEL_TM1650;
+		_impl = (void *)new TM1650();
+		if(_impl == NULL) {
+			LOGN("new TM1650() failed");
+			return -1;
+		}
+		((TM1650 *)_impl)->init(dat, clk);
+#ifdef TM1637_ENABLE
+	} else if(!strcmp(model, TM1637_MODEL_NAME)) {
+		_model = MODEL_TM1637;
+		_impl = (void *)new TM1637();
+		if(_impl == NULL) {
+			LOGN("new TM1637() failed");
+			return -1;
+		}
+		((TM1637 *)_impl)->init(dat, clk);
+#endif
+	} else {
+		LOG("Unknown model of ");LOGN(model);
+		return -1;
+	}
+
+	reset();
+	return 0;
 }
 
 void XSegDisplay::reset()

@@ -36,14 +36,13 @@
 #endif
 
 
-XUltrasonic::XUltrasonic() :
-	XNBlock(),
-	_portId(-1),
-	_echoPin(0xFF),
-	_triggerPin(0xFF),
-	_lastMeasureTime(0ul),
-	_dis(0)
+XUltrasonic::XUltrasonic()
 {
+	_portId = -1;
+	_echoPin = 0xFF;
+	_triggerPin = 0xFF;
+	_lastMeasureTime = 0ul;
+	_dis = 0;
 }
 
 XUltrasonic::~XUltrasonic()
@@ -94,6 +93,19 @@ int XUltrasonic::setup(const char *label)
 		LOGN("PortOnBoardSetup() failed");
 		return -1;
 	}
+
+	reset();
+	return 0;
+}
+
+int XUltrasonic::setup(const char *model, const uint8_t trigger, const uint8_t echo)
+{
+	(void)model;
+
+    _triggerPin = trigger;
+	_echoPin = echo;
+	pinMode(_triggerPin, OUTPUT);
+	pinMode(_echoPin, INPUT);
 
 	reset();
 	return 0;

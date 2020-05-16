@@ -38,6 +38,11 @@
 #define LOGN(x)
 #endif
 
+XLEDMatrix::XLEDMatrix()
+{
+	_portId = -1;
+	_impl = NULL;
+}
 
 XLEDMatrix::~XLEDMatrix() 
 {
@@ -60,7 +65,6 @@ int XLEDMatrix::setup(const char *model, const char *port)
 	PortMap pmap;
 	
 	LOG("XLEDMatrix::setup(");LOG(model);LOG(",");LOG(port);LOGN(")");
-	(void)model;
 
 	_impl = new LMT3000Impl(model);
 	if (!_impl) {
@@ -99,6 +103,23 @@ int XLEDMatrix::setup(const char *label)
 		LOGN("PortOnBoardSetup() failed");
 		return -1;
 	}
+
+	return 0;
+}
+
+int XLEDMatrix::setup(const char *model, const uint8_t sda, const uint8_t scl, const uint8_t rst, const uint8_t sel)
+{
+	if ( (PIN_A4 != sda) || (PIN_A5 != scl)) {
+		LOGN("Connect to I2C pin failed!");
+		return -1;
+	}
+
+	_impl = new LMT3000Impl(model);
+	if (!_impl) {
+		LOGN("new LMT3000Impl failed");
+		return -1;
+	}
+	((LMT3000Impl *)_impl)->setup(rst, sel);
 
 	return 0;
 }

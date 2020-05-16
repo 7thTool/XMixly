@@ -25,8 +25,6 @@
 #ifndef __XIODriver_H__
 #define __XIODriver_H__
 
-#include <XBlock.h>
-
 
 #define XIODriver_API_digitalRead 			(0x01)	/*!< uint8_t digitalRead() */
 #define XIODriver_API_digitalWrite			(0x02)	/*!< void digitalWrite() */
@@ -35,7 +33,7 @@
 
 
 
-class XIODriver : public XNBlock {
+class XIODriver {
 public:
     XIODriver();
     ~XIODriver();
@@ -54,6 +52,8 @@ public:
 	结果：	成功返回0，失败返回负数
 	*/
 	int setup(const char *label);
+
+	int setup(const char *model, const uint8_t pin1, cconst uint8_t pin2);
 	
 	void reset();
 

@@ -42,7 +42,6 @@
 
 
 XButton::XButton():
-        XNBlock(),
 		_portId(-1),
 		_pin(0xFF),
 		_knocked(0)
@@ -97,6 +96,17 @@ int XButton::setup(const char *label)
 	reset();
 	return 0;
 }
+
+int XButton::setup(const char *model, const uint8_t pinA)
+{
+	(void)model;
+
+	_pin = pinA;
+
+	reset();
+	return 0;
+}
+
 
 void XButton::reset()
 {

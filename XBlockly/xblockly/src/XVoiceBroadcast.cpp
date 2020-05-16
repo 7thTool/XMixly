@@ -45,6 +45,13 @@
 
 
 
+XVoiceBroadcast::XVoiceBroadcast()
+{
+	_portId = -1;
+	_resetPin = 0xFF;
+	_selectPin = 0xFF;
+}
+
 XVoiceBroadcast::~XVoiceBroadcast() 
 {
 	LOGN("XDualDCMotor::~XDualDCMotor()");
@@ -90,6 +97,21 @@ int XVoiceBroadcast::setup(const char *label)
 		LOGN("PortOnBoardSetup() failed");
 		return -1;
 	}
+
+	return 0;
+}
+
+int XVoiceBroadcast::setup(const char *model, const uint8_t sda, const uint8_t scl, const uint8_t rst, const uint8_t sel)
+{
+	(void)model;
+
+	if ( (PIN_A4 != sda) || (PIN_A5 != scl)) {
+		LOGN("Connect to I2C pin failed!");
+		return -1;
+	}
+
+	_resetPin = rst;
+	_selectPin = sel;
 
 	return 0;
 }

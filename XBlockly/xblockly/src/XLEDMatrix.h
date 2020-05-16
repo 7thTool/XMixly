@@ -26,8 +26,6 @@
 #define __XLEDMATRIX_H__
 
 
-#include <XBlock.h>
-
 
 #define XLEDMatrix_EFFECT_NONE					(0)
 #define XLEDMatrix_EFFECT_UP_ROLL				(1)
@@ -67,9 +65,9 @@
 
 
 
-class XLEDMatrix : public XNBlock {
+class XLEDMatrix {
 public:
-	XLEDMatrix() : XNBlock(), _portId(-1), _impl(NULL) {}
+	XLEDMatrix();
 	~XLEDMatrix();
 
 	/*
@@ -86,6 +84,8 @@ public:
 	结果：	成功返回0，失败返回负数
 	*/
 	int setup(const char *label);
+
+	int setup(const char *model, const uint8_t sda, const uint8_t scl, const uint8_t rst, const uint8_t sel);
 
 	void reset();
 

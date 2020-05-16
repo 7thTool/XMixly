@@ -1,4 +1,4 @@
-/* PGKAudioPlayer.cpp
+/* XAudioPlayer.cpp
  *
  * Copyright (C) 2017-2022 Shanghai Mylecon Electronic Technology Co., Ltd.
  *
@@ -16,7 +16,7 @@
  * along with this program;
  *
  * Description: 
- *     This file is an implement of pangu-kit Audio Player Server.
+ *     This file is an implement of Audio Player Server.
  *
  * History:
  * Version: 1.0.0
@@ -24,10 +24,7 @@
 
 
 #include <Arduino.h>
-#include <XBlock.h>
-#include <XBridge.h>
-#include <XI2C.h>
-#include <PGKAudioPlayer.h>
+#include <XAudioPlayer.h>
 
 
 #if 0
@@ -147,19 +144,21 @@ const static uint16_t KFrequencyTable[3][14] PROGMEM = {
 
 
 
-PGKAudioPlayer::PGKAudioPlayer() :
+XAudioPlayer::XAudioPlayer() :
 	_buz(NULL),
+	_mode(MODE_STOP),
+	_id(0),
 	_beatTime(500), // ms
 	_noteGap(40) // ms
 {
 }
 
-PGKAudioPlayer::~PGKAudioPlayer()
+XAudioPlayer::~XAudioPlayer()
 {
 	reset();
 }
 
-int PGKAudioPlayer::setup(XBuzzer *buz)
+int XAudioPlayer::setup(XBuzzer *buz)
 {
 	if (buz) {
 		_buz = buz;
@@ -170,23 +169,34 @@ int PGKAudioPlayer::setup(XBuzzer *buz)
 	}
 }
 
-void PGKAudioPlayer::reset()
+void XAudioPlayer::reset()
 {
+	stop();
 	_beatTime = 500;
 	_noteGap = 40;
 }
 
-void PGKAudioPlayer::playTone(uint16_t frequency, uint32_t duration)
+void XAudioPlayer::loop()
+{
+}
+
+void XAudioPlayer::playTone(uint16_t frequency, uint32_t duration)
 {
 	if (!_buz) {
 		return;
 	}
+	
+	if (_mode != MODE_STOP) {
+		stop();
+	}
+
+	pinMode(4, OUTPUT);
 
 	_buz->playTone(frequency, duration);
 }
 
 
-void PGKAudioPlayer::setNoteParameter(uint8_t beatTime, uint8_t noteGap)
+void XAudioPlayer::setNoteParameter(uint8_t beatTime, uint8_t noteGap)
 {
 	if(beatTime == 0xff) {	//default one beat time
 		_beatTime = 500; //ms
@@ -201,7 +211,7 @@ void PGKAudioPlayer::setNoteParameter(uint8_t beatTime, uint8_t noteGap)
 	}
 }
 
-void PGKAudioPlayer::playNote(uint8_t note, uint8_t scale, uint8_t tone, uint8_t beat)
+void XAudioPlayer::playNote(uint8_t note, uint8_t scale, uint8_t tone, uint8_t beat)
 {
 	uint16_t frequency = 0;
 	uint32_t noteDuration = _beatTime * beat / 8;
@@ -210,6 +220,12 @@ void PGKAudioPlayer::playNote(uint8_t note, uint8_t scale, uint8_t tone, uint8_t
 	if (!_buz) {
 		return;
 	}
+	
+	if (_mode != MODE_STOP) {
+		stop();
+	}
+
+	pinMode(4, OUTPUT);
 
 	if(note == 0) {
 		//delay(noteDuration);
@@ -226,11 +242,7 @@ void PGKAudioPlayer::playNote(uint8_t note, uint8_t scale, uint8_t tone, uint8_t
 	delay(_noteGap);
 }
 
-void PGKAudioPlayer::loop()
-{
-}
-
-uint16_t PGKAudioPlayer::getFrequency(uint8_t note, uint8_t scale, uint8_t tone)
+uint16_t XAudioPlayer::getFrequency(uint8_t note, uint8_t scale, uint8_t tone)
 {
 	if (note != 0) {
 		return pgm_read_word_near(&KFrequencyTable[scale][note + tone]);

@@ -25,7 +25,6 @@
 #ifndef __XVOICEBROADCAST_H__
 #define __XVOICEBROADCAST_H__
 
-#include <XBlock.h>
 
 
 #define XVoiceBroadcast_Object_VALUE			(0)
@@ -159,10 +158,10 @@
 #define XVoiceBroadcast_Sound_MUSIC5			(122)		// 音乐：机器猫
 
 
-class XVoiceBroadcast : public XNBlock {
+class XVoiceBroadcast {
 public:
-	XVoiceBroadcast() : XNBlock(), _portId(-1){}
-	~XVoiceBroadcast ();
+	XVoiceBroadcast();
+	~XVoiceBroadcast();
 
 	/*
 	功能：	初始化“扩展模块”
@@ -178,6 +177,8 @@ public:
 	结果：	成功返回0，失败返回负数
 	*/
 	int setup(const char *label);
+
+	int setup(const char *model, const uint8_t sda, const uint8_t scl, const uint8_t rst, const uint8_t sel);
 
 	void reset();
 

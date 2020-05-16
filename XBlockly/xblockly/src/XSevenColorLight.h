@@ -25,7 +25,6 @@
 #ifndef __XSEVENCOLORLIGHT_H__
 #define __XSEVENCOLORLIGHT_H__
 
-#include <XBlock.h>
 
 
 #define SCL_COLOR_BLACK		0
@@ -38,10 +37,10 @@
 #define SCL_COLOR_WHITE		7
 
 
-class XSevenColorLight : public XNBlock {
+class XSevenColorLight {
 public:
-	XSevenColorLight() : XNBlock() {}
-	~XSevenColorLight ();
+	XSevenColorLight();
+	~XSevenColorLight();
 
 	/*
 	功能：	初始化“扩展模块”
@@ -57,6 +56,8 @@ public:
 	结果：	成功返回0，失败返回负数
 	*/
 	int setup(const char *label);
+
+	int setup(const char *model, const uint8_t pin1, const uint8_t pin2);
 
 	void reset();
 

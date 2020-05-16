@@ -1,4 +1,4 @@
-/* PGKAudioPlayer.h
+/* WKKAudioPlayer.h
  *
  * Copyright (C) 2017-2022 Shanghai Mylecon Electronic Technology Co., Ltd.
  *
@@ -16,31 +16,40 @@
  * along with this program;
  *
  * Description: 
- *     This file is a header file for PGKAudioPlayer.cpp.
+ *     This file is a header file for WKKAudioPlayer.cpp.
  *
  * Version: 1.0.0
  */
 
 
-#ifndef __PGKAUDIOPLAYER_H__
-#define __PGKAUDIOPLAYER_H__
+#ifndef __WKKAUDIOPLAYER_H__
+#define __WKKAUDIOPLAYER_H__
 
-
-#include <XBlock.h>
 #include <XBuzzer.h>
 
 
-#define PGKAudioPlayer_API_setNoteParameter	(1)	/*!< void setNoteParameter(uint8_t beatTime, uint8_t noteGap) */
-#define PGKAudioPlayer_API_playNote			(2) /*!< void playNote(uint8_t note, uint8_t scale, uint8_t tone, uint8_t beat) */
-#define PGKAudioPlayer_API_playTone			(6)	/*!< void playTone() */
+
+#define MUSIC_SHENGRIKUAILE		1
+#define MUSIC_XIAOXINXIN		2
+#define MUSIC_HUANLESONG		3
+#define MUSIC_XIAOPINGGUO		4
+#define MUSIC_SHANGXUEGE		5
+
+#define MUSIC_SUM				5
 
 
+#define SOUND_AMBULANCE			1
+#define SOUND_FIRE_ENGINE		2
+#define SOUND_POLICE_WAGON		3
+#define SOUND_CAR_WHISTLING		4
+
+#define SOUND_SUM				4  //exclude SOUND_CAR_WHISTLING
 
 
-class PGKAudioPlayer : public XNServer {
+class WKKAudioPlayer {
 public:
-	PGKAudioPlayer();
-	~PGKAudioPlayer();
+	WKKAudioPlayer();
+	~WKKAudioPlayer();
 
 	/*
 	功能：	初始化
@@ -78,13 +87,36 @@ public:
 	*/
 	void playNote(uint8_t note, uint8_t scale, uint8_t tone, uint8_t beat);
 
+	/*
+	功能：	播放音乐
+	参数：	id，请参考“MUSIC_XXX”宏定义，比如“MUSIC_SHENGRIKUAILE”
+	结果：	无
+	*/
+	void playMusic(uint8_t id);
+
+	/*
+	功能：	播放音效
+	参数：	id，请参考“SOUND_XXX”宏定义，比如“SOUND_AMBULANCE”
+	结果：	无
+	*/
+	void playSound(uint8_t id);
+
+	/*
+	功能：	停止播放
+	参数：	无
+	结果：	无
+	*/
+	void stop();
+
 private:
 	uint16_t getFrequency(uint8_t note, uint8_t scale, uint8_t tone);
 		
 	XBuzzer	*_buz;
+	uint8_t _mode;
+	uint8_t _id;
 	uint16_t _beatTime;
 	uint16_t _noteGap;
 };
 
-#endif //__PGKAUDIOPLAYER_H__
+#endif //__WKKAUDIOPLAYER_H__
 

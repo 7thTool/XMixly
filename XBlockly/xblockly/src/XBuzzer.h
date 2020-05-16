@@ -25,14 +25,12 @@
 #ifndef __XBUZZER_H__
 #define __XBUZZER_H__
 
-#include <XBlock.h>
 
 
-
-class XBuzzer : public XNBlock {
+class XBuzzer {
 public:
-	XBuzzer() : XNBlock(), _pin(0xFF) {}
-	~XBuzzer ();
+	XBuzzer();
+	~XBuzzer();
 
 	/*
 	功能：	初始化“扩展模块”
@@ -48,6 +46,8 @@ public:
 	结果：	成功返回0，失败返回负数
 	*/
 	int setup(const char *label);
+
+	int setup(const char *model, const uint8_t pinD);
 
 	void reset();
 

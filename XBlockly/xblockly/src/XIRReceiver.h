@@ -25,8 +25,6 @@
 #ifndef __XIRRECEIVER_H__
 #define __XIRRECEIVER_H__
 
-#include <XBlock.h>
-
 
 #define XIRReceiver_wait_ENABLE
 
@@ -57,7 +55,7 @@
 #define XIR_KEY_TOTAL	(21)
 
 
-class XIRReceiver : public XNBlock  {
+class XIRReceiver {
 public:
 	XIRReceiver();
 	~XIRReceiver();
@@ -76,6 +74,8 @@ public:
 	结果：	成功返回0，失败返回负数
 	*/
 	int setup(const char *label);
+
+	int setup(const char *model, const uint8_t sta, const uint8_t dat);
 
 	void reset();
 

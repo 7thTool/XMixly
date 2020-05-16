@@ -1092,7 +1092,7 @@ Blockly.Blocks.xblockly_xbutton_INIT = {
       , ['A6', '20']
       , ['A7', '21']
     ]);
-    textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XButton', '0'));
+    textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XButton', '14'));
     dropdownPins.onItemSelected = function (menu, menuItem) {
         var value = menuItem.getValue();
         if (this.sourceBlock_) {
@@ -1120,8 +1120,7 @@ Blockly.Blocks.xblockly_xbutton_INIT = {
         .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_CONNECT);
     this.appendDummyInput()
         .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_AO)
-        .appendField(dropdownPins, "PIN")
-        .appendField('');
+        .appendField(dropdownPins, "PIN");
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -1190,8 +1189,7 @@ Blockly.Blocks.xblockly_xbuzzer_INIT = {
         .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_CONNECT);
     this.appendDummyInput()
         .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_DI)
-        .appendField(dropdownPins, "PIN")
-        .appendField('');
+        .appendField(dropdownPins, "PIN");
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
@@ -1373,17 +1371,1617 @@ Blockly.Blocks.xblockly_xdualdcmotor_INIT = {
         .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_CONNECT);
     this.appendDummyInput()
         .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_SDA)
-        .appendField(dropdownSDAs, "SDA")
+        .appendField(dropdownSDAs, "SDA");
     this.appendDummyInput()
         .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_SCL)
-        .appendField(dropdownSCLs, "SCL")
+        .appendField(dropdownSCLs, "SCL");
     this.appendDummyInput()
         .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_RST)
-        .appendField(dropdownRSTs, "RST")
+        .appendField(dropdownRSTs, "RST");
     this.appendDummyInput()
         .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_SEL)
-        .appendField(dropdownSELs, "SEL")
-        .appendField('');
+        .appendField(dropdownSELs, "SEL");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    //this.setOutput(true, 'String');
+    this.setColour(xblockly_robotColor_construct);
+  }
+};
+
+Blockly.Blocks.xblockly_xhumiture_INIT = {
+  init: function () {
+    var _this = this;
+    var textInputVar = this.textInputVar = new Blockly.FieldTextInput('');
+    function getMyModels() {
+      return Blockly.getXBlocklyNameModelsByType('XHumiture', [Blockly.Msg.MY_NULL, '']);
+    }
+    var dropdownModels = this.dropdownModels = new Blockly.FieldDropdown(getMyModels);
+    var dropdownPins = this.dropdownPins = new Blockly.FieldDropdown([
+      ['0', '0']
+      , ['1', '1']
+      , ['2', '2']
+      , ['3', '3']
+      , ['4', '4']
+      , ['5', '5']
+      , ['6', '6']
+      , ['7', '7']
+      , ['8', '8']
+      , ['9', '9']
+      , ['10', '10']
+      , ['11', '11']
+      , ['12', '12']
+      , ['13', '13']
+      , ['A0', '14']
+      , ['A1', '15']
+      , ['A2', '16']
+      , ['A3', '17']
+      , ['A4', '18']
+      , ['A5', '19']
+      //, ['A6', '20']
+      //, ['A7', '21']
+    ]);
+    textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XHumiture', '0'));
+    dropdownPins.onItemSelected = function (menu, menuItem) {
+        var value = menuItem.getValue();
+        if (this.sourceBlock_) {
+            value = this.callValidator(value);
+            
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XHumiture', Blockly.getXBlocklyVarPin(value)));
+        }
+        if (value !== null) {
+            this.setValue(value);
+        }
+    };
+    this.appendDummyInput()
+        .appendField("")
+        .appendField(new Blockly.FieldImage("../../media/xblockly/XHumiture.png", 16, 16, "*"))
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XHUMITURE);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_1)
+        .appendField(dropdownModels, "MODEL")
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_1)
+        .appendField(textInputVar, 'VAR')
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_CONNECT);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_DAT)
+        .appendField(dropdownPins, "PIN");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    //this.setOutput(true, 'String');
+    this.setColour(xblockly_robotColor_construct);
+  }
+};
+
+Blockly.Blocks.xblockly_xiravoiding_INIT = {
+  init: function () {
+    var _this = this;
+    var textInputVar = this.textInputVar = new Blockly.FieldTextInput('');
+    function getMyModels() {
+      return Blockly.getXBlocklyNameModelsByType('XIRAvoiding', [Blockly.Msg.MY_NULL, '']);
+    }
+    var dropdownModels = this.dropdownModels = new Blockly.FieldDropdown(getMyModels);
+    var dropdownCTLs = this.dropdownCTLs = new Blockly.FieldDropdown([
+      ['0', '0']
+      , ['1', '1']
+      , ['2', '2']
+      , ['3', '3']
+      , ['4', '4']
+      , ['5', '5']
+      , ['6', '6']
+      , ['7', '7']
+      , ['8', '8']
+      , ['9', '9']
+      , ['10', '10']
+      , ['11', '11']
+      , ['12', '12']
+      , ['13', '13']
+      , ['A0', '14']
+      , ['A1', '15']
+      , ['A2', '16']
+      , ['A3', '17']
+      , ['A4', '18']
+      , ['A5', '19']
+      // , ['A6', '20']
+      // , ['A7', '21']
+    ]);
+    var dropdownSTAs = this.dropdownSTAs = new Blockly.FieldDropdown([
+      ['0', '0']
+      , ['1', '1']
+      , ['2', '2']
+      , ['3', '3']
+      , ['4', '4']
+      , ['5', '5']
+      , ['6', '6']
+      , ['7', '7']
+      , ['8', '8']
+      , ['9', '9']
+      , ['10', '10']
+      , ['11', '11']
+      , ['12', '12']
+      , ['13', '13']
+      , ['A0', '14']
+      , ['A1', '15']
+      , ['A2', '16']
+      , ['A3', '17']
+      , ['A4', '18']
+      , ['A5', '19']
+      // , ['A6', '20']
+      // , ['A7', '21']
+    ]);
+    textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XIRAvoiding', '0', '0'));
+    dropdownCTLs.onItemSelected = function (menu, menuItem) {
+        var value = menuItem.getValue();
+        if (this.sourceBlock_) {
+            value = this.callValidator(value);
+            
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XIRAvoiding'
+            , Blockly.getXBlocklyVarPin(value), Blockly.getXBlocklyVarPin(dropdownSTAs.value_)));
+        }
+        if (value !== null) {
+            this.setValue(value);
+        }
+    };
+    dropdownSTAs.onItemSelected = function (menu, menuItem) {
+        var value = menuItem.getValue();
+        if (this.sourceBlock_) {
+            value = this.callValidator(value);
+            
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XIRAvoiding'
+            , Blockly.getXBlocklyVarPin(dropdownCTLs.value_), Blockly.getXBlocklyVarPin(value)));
+        }
+        if (value !== null) {
+            this.setValue(value);
+        }
+    };
+    this.appendDummyInput()
+        .appendField("")
+        .appendField(new Blockly.FieldImage("../../media/xblockly/XIRAvoiding.png", 16, 16, "*"))
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XIRAVOIDING);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_1)
+        .appendField(dropdownModels, "MODEL")
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_1)
+        .appendField(textInputVar, 'VAR')
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_CONNECT);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_CTL)
+        .appendField(dropdownCTLs, "CTL");
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_STA)
+        .appendField(dropdownSTAs, "STA");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    //this.setOutput(true, 'String');
+    this.setColour(xblockly_robotColor_construct);
+  }
+};
+
+Blockly.Blocks.xblockly_xirreceiver_INIT = {
+  init: function () {
+    var _this = this;
+    var textInputVar = this.textInputVar = new Blockly.FieldTextInput('');
+    function getMyModels() {
+      return Blockly.getXBlocklyNameModelsByType('XIRReceiver', [Blockly.Msg.MY_NULL, '']);
+    }
+    var dropdownModels = this.dropdownModels = new Blockly.FieldDropdown(getMyModels);
+    var dropdownSTAs = this.dropdownSTAs = new Blockly.FieldDropdown([
+      ['0', '0']
+      , ['1', '1']
+      , ['2', '2']
+      , ['3', '3']
+      , ['4', '4']
+      , ['5', '5']
+      , ['6', '6']
+      , ['7', '7']
+      , ['8', '8']
+      , ['9', '9']
+      , ['10', '10']
+      , ['11', '11']
+      , ['12', '12']
+      , ['13', '13']
+      , ['A0', '14']
+      , ['A1', '15']
+      , ['A2', '16']
+      , ['A3', '17']
+      , ['A4', '18']
+      , ['A5', '19']
+      // , ['A6', '20']
+      // , ['A7', '21']
+    ]);
+    var dropdownDATs = this.dropdownDATs = new Blockly.FieldDropdown([
+      ['0', '0']
+      , ['1', '1']
+      , ['2', '2']
+      , ['3', '3']
+      , ['4', '4']
+      , ['5', '5']
+      , ['6', '6']
+      , ['7', '7']
+      , ['8', '8']
+      , ['9', '9']
+      , ['10', '10']
+      , ['11', '11']
+      , ['12', '12']
+      , ['13', '13']
+      , ['A0', '14']
+      , ['A1', '15']
+      , ['A2', '16']
+      , ['A3', '17']
+      , ['A4', '18']
+      , ['A5', '19']
+      // , ['A6', '20']
+      // , ['A7', '21']
+    ]);
+    textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XIRReceiver', '0', '0'));
+    dropdownSTAs.onItemSelected = function (menu, menuItem) {
+        var value = menuItem.getValue();
+        if (this.sourceBlock_) {
+            value = this.callValidator(value);
+            
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XIRReceiver'
+            , Blockly.getXBlocklyVarPin(value), Blockly.getXBlocklyVarPin(dropdownDATs.value_)));
+        }
+        if (value !== null) {
+            this.setValue(value);
+        }
+    };
+    dropdownDATs.onItemSelected = function (menu, menuItem) {
+        var value = menuItem.getValue();
+        if (this.sourceBlock_) {
+            value = this.callValidator(value);
+            
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XIRReceiver'
+            , Blockly.getXBlocklyVarPin(dropdownSTAs.value_), Blockly.getXBlocklyVarPin(value)));
+        }
+        if (value !== null) {
+            this.setValue(value);
+        }
+    };
+    this.appendDummyInput()
+        .appendField("")
+        .appendField(new Blockly.FieldImage("../../media/xblockly/XIRReceiver.png", 16, 16, "*"))
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XIRRECEIVER);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_1)
+        .appendField(dropdownModels, "MODEL")
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_1)
+        .appendField(textInputVar, 'VAR')
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_CONNECT);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_STA)
+        .appendField(dropdownSTAs, "STA");
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_DAT)
+        .appendField(dropdownDATs, "DAT");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    //this.setOutput(true, 'String');
+    this.setColour(xblockly_robotColor_construct);
+  }
+};
+
+Blockly.Blocks.xblockly_xirtracking_INIT = {
+  init: function () {
+    var _this = this;
+    var textInputVar = this.textInputVar = new Blockly.FieldTextInput('');
+    function getMyModels() {
+      return Blockly.getXBlocklyNameModelsByType('XIRTracking', [Blockly.Msg.MY_NULL, '']);
+    }
+    var dropdownModels = this.dropdownModels = new Blockly.FieldDropdown(getMyModels);
+    var dropdownS1s = this.dropdownS1s = new Blockly.FieldDropdown([
+      ['0', '0']
+      , ['1', '1']
+      , ['2', '2']
+      , ['3', '3']
+      , ['4', '4']
+      , ['5', '5']
+      , ['6', '6']
+      , ['7', '7']
+      , ['8', '8']
+      , ['9', '9']
+      , ['10', '10']
+      , ['11', '11']
+      , ['12', '12']
+      , ['13', '13']
+      , ['A0', '14']
+      , ['A1', '15']
+      , ['A2', '16']
+      , ['A3', '17']
+      , ['A4', '18']
+      , ['A5', '19']
+      // , ['A6', '20']
+      // , ['A7', '21']
+    ]);
+    var dropdownS2s = this.dropdownS2s = new Blockly.FieldDropdown([
+      ['0', '0']
+      , ['1', '1']
+      , ['2', '2']
+      , ['3', '3']
+      , ['4', '4']
+      , ['5', '5']
+      , ['6', '6']
+      , ['7', '7']
+      , ['8', '8']
+      , ['9', '9']
+      , ['10', '10']
+      , ['11', '11']
+      , ['12', '12']
+      , ['13', '13']
+      , ['A0', '14']
+      , ['A1', '15']
+      , ['A2', '16']
+      , ['A3', '17']
+      , ['A4', '18']
+      , ['A5', '19']
+      // , ['A6', '20']
+      // , ['A7', '21']
+    ]);
+    textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XIRTracking', '0', '0'));
+    dropdownS1s.onItemSelected = function (menu, menuItem) {
+        var value = menuItem.getValue();
+        if (this.sourceBlock_) {
+            value = this.callValidator(value);
+            
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XIRTracking'
+            , Blockly.getXBlocklyVarPin(value), Blockly.getXBlocklyVarPin(dropdownS2s.value_)));
+        }
+        if (value !== null) {
+            this.setValue(value);
+        }
+    };
+    dropdownS2s.onItemSelected = function (menu, menuItem) {
+        var value = menuItem.getValue();
+        if (this.sourceBlock_) {
+            value = this.callValidator(value);
+            
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XIRTracking'
+            , Blockly.getXBlocklyVarPin(dropdownS1s.value_), Blockly.getXBlocklyVarPin(value)));
+        }
+        if (value !== null) {
+            this.setValue(value);
+        }
+    };
+    this.appendDummyInput()
+        .appendField("")
+        .appendField(new Blockly.FieldImage("../../media/xblockly/XIRTracking.png", 16, 16, "*"))
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XIRTRACKING);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_1)
+        .appendField(dropdownModels, "MODEL")
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_1)
+        .appendField(textInputVar, 'VAR')
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_CONNECT);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_S1)
+        .appendField(dropdownS1s, "S1");
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_S2)
+        .appendField(dropdownS2s, "S2");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    //this.setOutput(true, 'String');
+    this.setColour(xblockly_robotColor_construct);
+  }
+};
+
+Blockly.Blocks.xblockly_xirtracking6_INIT = {
+  init: function () {
+    var _this = this;
+    var textInputVar = this.textInputVar = new Blockly.FieldTextInput('');
+    function getMyModels() {
+      return Blockly.getXBlocklyNameModelsByType('XIRTracking6', [Blockly.Msg.MY_NULL, '']);
+    }
+    var dropdownModels = this.dropdownModels = new Blockly.FieldDropdown(getMyModels);
+    var dropdownSDAs = this.dropdownSDAs = new Blockly.FieldDropdown([
+      // ['0', '0']
+      // , ['1', '1']
+      // , ['2', '2']
+      // , ['3', '3']
+      // , ['4', '4']
+      // , ['5', '5']
+      // , ['6', '6']
+      // , ['7', '7']
+      // , ['8', '8']
+      // , ['9', '9']
+      // , ['10', '10']
+      // , ['11', '11']
+      // , ['12', '12']
+      // , ['13', '13']
+      // , ['A0', '14']
+      // , ['A1', '15']
+      // , ['A2', '16']
+      // , ['A3', '17']
+      ['A4', '18']
+      // , ['A5', '19']
+      // , ['A6', '20']
+      // , ['A7', '21']
+    ]);
+    var dropdownSCLs = this.dropdownSCLs = new Blockly.FieldDropdown([
+      // ['0', '0']
+      // , ['1', '1']
+      // , ['2', '2']
+      // , ['3', '3']
+      // , ['4', '4']
+      // , ['5', '5']
+      // , ['6', '6']
+      // , ['7', '7']
+      // , ['8', '8']
+      // , ['9', '9']
+      // , ['10', '10']
+      // , ['11', '11']
+      // , ['12', '12']
+      // , ['13', '13']
+      // , ['A0', '14']
+      // , ['A1', '15']
+      // , ['A2', '16']
+      // , ['A3', '17']
+      // , ['A4', '18']
+      ['A5', '19']
+      // , ['A6', '20']
+      // , ['A7', '21']
+    ]);
+    var dropdownRSTs = this.dropdownRSTs = new Blockly.FieldDropdown([
+      ['0', '0']
+      , ['1', '1']
+      , ['2', '2']
+      , ['3', '3']
+      , ['4', '4']
+      , ['5', '5']
+      , ['6', '6']
+      , ['7', '7']
+      , ['8', '8']
+      , ['9', '9']
+      , ['10', '10']
+      , ['11', '11']
+      , ['12', '12']
+      , ['13', '13']
+      , ['A0', '14']
+      , ['A1', '15']
+      , ['A2', '16']
+      , ['A3', '17']
+      // , ['A4', '18']
+      // , ['A5', '19']
+      // , ['A6', '20']
+      // , ['A7', '21']
+    ]);
+    var dropdownSELs = this.dropdownSELs = new Blockly.FieldDropdown([
+      ['0', '0']
+      , ['1', '1']
+      , ['2', '2']
+      , ['3', '3']
+      , ['4', '4']
+      , ['5', '5']
+      , ['6', '6']
+      , ['7', '7']
+      , ['8', '8']
+      , ['9', '9']
+      , ['10', '10']
+      , ['11', '11']
+      , ['12', '12']
+      , ['13', '13']
+      , ['A0', '14']
+      , ['A1', '15']
+      , ['A2', '16']
+      , ['A3', '17']
+      // , ['A4', '18']
+      // , ['A5', '19']
+      // , ['A6', '20']
+      // , ['A7', '21']
+    ]);
+    textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XIRTracking6', 'A4', 'A5', '0', '0'));
+    dropdownSDAs.onItemSelected = function (menu, menuItem) {
+        var value = menuItem.getValue();
+        if (this.sourceBlock_) {
+            value = this.callValidator(value);
+            
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XIRTracking6'
+            , Blockly.getXBlocklyVarPin(value), Blockly.getXBlocklyVarPin(dropdownSCLs.value_)
+            , Blockly.getXBlocklyVarPin(dropdownRSTs.value_), Blockly.getXBlocklyVarPin(dropdownSELs.value_)));
+        }
+        if (value !== null) {
+            this.setValue(value);
+        }
+    };
+    dropdownSCLs.onItemSelected = function (menu, menuItem) {
+        var value = menuItem.getValue();
+        if (this.sourceBlock_) {
+            value = this.callValidator(value);
+            
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XIRTracking6'
+            , Blockly.getXBlocklyVarPin(dropdownSDAs.value_), Blockly.getXBlocklyVarPin(value)
+            , Blockly.getXBlocklyVarPin(dropdownRSTs.value_), Blockly.getXBlocklyVarPin(dropdownSELs.value_)));
+        }
+        if (value !== null) {
+            this.setValue(value);
+        }
+    };
+    dropdownRSTs.onItemSelected = function (menu, menuItem) {
+        var value = menuItem.getValue();
+        if (this.sourceBlock_) {
+            value = this.callValidator(value);
+            
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XIRTracking6'
+            , Blockly.getXBlocklyVarPin(dropdownSDAs.value_), Blockly.getXBlocklyVarPin(dropdownSCLs.value_)
+            , Blockly.getXBlocklyVarPin(value), Blockly.getXBlocklyVarPin(dropdownSELs.value_)));
+        }
+        if (value !== null) {
+            this.setValue(value);
+        }
+    };
+    dropdownSELs.onItemSelected = function (menu, menuItem) {
+        var value = menuItem.getValue();
+        if (this.sourceBlock_) {
+            value = this.callValidator(value);
+            
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XIRTracking6'
+            , Blockly.getXBlocklyVarPin(dropdownSDAs.value_), Blockly.getXBlocklyVarPin(dropdownSCLs.value_)
+            , Blockly.getXBlocklyVarPin(dropdownRSTs.value_), Blockly.getXBlocklyVarPin(value)));
+        }
+        if (value !== null) {
+            this.setValue(value);
+        }
+    };
+    this.appendDummyInput()
+        .appendField("")
+        .appendField(new Blockly.FieldImage("../../media/xblockly/XIRTracking6.png", 16, 16, "*"))
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XIRTRACKING6);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_1)
+        .appendField(dropdownModels, "MODEL")
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_1)
+        .appendField(textInputVar, 'VAR')
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_CONNECT);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_SDA)
+        .appendField(dropdownSDAs, "SDA");
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_SCL)
+        .appendField(dropdownSCLs, "SCL");
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_RST)
+        .appendField(dropdownRSTs, "RST");
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_SEL)
+        .appendField(dropdownSELs, "SEL");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    //this.setOutput(true, 'String');
+    this.setColour(xblockly_robotColor_construct);
+  }
+};
+
+Blockly.Blocks.xblockly_xledmatrix_INIT = {
+  init: function () {
+    var _this = this;
+    var textInputVar = this.textInputVar = new Blockly.FieldTextInput('');
+    function getMyModels() {
+      return Blockly.getXBlocklyNameModelsByType('XLEDMatrix', [Blockly.Msg.MY_NULL, '']);
+    }
+    var dropdownModels = this.dropdownModels = new Blockly.FieldDropdown(getMyModels);
+    var dropdownSDAs = this.dropdownSDAs = new Blockly.FieldDropdown([
+      // ['0', '0']
+      // , ['1', '1']
+      // , ['2', '2']
+      // , ['3', '3']
+      // , ['4', '4']
+      // , ['5', '5']
+      // , ['6', '6']
+      // , ['7', '7']
+      // , ['8', '8']
+      // , ['9', '9']
+      // , ['10', '10']
+      // , ['11', '11']
+      // , ['12', '12']
+      // , ['13', '13']
+      // , ['A0', '14']
+      // , ['A1', '15']
+      // , ['A2', '16']
+      // , ['A3', '17']
+      ['A4', '18']
+      // , ['A5', '19']
+      // , ['A6', '20']
+      // , ['A7', '21']
+    ]);
+    var dropdownSCLs = this.dropdownSCLs = new Blockly.FieldDropdown([
+      // ['0', '0']
+      // , ['1', '1']
+      // , ['2', '2']
+      // , ['3', '3']
+      // , ['4', '4']
+      // , ['5', '5']
+      // , ['6', '6']
+      // , ['7', '7']
+      // , ['8', '8']
+      // , ['9', '9']
+      // , ['10', '10']
+      // , ['11', '11']
+      // , ['12', '12']
+      // , ['13', '13']
+      // , ['A0', '14']
+      // , ['A1', '15']
+      // , ['A2', '16']
+      // , ['A3', '17']
+      // , ['A4', '18']
+      ['A5', '19']
+      // , ['A6', '20']
+      // , ['A7', '21']
+    ]);
+    var dropdownRSTs = this.dropdownRSTs = new Blockly.FieldDropdown([
+      ['0', '0']
+      , ['1', '1']
+      , ['2', '2']
+      , ['3', '3']
+      , ['4', '4']
+      , ['5', '5']
+      , ['6', '6']
+      , ['7', '7']
+      , ['8', '8']
+      , ['9', '9']
+      , ['10', '10']
+      , ['11', '11']
+      , ['12', '12']
+      , ['13', '13']
+      , ['A0', '14']
+      , ['A1', '15']
+      , ['A2', '16']
+      , ['A3', '17']
+      // , ['A4', '18']
+      // , ['A5', '19']
+      // , ['A6', '20']
+      // , ['A7', '21']
+    ]);
+    var dropdownSELs = this.dropdownSELs = new Blockly.FieldDropdown([
+      ['0', '0']
+      , ['1', '1']
+      , ['2', '2']
+      , ['3', '3']
+      , ['4', '4']
+      , ['5', '5']
+      , ['6', '6']
+      , ['7', '7']
+      , ['8', '8']
+      , ['9', '9']
+      , ['10', '10']
+      , ['11', '11']
+      , ['12', '12']
+      , ['13', '13']
+      , ['A0', '14']
+      , ['A1', '15']
+      , ['A2', '16']
+      , ['A3', '17']
+      // , ['A4', '18']
+      // , ['A5', '19']
+      // , ['A6', '20']
+      // , ['A7', '21']
+    ]);
+    textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XLEDMatrix', 'A4', 'A5', '0', '0'));
+    dropdownSDAs.onItemSelected = function (menu, menuItem) {
+        var value = menuItem.getValue();
+        if (this.sourceBlock_) {
+            value = this.callValidator(value);
+            
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XLEDMatrix'
+            , Blockly.getXBlocklyVarPin(value), Blockly.getXBlocklyVarPin(dropdownSCLs.value_)
+            , Blockly.getXBlocklyVarPin(dropdownRSTs.value_), Blockly.getXBlocklyVarPin(dropdownSELs.value_)));
+        }
+        if (value !== null) {
+            this.setValue(value);
+        }
+    };
+    dropdownSCLs.onItemSelected = function (menu, menuItem) {
+        var value = menuItem.getValue();
+        if (this.sourceBlock_) {
+            value = this.callValidator(value);
+            
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XLEDMatrix'
+            , Blockly.getXBlocklyVarPin(dropdownSDAs.value_), Blockly.getXBlocklyVarPin(value)
+            , Blockly.getXBlocklyVarPin(dropdownRSTs.value_), Blockly.getXBlocklyVarPin(dropdownSELs.value_)));
+        }
+        if (value !== null) {
+            this.setValue(value);
+        }
+    };
+    dropdownRSTs.onItemSelected = function (menu, menuItem) {
+        var value = menuItem.getValue();
+        if (this.sourceBlock_) {
+            value = this.callValidator(value);
+            
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XLEDMatrix'
+            , Blockly.getXBlocklyVarPin(dropdownSDAs.value_), Blockly.getXBlocklyVarPin(dropdownSCLs.value_)
+            , Blockly.getXBlocklyVarPin(value), Blockly.getXBlocklyVarPin(dropdownSELs.value_)));
+        }
+        if (value !== null) {
+            this.setValue(value);
+        }
+    };
+    dropdownSELs.onItemSelected = function (menu, menuItem) {
+        var value = menuItem.getValue();
+        if (this.sourceBlock_) {
+            value = this.callValidator(value);
+            
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XLEDMatrix'
+            , Blockly.getXBlocklyVarPin(dropdownSDAs.value_), Blockly.getXBlocklyVarPin(dropdownSCLs.value_)
+            , Blockly.getXBlocklyVarPin(dropdownRSTs.value_), Blockly.getXBlocklyVarPin(value)));
+        }
+        if (value !== null) {
+            this.setValue(value);
+        }
+    };
+    this.appendDummyInput()
+        .appendField("")
+        .appendField(new Blockly.FieldImage("../../media/xblockly/XLEDMatrix.png", 16, 16, "*"))
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XLEDMATRIX);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_1)
+        .appendField(dropdownModels, "MODEL")
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_1)
+        .appendField(textInputVar, 'VAR')
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_CONNECT);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_SDA)
+        .appendField(dropdownSDAs, "SDA");
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_SCL)
+        .appendField(dropdownSCLs, "SCL");
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_RST)
+        .appendField(dropdownRSTs, "RST");
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_SEL)
+        .appendField(dropdownSELs, "SEL");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    //this.setOutput(true, 'String');
+    this.setColour(xblockly_robotColor_construct);
+  }
+};
+
+Blockly.Blocks.xblockly_xlightsensor_INIT = {
+  init: function () {
+    var _this = this;
+    var textInputVar = this.textInputVar = new Blockly.FieldTextInput('');
+    function getMyModels() {
+      return Blockly.getXBlocklyNameModelsByType('XLightSensor', [Blockly.Msg.MY_NULL, '']);
+    }
+    var dropdownModels = this.dropdownModels = new Blockly.FieldDropdown(getMyModels);
+    var dropdownPins = this.dropdownPins = new Blockly.FieldDropdown([
+      // ['0', '0']
+      // , ['1', '1']
+      // , ['2', '2']
+      // , ['3', '3']
+      // , ['4', '4']
+      // , ['5', '5']
+      // , ['6', '6']
+      // , ['7', '7']
+      // , ['8', '8']
+      // , ['9', '9']
+      // , ['10', '10']
+      // , ['11', '11']
+      // , ['12', '12']
+      // , ['13', '13']
+      ['A0', '14']
+      , ['A1', '15']
+      , ['A2', '16']
+      , ['A3', '17']
+      , ['A4', '18']
+      , ['A5', '19']
+      , ['A6', '20']
+      , ['A7', '21']
+    ]);
+    textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XLightSensor', '14'));
+    dropdownPins.onItemSelected = function (menu, menuItem) {
+        var value = menuItem.getValue();
+        if (this.sourceBlock_) {
+            value = this.callValidator(value);
+            
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XLightSensor', Blockly.getXBlocklyVarPin(value)));
+        }
+        if (value !== null) {
+            this.setValue(value);
+        }
+    };
+    this.appendDummyInput()
+        .appendField("")
+        .appendField(new Blockly.FieldImage("../../media/xblockly/XLightSensor.png", 16, 16, "*"))
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XLIGHTSENSOR);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_1)
+        .appendField(dropdownModels, "MODEL")
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_1)
+        .appendField(textInputVar, 'VAR')
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_CONNECT);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_AO)
+        .appendField(dropdownPins, "PIN");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    //this.setOutput(true, 'String');
+    this.setColour(xblockly_robotColor_construct);
+  }
+};
+
+Blockly.Blocks.xblockly_xsoundsensor_INIT = {
+  init: function () {
+    var _this = this;
+    var textInputVar = this.textInputVar = new Blockly.FieldTextInput('');
+    function getMyModels() {
+      return Blockly.getXBlocklyNameModelsByType('XSoundSensor', [Blockly.Msg.MY_NULL, '']);
+    }
+    var dropdownModels = this.dropdownModels = new Blockly.FieldDropdown(getMyModels);
+    var dropdownPins = this.dropdownPins = new Blockly.FieldDropdown([
+      // ['0', '0']
+      // , ['1', '1']
+      // , ['2', '2']
+      // , ['3', '3']
+      // , ['4', '4']
+      // , ['5', '5']
+      // , ['6', '6']
+      // , ['7', '7']
+      // , ['8', '8']
+      // , ['9', '9']
+      // , ['10', '10']
+      // , ['11', '11']
+      // , ['12', '12']
+      // , ['13', '13']
+      ['A0', '14']
+      , ['A1', '15']
+      , ['A2', '16']
+      , ['A3', '17']
+      , ['A4', '18']
+      , ['A5', '19']
+      , ['A6', '20']
+      , ['A7', '21']
+    ]);
+    textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XSoundSensor', '14'));
+    dropdownPins.onItemSelected = function (menu, menuItem) {
+        var value = menuItem.getValue();
+        if (this.sourceBlock_) {
+            value = this.callValidator(value);
+            
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XSoundSensor', Blockly.getXBlocklyVarPin(value)));
+        }
+        if (value !== null) {
+            this.setValue(value);
+        }
+    };
+    this.appendDummyInput()
+        .appendField("")
+        .appendField(new Blockly.FieldImage("../../media/xblockly/XSoundSensor.png", 16, 16, "*"))
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XSOUNDSENSOR);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_1)
+        .appendField(dropdownModels, "MODEL")
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_1)
+        .appendField(textInputVar, 'VAR')
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_CONNECT);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_AO)
+        .appendField(dropdownPins, "PIN");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    //this.setOutput(true, 'String');
+    this.setColour(xblockly_robotColor_construct);
+  }
+};
+
+Blockly.Blocks.xblockly_xpir_INIT = {
+  init: function () {
+    var _this = this;
+    var textInputVar = this.textInputVar = new Blockly.FieldTextInput('');
+    function getMyModels() {
+      return Blockly.getXBlocklyNameModelsByType('XPIR', [Blockly.Msg.MY_NULL, '']);
+    }
+    var dropdownModels = this.dropdownModels = new Blockly.FieldDropdown(getMyModels);
+    var dropdownPins = this.dropdownPins = new Blockly.FieldDropdown([
+      ['0', '0']
+      , ['1', '1']
+      , ['2', '2']
+      , ['3', '3']
+      , ['4', '4']
+      , ['5', '5']
+      , ['6', '6']
+      , ['7', '7']
+      , ['8', '8']
+      , ['9', '9']
+      , ['10', '10']
+      , ['11', '11']
+      , ['12', '12']
+      , ['13', '13']
+      , ['A0', '14']
+      , ['A1', '15']
+      , ['A2', '16']
+      , ['A3', '17']
+      , ['A4', '18']
+      , ['A5', '19']
+      //, ['A6', '20']
+      //, ['A7', '21']
+    ]);
+    textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XPIR', '0'));
+    dropdownPins.onItemSelected = function (menu, menuItem) {
+        var value = menuItem.getValue();
+        if (this.sourceBlock_) {
+            value = this.callValidator(value);
+            
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XPIR', Blockly.getXBlocklyVarPin(value)));
+        }
+        if (value !== null) {
+            this.setValue(value);
+        }
+    };
+    this.appendDummyInput()
+        .appendField("")
+        .appendField(new Blockly.FieldImage("../../media/xblockly/XPIR.png", 16, 16, "*"))
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPIR);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_1)
+        .appendField(dropdownModels, "MODEL")
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_1)
+        .appendField(textInputVar, 'VAR')
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_CONNECT);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_STA)
+        .appendField(dropdownPins, "PIN");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    //this.setOutput(true, 'String');
+    this.setColour(xblockly_robotColor_construct);
+  }
+};
+
+Blockly.Blocks.xblockly_xpotentiometer_INIT = {
+  init: function () {
+    var _this = this;
+    var textInputVar = this.textInputVar = new Blockly.FieldTextInput('');
+    function getMyModels() {
+      return Blockly.getXBlocklyNameModelsByType('XPotentiometer', [Blockly.Msg.MY_NULL, '']);
+    }
+    var dropdownModels = this.dropdownModels = new Blockly.FieldDropdown(getMyModels);
+    var dropdownPins = this.dropdownPins = new Blockly.FieldDropdown([
+      // ['0', '0']
+      // , ['1', '1']
+      // , ['2', '2']
+      // , ['3', '3']
+      // , ['4', '4']
+      // , ['5', '5']
+      // , ['6', '6']
+      // , ['7', '7']
+      // , ['8', '8']
+      // , ['9', '9']
+      // , ['10', '10']
+      // , ['11', '11']
+      // , ['12', '12']
+      // , ['13', '13']
+      ['A0', '14']
+      , ['A1', '15']
+      , ['A2', '16']
+      , ['A3', '17']
+      , ['A4', '18']
+      , ['A5', '19']
+      , ['A6', '20']
+      , ['A7', '21']
+    ]);
+    textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XPotentiometer', '14'));
+    dropdownPins.onItemSelected = function (menu, menuItem) {
+        var value = menuItem.getValue();
+        if (this.sourceBlock_) {
+            value = this.callValidator(value);
+            
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XPotentiometer', Blockly.getXBlocklyVarPin(value)));
+        }
+        if (value !== null) {
+            this.setValue(value);
+        }
+    };
+    this.appendDummyInput()
+        .appendField("")
+        .appendField(new Blockly.FieldImage("../../media/xblockly/XPotentiometer.png", 16, 16, "*"))
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPOTENTIOMETER);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_1)
+        .appendField(dropdownModels, "MODEL")
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_1)
+        .appendField(textInputVar, 'VAR')
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_CONNECT);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_AO)
+        .appendField(dropdownPins, "PIN");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    //this.setOutput(true, 'String');
+    this.setColour(xblockly_robotColor_construct);
+  }
+};
+
+Blockly.Blocks.xblockly_xrgbled_INIT = {
+  init: function () {
+    var _this = this;
+    var textInputVar = this.textInputVar = new Blockly.FieldTextInput('');
+    function getMyModels() {
+      return Blockly.getXBlocklyNameModelsByType('XRGBLed', [Blockly.Msg.MY_NULL, '']);
+    }
+    var dropdownModels = this.dropdownModels = new Blockly.FieldDropdown(getMyModels);
+    var dropdownPins = this.dropdownPins = new Blockly.FieldDropdown([
+      ['0', '0']
+      , ['1', '1']
+      , ['2', '2']
+      , ['3', '3']
+      , ['4', '4']
+      , ['5', '5']
+      , ['6', '6']
+      , ['7', '7']
+      , ['8', '8']
+      , ['9', '9']
+      , ['10', '10']
+      , ['11', '11']
+      , ['12', '12']
+      , ['13', '13']
+      , ['A0', '14']
+      , ['A1', '15']
+      , ['A2', '16']
+      , ['A3', '17']
+      , ['A4', '18']
+      , ['A5', '19']
+      // , ['A6', '20']
+      // , ['A7', '21']
+    ]);
+    textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XRGBLed', '0'));
+    dropdownPins.onItemSelected = function (menu, menuItem) {
+        var value = menuItem.getValue();
+        if (this.sourceBlock_) {
+            value = this.callValidator(value);
+            
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XRGBLed', Blockly.getXBlocklyVarPin(value)));
+        }
+        if (value !== null) {
+            this.setValue(value);
+        }
+    };
+    this.appendDummyInput()
+        .appendField("")
+        .appendField(new Blockly.FieldImage("../../media/xblockly/XRGBLed.png", 16, 16, "*"))
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XRGBLED);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_1)
+        .appendField(dropdownModels, "MODEL")
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_1)
+        .appendField(textInputVar, 'VAR')
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_CONNECT);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_DI)
+        .appendField(dropdownPins, "PIN");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    //this.setOutput(true, 'String');
+    this.setColour(xblockly_robotColor_construct);
+  }
+};
+
+Blockly.Blocks.xblockly_xsegdisplay_INIT = {
+  init: function () {
+    var _this = this;
+    var textInputVar = this.textInputVar = new Blockly.FieldTextInput('');
+    function getMyModels() {
+      return Blockly.getXBlocklyNameModelsByType('XSegDisplay', [Blockly.Msg.MY_NULL, '']);
+    }
+    var dropdownModels = this.dropdownModels = new Blockly.FieldDropdown(getMyModels);
+    var dropdownDATs = this.dropdownDATs = new Blockly.FieldDropdown([
+      ['0', '0']
+      , ['1', '1']
+      , ['2', '2']
+      , ['3', '3']
+      , ['4', '4']
+      , ['5', '5']
+      , ['6', '6']
+      , ['7', '7']
+      , ['8', '8']
+      , ['9', '9']
+      , ['10', '10']
+      , ['11', '11']
+      , ['12', '12']
+      , ['13', '13']
+      , ['A0', '14']
+      , ['A1', '15']
+      , ['A2', '16']
+      , ['A3', '17']
+      , ['A4', '18']
+      , ['A5', '19']
+      // , ['A6', '20']
+      // , ['A7', '21']
+    ]);
+    var dropdownCLKs = this.dropdownCLKs = new Blockly.FieldDropdown([
+      ['0', '0']
+      , ['1', '1']
+      , ['2', '2']
+      , ['3', '3']
+      , ['4', '4']
+      , ['5', '5']
+      , ['6', '6']
+      , ['7', '7']
+      , ['8', '8']
+      , ['9', '9']
+      , ['10', '10']
+      , ['11', '11']
+      , ['12', '12']
+      , ['13', '13']
+      , ['A0', '14']
+      , ['A1', '15']
+      , ['A2', '16']
+      , ['A3', '17']
+      , ['A4', '18']
+      , ['A5', '19']
+      // , ['A6', '20']
+      // , ['A7', '21']
+    ]);
+    textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XSegDisplay', '0', '0'));
+    dropdownDATs.onItemSelected = function (menu, menuItem) {
+        var value = menuItem.getValue();
+        if (this.sourceBlock_) {
+            value = this.callValidator(value);
+            
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XSegDisplay'
+            , Blockly.getXBlocklyVarPin(value), Blockly.getXBlocklyVarPin(dropdownCLKs.value_)));
+        }
+        if (value !== null) {
+            this.setValue(value);
+        }
+    };
+    dropdownCLKs.onItemSelected = function (menu, menuItem) {
+        var value = menuItem.getValue();
+        if (this.sourceBlock_) {
+            value = this.callValidator(value);
+            
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XSegDisplay'
+            , Blockly.getXBlocklyVarPin(dropdownDATs.value_), Blockly.getXBlocklyVarPin(value)));
+        }
+        if (value !== null) {
+            this.setValue(value);
+        }
+    };
+    this.appendDummyInput()
+        .appendField("")
+        .appendField(new Blockly.FieldImage("../../media/xblockly/XSegDisplay.png", 16, 16, "*"))
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XSEGDISPLAY);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_1)
+        .appendField(dropdownModels, "MODEL")
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_1)
+        .appendField(textInputVar, 'VAR')
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_CONNECT);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_DAT)
+        .appendField(dropdownDATs, "DAT");
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_CLK)
+        .appendField(dropdownCLKs, "CLK");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    //this.setOutput(true, 'String');
+    this.setColour(xblockly_robotColor_construct);
+  }
+};
+
+Blockly.Blocks.xblockly_xservo_INIT = {
+  init: function () {
+    var _this = this;
+    var textInputVar = this.textInputVar = new Blockly.FieldTextInput('');
+    function getMyModels() {
+      return Blockly.getXBlocklyNameModelsByType('XServo', [Blockly.Msg.MY_NULL, '']);
+    }
+    var dropdownModels = this.dropdownModels = new Blockly.FieldDropdown(getMyModels);
+    var dropdownPins = this.dropdownPins = new Blockly.FieldDropdown([
+      ['0', '0']
+      , ['1', '1']
+      , ['2', '2']
+      , ['3', '3']
+      , ['4', '4']
+      , ['5', '5']
+      , ['6', '6']
+      , ['7', '7']
+      , ['8', '8']
+      , ['9', '9']
+      , ['10', '10']
+      , ['11', '11']
+      , ['12', '12']
+      , ['13', '13']
+      , ['A0', '14']
+      , ['A1', '15']
+      , ['A2', '16']
+      , ['A3', '17']
+      , ['A4', '18']
+      , ['A5', '19']
+      // , ['A6', '20']
+      // , ['A7', '21']
+    ]);
+    textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XServo', '0'));
+    dropdownPins.onItemSelected = function (menu, menuItem) {
+        var value = menuItem.getValue();
+        if (this.sourceBlock_) {
+            value = this.callValidator(value);
+            
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XServo', Blockly.getXBlocklyVarPin(value)));
+        }
+        if (value !== null) {
+            this.setValue(value);
+        }
+    };
+    this.appendDummyInput()
+        .appendField("")
+        .appendField(new Blockly.FieldImage("../../media/xblockly/XServo.png", 16, 16, "*"))
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XSERVO);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_1)
+        .appendField(dropdownModels, "MODEL")
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_1)
+        .appendField(textInputVar, 'VAR')
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_CONNECT);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_DI)
+        .appendField(dropdownPins, "PIN");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    //this.setOutput(true, 'String');
+    this.setColour(xblockly_robotColor_construct);
+  }
+};
+
+Blockly.Blocks.xblockly_xultrasonic_INIT = {
+  init: function () {
+    var _this = this;
+    var textInputVar = this.textInputVar = new Blockly.FieldTextInput('');
+    function getMyModels() {
+      return Blockly.getXBlocklyNameModelsByType('XUltrasonic', [Blockly.Msg.MY_NULL, '']);
+    }
+    var dropdownModels = this.dropdownModels = new Blockly.FieldDropdown(getMyModels);
+    var dropdownTrigs = this.dropdownTrigs = new Blockly.FieldDropdown([
+      ['0', '0']
+      , ['1', '1']
+      , ['2', '2']
+      , ['3', '3']
+      , ['4', '4']
+      , ['5', '5']
+      , ['6', '6']
+      , ['7', '7']
+      , ['8', '8']
+      , ['9', '9']
+      , ['10', '10']
+      , ['11', '11']
+      , ['12', '12']
+      , ['13', '13']
+      , ['A0', '14']
+      , ['A1', '15']
+      , ['A2', '16']
+      , ['A3', '17']
+      , ['A4', '18']
+      , ['A5', '19']
+      // , ['A6', '20']
+      // , ['A7', '21']
+    ]);
+    var dropdownECHOs = this.dropdownECHOs = new Blockly.FieldDropdown([
+      ['0', '0']
+      , ['1', '1']
+      , ['2', '2']
+      , ['3', '3']
+      , ['4', '4']
+      , ['5', '5']
+      , ['6', '6']
+      , ['7', '7']
+      , ['8', '8']
+      , ['9', '9']
+      , ['10', '10']
+      , ['11', '11']
+      , ['12', '12']
+      , ['13', '13']
+      , ['A0', '14']
+      , ['A1', '15']
+      , ['A2', '16']
+      , ['A3', '17']
+      , ['A4', '18']
+      , ['A5', '19']
+      // , ['A6', '20']
+      // , ['A7', '21']
+    ]);
+    textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XUltrasonic', '0', '0'));
+    dropdownTrigs.onItemSelected = function (menu, menuItem) {
+        var value = menuItem.getValue();
+        if (this.sourceBlock_) {
+            value = this.callValidator(value);
+            
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XUltrasonic'
+            , Blockly.getXBlocklyVarPin(value), Blockly.getXBlocklyVarPin(dropdownECHOs.value_)));
+        }
+        if (value !== null) {
+            this.setValue(value);
+        }
+    };
+    dropdownECHOs.onItemSelected = function (menu, menuItem) {
+        var value = menuItem.getValue();
+        if (this.sourceBlock_) {
+            value = this.callValidator(value);
+            
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XUltrasonic'
+            , Blockly.getXBlocklyVarPin(dropdownTrigs.value_), Blockly.getXBlocklyVarPin(value)));
+        }
+        if (value !== null) {
+            this.setValue(value);
+        }
+    };
+    this.appendDummyInput()
+        .appendField("")
+        .appendField(new Blockly.FieldImage("../../media/xblockly/XUltrasonic.png", 16, 16, "*"))
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XULTRASONIC);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_1)
+        .appendField(dropdownModels, "MODEL")
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_1)
+        .appendField(textInputVar, 'VAR')
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_CONNECT);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_TRIG)
+        .appendField(dropdownTrigs, "TRIG");
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_ECHO)
+        .appendField(dropdownECHOs, "ECHO");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    //this.setOutput(true, 'String');
+    this.setColour(xblockly_robotColor_construct);
+  }
+};
+
+Blockly.Blocks.xblockly_xvoicebroadcast_INIT = {
+  init: function () {
+    var _this = this;
+    var textInputVar = this.textInputVar = new Blockly.FieldTextInput('');
+    function getMyModels() {
+      return Blockly.getXBlocklyNameModelsByType('XVoiceBroadcast', [Blockly.Msg.MY_NULL, '']);
+    }
+    var dropdownModels = this.dropdownModels = new Blockly.FieldDropdown(getMyModels);
+    var dropdownSDAs = this.dropdownSDAs = new Blockly.FieldDropdown([
+      // ['0', '0']
+      // , ['1', '1']
+      // , ['2', '2']
+      // , ['3', '3']
+      // , ['4', '4']
+      // , ['5', '5']
+      // , ['6', '6']
+      // , ['7', '7']
+      // , ['8', '8']
+      // , ['9', '9']
+      // , ['10', '10']
+      // , ['11', '11']
+      // , ['12', '12']
+      // , ['13', '13']
+      // , ['A0', '14']
+      // , ['A1', '15']
+      // , ['A2', '16']
+      // , ['A3', '17']
+      ['A4', '18']
+      // , ['A5', '19']
+      // , ['A6', '20']
+      // , ['A7', '21']
+    ]);
+    var dropdownSCLs = this.dropdownSCLs = new Blockly.FieldDropdown([
+      // ['0', '0']
+      // , ['1', '1']
+      // , ['2', '2']
+      // , ['3', '3']
+      // , ['4', '4']
+      // , ['5', '5']
+      // , ['6', '6']
+      // , ['7', '7']
+      // , ['8', '8']
+      // , ['9', '9']
+      // , ['10', '10']
+      // , ['11', '11']
+      // , ['12', '12']
+      // , ['13', '13']
+      // , ['A0', '14']
+      // , ['A1', '15']
+      // , ['A2', '16']
+      // , ['A3', '17']
+      // , ['A4', '18']
+      ['A5', '19']
+      // , ['A6', '20']
+      // , ['A7', '21']
+    ]);
+    var dropdownRSTs = this.dropdownRSTs = new Blockly.FieldDropdown([
+      ['0', '0']
+      , ['1', '1']
+      , ['2', '2']
+      , ['3', '3']
+      , ['4', '4']
+      , ['5', '5']
+      , ['6', '6']
+      , ['7', '7']
+      , ['8', '8']
+      , ['9', '9']
+      , ['10', '10']
+      , ['11', '11']
+      , ['12', '12']
+      , ['13', '13']
+      , ['A0', '14']
+      , ['A1', '15']
+      , ['A2', '16']
+      , ['A3', '17']
+      // , ['A4', '18']
+      // , ['A5', '19']
+      // , ['A6', '20']
+      // , ['A7', '21']
+    ]);
+    var dropdownSELs = this.dropdownSELs = new Blockly.FieldDropdown([
+      ['0', '0']
+      , ['1', '1']
+      , ['2', '2']
+      , ['3', '3']
+      , ['4', '4']
+      , ['5', '5']
+      , ['6', '6']
+      , ['7', '7']
+      , ['8', '8']
+      , ['9', '9']
+      , ['10', '10']
+      , ['11', '11']
+      , ['12', '12']
+      , ['13', '13']
+      , ['A0', '14']
+      , ['A1', '15']
+      , ['A2', '16']
+      , ['A3', '17']
+      // , ['A4', '18']
+      // , ['A5', '19']
+      // , ['A6', '20']
+      // , ['A7', '21']
+    ]);
+    textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XVoiceBroadcast', 'A4', 'A5', '0', '0'));
+    dropdownSDAs.onItemSelected = function (menu, menuItem) {
+        var value = menuItem.getValue();
+        if (this.sourceBlock_) {
+            value = this.callValidator(value);
+            
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XVoiceBroadcast'
+            , Blockly.getXBlocklyVarPin(value), Blockly.getXBlocklyVarPin(dropdownSCLs.value_)
+            , Blockly.getXBlocklyVarPin(dropdownRSTs.value_), Blockly.getXBlocklyVarPin(dropdownSELs.value_)));
+        }
+        if (value !== null) {
+            this.setValue(value);
+        }
+    };
+    dropdownSCLs.onItemSelected = function (menu, menuItem) {
+        var value = menuItem.getValue();
+        if (this.sourceBlock_) {
+            value = this.callValidator(value);
+            
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XVoiceBroadcast'
+            , Blockly.getXBlocklyVarPin(dropdownSDAs.value_), Blockly.getXBlocklyVarPin(value)
+            , Blockly.getXBlocklyVarPin(dropdownRSTs.value_), Blockly.getXBlocklyVarPin(dropdownSELs.value_)));
+        }
+        if (value !== null) {
+            this.setValue(value);
+        }
+    };
+    dropdownRSTs.onItemSelected = function (menu, menuItem) {
+        var value = menuItem.getValue();
+        if (this.sourceBlock_) {
+            value = this.callValidator(value);
+            
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XVoiceBroadcast'
+            , Blockly.getXBlocklyVarPin(dropdownSDAs.value_), Blockly.getXBlocklyVarPin(dropdownSCLs.value_)
+            , Blockly.getXBlocklyVarPin(value), Blockly.getXBlocklyVarPin(dropdownSELs.value_)));
+        }
+        if (value !== null) {
+            this.setValue(value);
+        }
+    };
+    dropdownSELs.onItemSelected = function (menu, menuItem) {
+        var value = menuItem.getValue();
+        if (this.sourceBlock_) {
+            value = this.callValidator(value);
+            
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XVoiceBroadcast'
+            , Blockly.getXBlocklyVarPin(dropdownSDAs.value_), Blockly.getXBlocklyVarPin(dropdownSCLs.value_)
+            , Blockly.getXBlocklyVarPin(dropdownRSTs.value_), Blockly.getXBlocklyVarPin(value)));
+        }
+        if (value !== null) {
+            this.setValue(value);
+        }
+    };
+    this.appendDummyInput()
+        .appendField("")
+        .appendField(new Blockly.FieldImage("../../media/xblockly/XVoiceBroadcast.png", 16, 16, "*"))
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XVOICEBROADCAST);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_1)
+        .appendField(dropdownModels, "MODEL")
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_1)
+        .appendField(textInputVar, 'VAR')
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_CONNECT);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_SDA)
+        .appendField(dropdownSDAs, "SDA");
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_SCL)
+        .appendField(dropdownSCLs, "SCL");
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_RST)
+        .appendField(dropdownRSTs, "RST");
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_SEL)
+        .appendField(dropdownSELs, "SEL");
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);

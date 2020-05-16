@@ -43,11 +43,10 @@
 #endif
 
 
-XLightSensor::XLightSensor() :
-	XNBlock(),
-	_portId(-1),
-	_pin(0xFF)
+XLightSensor::XLightSensor()
 {
+   _portId = -1;
+   _pin = 0xFF;
 }
 
 XLightSensor::~XLightSensor()
@@ -93,6 +92,16 @@ int XLightSensor::setup(const char *label)
 		LOGN("PortOnBoardSetup() failed!");
 		return -1;
 	}
+
+	reset();
+	return 0;
+}
+
+int XLightSensor::setup(const char *model, const uint8_t pinA)
+{
+	(void)model;
+
+	_pin = pinA;
 
 	reset();
 	return 0;

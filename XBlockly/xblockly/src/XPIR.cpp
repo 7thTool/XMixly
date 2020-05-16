@@ -36,10 +36,10 @@
 #endif
 
 
-XPIR::XPIR() :
-	XNBlock(),
-	_portId(-2)
+XPIR::XPIR()
 {
+	_portId = -1;
+	_pin = 0xFF;
 }
 
 XPIR::~XPIR()
@@ -95,10 +95,20 @@ int XPIR::setup(const char *label)
 	return 0;
 }
 
+int XPIR::setup(const char *model, const uint8_t sta)
+{
+	(void)model;
+
+	_pin = sta;
+    pinMode(_pin, INPUT);
+
+	reset();
+	return 0;
+}
+
 void XPIR::reset()
 {
 }
-
 
 uint8_t XPIR::isHumanMotionDetected()
 {

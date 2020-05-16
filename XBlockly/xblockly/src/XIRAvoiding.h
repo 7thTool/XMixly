@@ -26,10 +26,9 @@
 #ifndef __XIRAVODING_H__
 #define __XIRAVODING_H__
 
-#include <XBlock.h>
 
 
-class XIRAvoiding : public XNBlock {
+class XIRAvoiding {
 public:
     XIRAvoiding();
     ~XIRAvoiding();
@@ -48,6 +47,8 @@ public:
 	结果：	成功返回0，失败返回负数
 	*/
 	int setup(const char *label);
+
+	int setup(const char *model, const uint8_t ctl, const uint8_t sta);
 
 	void reset();
 

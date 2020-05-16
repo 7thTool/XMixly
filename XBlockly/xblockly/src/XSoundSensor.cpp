@@ -51,11 +51,10 @@
 #endif
 
 
-XSoundSensor::XSoundSensor() :
-	XNBlock(),
-	_portId(-1),
-	_pin(0xFF)
+XSoundSensor::XSoundSensor()
 {
+	_portId = -1;
+	_pin = 0xFF;
 }
 
 XSoundSensor::~XSoundSensor()
@@ -101,6 +100,16 @@ int XSoundSensor::setup(const char *label)
 		LOGN("PortOnBoardSetup() failed");
 		return -1;
 	}
+
+	reset();
+	return 0;
+}
+
+int XSoundSensor::setup(const char *model, const uint8_t pinA)
+{
+	(void)model;
+	
+	_pin = pinA;
 
 	reset();
 	return 0;

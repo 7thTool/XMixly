@@ -36,8 +36,7 @@
 #endif
 
 
-XRGBLed::XRGBLed() :
-	XNBlock()
+XRGBLed::XRGBLed()
 {
 	_portId = -1;
 	count_led = 0;
@@ -118,6 +117,17 @@ int XRGBLed::setup(const char *label)
 		return -1;
 	}
 	
+	reset();
+	return 0;
+}
+
+int XRGBLed::setup(const char *model, const uint8_t pinD)
+{
+	count_led = model[5]-'0';
+	//count_led = 4;
+	if (init(pinD) < 0) {
+		return -1;
+	}
 	reset();
 	return 0;
 }

@@ -25,12 +25,9 @@
 #ifndef __XPIR_H__
 #define __XPIR_H__
 
-#include <XBlock.h>
 
 
-
-
-class XPIR : public XNBlock {
+class XPIR {
 public:
     XPIR();
     ~XPIR();
@@ -49,6 +46,8 @@ public:
 	结果：	成功返回0，失败返回负数
 	*/
 	int setup(const char *label);
+
+	int setup(const char *model, const uint8_t sta);
 	
 	void reset();
 

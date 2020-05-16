@@ -25,27 +25,17 @@
 #define __XBLUETOOTH_H__
 
 
-/*!< Defination of if use software serial */
-//#define XBLUE_ENABLE_USE_SOFTWARE_SERIAL
-
-
-#include <XBlock.h>
-#ifdef XBLUE_ENABLE_USE_SOFTWARE_SERIAL
 #include <SoftwareSerial.h>
-#endif
 
 
 class XBluetooth {
 public:
-    XBluetooth() : _portId(-2) {
-#ifdef XBLUE_ENABLE_USE_SOFTWARE_SERIAL
-		mIsSoftSerial = 0;
-		mSoftSerial = NULL;
-#endif
-	}
+    XBluetooth();
 	~XBluetooth();
 	int setup(const char *model, const char *port);
 	int setup(const char *label);
+	int setup(const char *model, const uint8_t rx, const uint8_t tx);
+	
 	void reset();
 
 	void setBroadcast(const char *adv);
@@ -72,10 +62,9 @@ private:
 	int ATCommand(const char *cmd, char *result, uint8_t rlen);
 
 	int8_t _portId; // -1 means no onboard block, -2 means setup failed.
-#ifdef XBLUE_ENABLE_USE_SOFTWARE_SERIAL
+
 	uint8_t         mIsSoftSerial;
 	SoftwareSerial  *mSoftSerial;
-#endif
 };
 
 

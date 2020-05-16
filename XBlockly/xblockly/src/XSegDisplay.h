@@ -25,12 +25,11 @@
 #ifndef __XSEGDISPLAY_H__
 #define __XSEGDISPLAY_H__
 
-#include <XBlock.h>
 
 
-class XSegDisplay : public XNBlock {
+class XSegDisplay {
 public:
-	XSegDisplay() : XNBlock(), _portId(-1), _model(0), _impl(NULL) {}
+	XSegDisplay();
 	~XSegDisplay();
 
 	/*
@@ -47,6 +46,8 @@ public:
 	结果：	成功返回0，失败返回负数
 	*/
 	int setup(const char *label);
+
+	int setup(const char *model, const uint8_t dat, const uint8_t clk);
 
 	void reset();
 

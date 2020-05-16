@@ -46,11 +46,12 @@
 
 
 
-XIRAvoiding::XIRAvoiding() :
-	XNBlock(),
-	_model(0),
-	_portId(-2)
+XIRAvoiding::XIRAvoiding()
 {
+	_portId = -1;
+	_model = 0;
+	_pin = 0xFF;
+	_enPin = 0xFF;
 }
 
 XIRAvoiding::~XIRAvoiding()
@@ -68,7 +69,6 @@ int XIRAvoiding::setup(const char *model, const char *port)
 	PortMap pmap;
 
 	LOG("XIRAvoiding::setup(");LOG(model);LOG(",");LOG(port);LOGN(")");
-	(void)model;
 
 	if (!strcmp(model, IRA3200_MODEL_NAME)) {
 		_portId = PortSetup(port, XPORT_FUNC_D1, &pmap);
@@ -120,6 +120,22 @@ int XIRAvoiding::setup(const char *label)
 	else {
 		LOGN("PortOnBoardSetup() failed");
 		_portId = -2;
+		return -1;
+	}
+
+	reset();
+	return 0;
+}
+
+int XIRAvoiding::setup(const char *model, const uint8_t ctl, const uint8_t sta)
+{
+	if ((!strcmp(model, IRA3300_MODEL_NAME)) 
+		|| (!strcmp(model, IRA3400_MODEL_NAME))) {
+
+		_enPin = ctl;
+		_pin = sta;
+	} else {
+		LOG("Unknown model of ");LOGN(model);
 		return -1;
 	}
 

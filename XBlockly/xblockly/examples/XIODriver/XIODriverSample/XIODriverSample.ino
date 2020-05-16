@@ -1,4 +1,4 @@
-/* XBridge.h
+/* XIODriverSample.ino
  *
  * Copyright (C) 2017-2022 Shanghai Mylecon Electronic Technology Co., Ltd.
  *
@@ -16,14 +16,38 @@
  * along with this program;
  *
  * Description: 
- *     This file is XBridge header file.
+ *     This file is a sample code for IO-Driver module.
  *
  * Version: 1.0.0
  */
+ 
 
-#ifndef __XBRIDGE_H__
-#define __XBRIDGE_H__
+#include <HQRSystem.h>
+#include <XIODriver.h>
 
 
+XIODriver iod;
 
-#endif	// __XBRIDGE_H__
+void setup()
+{
+	XSystem.setup();
+	Serial.begin(9600); //opens serial port,sets data rate to 9600 bps
+	iod.setup("IOD3300", "1");
+}
+
+void loop()
+{	
+	uint8_t l_status;
+
+	l_status = iod.digitalRead(1);
+	
+	Serial.print("status1: ");Serial.println(l_status);
+	
+	delay(1000);
+
+	l_status = iod.digitalRead(2);
+	
+	Serial.print("status2: ");Serial.println(l_status);
+	
+	delay(1000);
+}

@@ -57,6 +57,13 @@ int XBluetooth::ATCommand(const char *cmd, char *result, uint8_t rlen)
 	return recvBytes((uint8_t *)result, rlen);
 }
 
+XBluetooth::XBluetooth()
+{
+	_portId = -1;
+	mIsSoftSerial = 0;
+	mSoftSerial = NULL;
+}
+
 XBluetooth::~XBluetooth()
 {
 	LOGN("XBluetooth::~XBluetooth()");
@@ -76,7 +83,6 @@ int XBluetooth::setup(const char *model, const char *port)
 
     _portId = PortSetup(port, XPORT_FUNC_UART, &pmap);
 	if (_portId >= 0) {
-#ifdef XBLUE_ENABLE_USE_SOFTWARE_SERIAL
         if (pmap.plat.io.UART.nbr == XPORT_UART_SOFTWARE) {
             mSoftSerial = new SoftwareSerial(pmap.plat.io.UART.pin1, pmap.plat.io.UART.pin2);
 			if (!mSoftSerial) {
@@ -89,9 +95,6 @@ int XBluetooth::setup(const char *model, const char *port)
         } else {
 			Serial.begin(BTT_BAUDRATE);
         }
-#else
-		Serial.begin(BTT_BAUDRATE);
-#endif
     } else {
 		LOGN("PortSetup() failed");
 		_portId = -2;
@@ -108,6 +111,27 @@ int XBluetooth::setup(const char *label)
 	(void)label;
 	_portId = -2;
 	return -1;
+}
+
+int XBluetooth::setup(const char *model, const uint8_t rx, const uint8_t tx)
+{
+	(void)model;
+	
+    if ((rx != 0) || (tx != 1)) {
+        mSoftSerial = new SoftwareSerial(rx, tx);
+		if (!mSoftSerial) {
+			LOGN("new SoftwareSerial failed");
+			_portId = -2;
+			return -1;
+		}
+		mIsSoftSerial = 1;
+		mSoftSerial->begin(BTT_BAUDRATE);
+    } else {
+		Serial.begin(BTT_BAUDRATE);
+    }
+
+	reset();
+    return 0;
 }
 
 void XBluetooth::reset()
@@ -168,15 +192,11 @@ int XBluetooth::available()
 		return -1;
 	}
 
-#ifdef XBLUE_ENABLE_USE_SOFTWARE_SERIAL
     if (mIsSoftSerial) {
         return mSoftSerial->available();
     } else {
 		return Serial.available();
     }
-#else
-	return Serial.available();
-#endif
 }
 
 void XBluetooth::flush()
@@ -186,57 +206,13 @@ void XBluetooth::flush()
 		return;
 	}
 
-#ifdef XBLUE_ENABLE_USE_SOFTWARE_SERIAL
     if (mIsSoftSerial) {
         //return software->flush();
 		while (mSoftSerial->read() != -1);
     } else {
 		return Serial.flush();
     }
-#else
-	return Serial.flush();
-#endif
 }
-
-#if 0
-void XBluetooth::setTimeout(int ms)
-{
-	// Check if setup failed.
-	if (_portId == -2) {
-		return;
-	}
-
-#ifdef XBLUE_ENABLE_USE_SOFTWARE_SERIAL
-    if (mIsSoftSerial) {
-        return mSoftSerial->setTimeout(ms);
-    } else {
-		return Serial.setTimeout(ms);
-    }
-#else
-	return Serial.setTimeout(ms);
-#endif
-}
-#endif
-
-#if 0
-int XBluetooth::sendByte(char val)
-{
-	// Check if setup failed.
-	if (_portId == -2) {
-		return 0;
-	}
-
-#ifdef XBLUE_ENABLE_USE_SOFTWARE_SERIAL
-    if (mIsSoftSerial) {
-        return mSoftSerial->write(val);
-    } else {
-		return Serial.write(val);
-    }
-#else
-	return Serial.write(val);
-#endif
-}
-#endif
 
 int XBluetooth::sendBytes(uint8_t *buf, int len)
 {
@@ -245,15 +221,11 @@ int XBluetooth::sendBytes(uint8_t *buf, int len)
 		return -1;
 	}
 
-#ifdef XBLUE_ENABLE_USE_SOFTWARE_SERIAL
     if (mIsSoftSerial) {
         return mSoftSerial->write(buf, len);
     } else {
 		return Serial.write(buf, len);
     }
-#else
-	return Serial.write(buf, len);
-#endif
 }
 
 uint8_t XBluetooth::recvByte()
@@ -263,15 +235,11 @@ uint8_t XBluetooth::recvByte()
 		return 0;
 	}
 
-#ifdef XBLUE_ENABLE_USE_SOFTWARE_SERIAL
     if (mIsSoftSerial) {
         return mSoftSerial->read();
     } else { 	
 		return Serial.read();
     }
-#else
-	return Serial.read();
-#endif
 }
 
 int XBluetooth::recvBytes(uint8_t *buf, int len)
@@ -281,13 +249,9 @@ int XBluetooth::recvBytes(uint8_t *buf, int len)
 		return -1;
 	}
 
-#ifdef XBLUE_ENABLE_USE_SOFTWARE_SERIAL
     if (mIsSoftSerial) {
         return mSoftSerial->readBytes(buf, len);
     } else {
 		return Serial.readBytes(buf, len);
     }
-#else
-	return Serial.readBytes(buf, len);
-#endif
 }

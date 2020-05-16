@@ -26,14 +26,12 @@
 #define __XDCMotor_H__
 
 
-#include <XBlock.h>
-
 
 #define DDM_SPEED_VALUE_MAX		100
 
-class XDCMotor : public XNBlock {
+class XDCMotor {
 public:
-	XDCMotor() : XNBlock(), _portId(-1){}
+	XDCMotor();
 	~XDCMotor();
 
 	/*
@@ -50,6 +48,8 @@ public:
 	结果：	成功返回0，失败返回负数
 	*/
 	int setup(const char *label);
+
+	int setup(const char *model, const uint8_t pinP, const uint8_t pinD);
 
 	void reset();
 

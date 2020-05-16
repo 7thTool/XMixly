@@ -38,11 +38,11 @@
 #endif
 
 
-XHumiture::XHumiture() :
-	XNBlock(),
-	_portId(-1),
-	_pin(0xFF)
+XHumiture::XHumiture()
 {
+	_portId = -1;
+	_pin = 0xFF;
+
 }
 
 XHumiture::~XHumiture()
@@ -102,6 +102,22 @@ int XHumiture::setup(const char *label)
 	reset();
 	return 0;
 }
+
+int XHumiture::setup(const char *model, const uint8_t dat)
+{
+	unsigned long bootTime;
+	
+	bootTime = millis();
+	if(bootTime < 1500) 
+		delay(1500 - bootTime);
+
+	_pin = dat;
+	pinMode(_pin, INPUT);
+
+	reset();
+	return 0;
+}
+
 
 void XHumiture::reset()
 {

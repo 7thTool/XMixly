@@ -27,10 +27,7 @@
 #define __XHUMITURE_H__
 
 
-#include <XBlock.h>
-
-
-class XHumiture : public XNBlock {
+class XHumiture {
 public:
 	XHumiture();
 	~XHumiture();
@@ -49,6 +46,8 @@ public:
 	结果：	成功返回0，失败返回负数
 	*/
 	int setup(const char *label);
+
+	int setup(const char *model, const uint8_t dat);
 
 	void reset();
 	

@@ -31,11 +31,13 @@
 
 class XAdapter {
 public:
-	XAdapter() {}
+	XAdapter();
 	~XAdapter();
 	
 	int setup(const char *model, const char *port);
 
+	int setup(const char *model, const uint8_t pin1, const uint8_t pin2);
+	
 	uint16_t analogRead(uint8_t signal);
 	//void analogWrite(uint8_t signal, uint16_t value);
 

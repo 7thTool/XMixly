@@ -26,10 +26,7 @@
 #define __XBUTTON_H__
 
 
-#include <XBlock.h>
-
-
-class XButton : public XNBlock {
+class XButton {
 public:
 	XButton();
 	~XButton();
@@ -48,6 +45,8 @@ public:
 	结果：	成功返回0，失败返回负数
 	*/
 	int setup(const char *label);
+
+	int setup(const char *model, const uint8_t pinA);
 
 	void reset();
 

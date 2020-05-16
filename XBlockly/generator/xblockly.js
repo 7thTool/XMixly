@@ -222,6 +222,378 @@ Blockly.Arduino.xblockly_xdualdcmotor_INIT = function () {
   return '';
 };
 
+Blockly.Arduino.xblockly_xhumiture_INIT = function () {
+  var name = this.getFieldValue('VAR');
+  var pin = this.getFieldValue('PIN');
+  var type = 'XHumiture';//this.getFieldValue('TYPE');
+  var model = this.getFieldValue('MODEL');
+  
+  window.XBlockly.addOrUpdateObj(type,name,name);
+  Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
+
+  var globalCode = type + ' ' + name + ';';
+  Blockly.Arduino.XBlockly_addDeclaration(name, globalCode);
+
+  var setupCode = name + '.setup(\"'
+    + model
+    + '\", '
+    + pin
+    + ');';
+  Blockly.Arduino.XBlockly_addSetup(name, setupCode);
+
+  return '';
+};
+
+Blockly.Arduino.xblockly_xiravoiding_INIT = function () {
+  var name = this.getFieldValue('VAR');
+  var ctl = this.getFieldValue('CTL');
+  var sta = this.getFieldValue('STA');
+  var type = 'XIRAvoiding';//this.getFieldValue('TYPE');
+  var model = this.getFieldValue('MODEL');
+  
+  window.XBlockly.addOrUpdateObj(type,name,name);
+  Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
+
+  var globalCode = type + ' ' + name + ';';
+  Blockly.Arduino.XBlockly_addDeclaration(name, globalCode);
+
+  var setupCode = name + '.setup(\"'
+    + model
+    + '\", '
+    + ctl
+    + ', '
+    + sta
+    + ');';
+  Blockly.Arduino.XBlockly_addSetup(name, setupCode);
+
+  return '';
+};
+
+Blockly.Arduino.xblockly_xirreceiver_INIT = function () {
+  var name = this.getFieldValue('VAR');
+  var sta = this.getFieldValue('STA');
+  var dat = this.getFieldValue('DAT');
+  var type = 'XIRReceiver';//this.getFieldValue('TYPE');
+  var model = this.getFieldValue('MODEL');
+  
+  window.XBlockly.addOrUpdateObj(type,name,name);
+  Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
+
+  var globalCode = type + ' ' + name + ';';
+  Blockly.Arduino.XBlockly_addDeclaration(name, globalCode);
+
+  var setupCode = name + '.setup(\"'
+    + model
+    + '\", '
+    + sta
+    + ', '
+    + dat
+    + ');';
+  Blockly.Arduino.XBlockly_addSetup(name, setupCode);
+
+  return '';
+};
+
+Blockly.Arduino.xblockly_xirtracking_INIT = function () {
+  var name = this.getFieldValue('VAR');
+  var s1 = this.getFieldValue('S1');
+  var s2 = this.getFieldValue('S2');
+  var type = 'XIRTracking';//this.getFieldValue('TYPE');
+  var model = this.getFieldValue('MODEL');
+  
+  window.XBlockly.addOrUpdateObj(type,name,name);
+  Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
+
+  var globalCode = type + ' ' + name + ';';
+  Blockly.Arduino.XBlockly_addDeclaration(name, globalCode);
+
+  var setupCode = name + '.setup(\"'
+    + model
+    + '\", '
+    + s1
+    + ', '
+    + s2
+    + ');';
+  Blockly.Arduino.XBlockly_addSetup(name, setupCode);
+
+  return '';
+};
+
+Blockly.Arduino.xblockly_xirtracking6_INIT = function () {
+  var name = this.getFieldValue('VAR');
+  var sda = this.getFieldValue('SDA');
+  var scl = this.getFieldValue('SCL');
+  var rst = this.getFieldValue('RST');
+  var sel = this.getFieldValue('SEL');
+  var type = 'XIRTracking66';//this.getFieldValue('TYPE');
+  var model = this.getFieldValue('MODEL');
+  
+  window.XBlockly.addOrUpdateObj(type,name,name);
+  Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
+
+  var globalCode = type + ' ' + name + ';';
+  Blockly.Arduino.XBlockly_addDeclaration(name, globalCode);
+
+  var setupCode = name + '.setup(\"'
+    + model
+    + '\", '
+    + sda
+    + ', '
+    + scl
+    + ', '
+    + rst
+    + ', '
+    + sel
+    + ');';
+  Blockly.Arduino.XBlockly_addSetup(name, setupCode);
+
+  return '';
+};
+
+Blockly.Arduino.xblockly_xledmatrix_INIT = function () {
+  var name = this.getFieldValue('VAR');
+  var sda = this.getFieldValue('SDA');
+  var scl = this.getFieldValue('SCL');
+  var rst = this.getFieldValue('RST');
+  var sel = this.getFieldValue('SEL');
+  var type = 'XLEDMatrix';//this.getFieldValue('TYPE');
+  var model = this.getFieldValue('MODEL');
+  
+  window.XBlockly.addOrUpdateObj(type,name,name);
+  Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
+
+  var globalCode = type + ' ' + name + ';';
+  Blockly.Arduino.XBlockly_addDeclaration(name, globalCode);
+
+  var setupCode = name + '.setup(\"'
+    + model
+    + '\", '
+    + sda
+    + ', '
+    + scl
+    + ', '
+    + rst
+    + ', '
+    + sel
+    + ');';
+  Blockly.Arduino.XBlockly_addSetup(name, setupCode);
+
+  return '';
+};
+
+Blockly.Arduino.xblockly_xlightsensor_INIT = function () {
+  var name = this.getFieldValue('VAR');
+  var pin = this.getFieldValue('PIN');
+  var type = 'XLightSensor';//this.getFieldValue('TYPE');
+  var model = this.getFieldValue('MODEL');
+  
+  window.XBlockly.addOrUpdateObj(type,name,name);
+  Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
+
+  var globalCode = type + ' ' + name + ';';
+  Blockly.Arduino.XBlockly_addDeclaration(name, globalCode);
+
+  var setupCode = name + '.setup(\"'
+    + model
+    + '\", '
+    + pin
+    + ');';
+  Blockly.Arduino.XBlockly_addSetup(name, setupCode);
+
+  return '';
+};
+
+Blockly.Arduino.xblockly_xsoundsensor_INIT = function () {
+  var name = this.getFieldValue('VAR');
+  var pin = this.getFieldValue('PIN');
+  var type = 'XSoundSensor';//this.getFieldValue('TYPE');
+  var model = this.getFieldValue('MODEL');
+  
+  window.XBlockly.addOrUpdateObj(type,name,name);
+  Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
+
+  var globalCode = type + ' ' + name + ';';
+  Blockly.Arduino.XBlockly_addDeclaration(name, globalCode);
+
+  var setupCode = name + '.setup(\"'
+    + model
+    + '\", '
+    + pin
+    + ');';
+  Blockly.Arduino.XBlockly_addSetup(name, setupCode);
+
+  return '';
+};
+
+Blockly.Arduino.xblockly_xpir_INIT = function () {
+  var name = this.getFieldValue('VAR');
+  var pin = this.getFieldValue('PIN');
+  var type = 'XPIR';//this.getFieldValue('TYPE');
+  var model = this.getFieldValue('MODEL');
+  
+  window.XBlockly.addOrUpdateObj(type,name,name);
+  Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
+
+  var globalCode = type + ' ' + name + ';';
+  Blockly.Arduino.XBlockly_addDeclaration(name, globalCode);
+
+  var setupCode = name + '.setup(\"'
+    + model
+    + '\", '
+    + pin
+    + ');';
+  Blockly.Arduino.XBlockly_addSetup(name, setupCode);
+
+  return '';
+};
+
+Blockly.Arduino.xblockly_xpotentiometer_INIT = function () {
+  var name = this.getFieldValue('VAR');
+  var pin = this.getFieldValue('PIN');
+  var type = 'XPotentiometer';//this.getFieldValue('TYPE');
+  var model = this.getFieldValue('MODEL');
+  
+  window.XBlockly.addOrUpdateObj(type,name,name);
+  Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
+
+  var globalCode = type + ' ' + name + ';';
+  Blockly.Arduino.XBlockly_addDeclaration(name, globalCode);
+
+  var setupCode = name + '.setup(\"'
+    + model
+    + '\", '
+    + pin
+    + ');';
+  Blockly.Arduino.XBlockly_addSetup(name, setupCode);
+
+  return '';
+};
+
+Blockly.Arduino.xblockly_xrgbled_INIT = function () {
+  var name = this.getFieldValue('VAR');
+  var pin = this.getFieldValue('PIN');
+  var type = 'XRGBLed';//this.getFieldValue('TYPE');
+  var model = this.getFieldValue('MODEL');
+  
+  window.XBlockly.addOrUpdateObj(type,name,name);
+  Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
+
+  var globalCode = type + ' ' + name + ';';
+  Blockly.Arduino.XBlockly_addDeclaration(name, globalCode);
+
+  var setupCode = name + '.setup(\"'
+    + model
+    + '\", '
+    + pin
+    + ');';
+  Blockly.Arduino.XBlockly_addSetup(name, setupCode);
+
+  return '';
+};
+
+Blockly.Arduino.xblockly_xsegdisplay_INIT = function () {
+  var name = this.getFieldValue('VAR');
+  var dat = this.getFieldValue('DAT');
+  var clk = this.getFieldValue('CLK');
+  var type = 'XIRTracking';//this.getFieldValue('TYPE');
+  var model = this.getFieldValue('MODEL');
+  
+  window.XBlockly.addOrUpdateObj(type,name,name);
+  Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
+
+  var globalCode = type + ' ' + name + ';';
+  Blockly.Arduino.XBlockly_addDeclaration(name, globalCode);
+
+  var setupCode = name + '.setup(\"'
+    + model
+    + '\", '
+    + dat
+    + ', '
+    + clk
+    + ');';
+  Blockly.Arduino.XBlockly_addSetup(name, setupCode);
+
+  return '';
+};
+
+Blockly.Arduino.xblockly_xservo_INIT = function () {
+  var name = this.getFieldValue('VAR');
+  var pin = this.getFieldValue('PIN');
+  var type = 'XServo';//this.getFieldValue('TYPE');
+  var model = this.getFieldValue('MODEL');
+  
+  window.XBlockly.addOrUpdateObj(type,name,name);
+  Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
+
+  var globalCode = type + ' ' + name + ';';
+  Blockly.Arduino.XBlockly_addDeclaration(name, globalCode);
+
+  var setupCode = name + '.setup(\"'
+    + model
+    + '\", '
+    + pin
+    + ');';
+  Blockly.Arduino.XBlockly_addSetup(name, setupCode);
+
+  return '';
+};
+
+Blockly.Arduino.xblockly_xultrasonic_INIT = function () {
+  var name = this.getFieldValue('VAR');
+  var trig = this.getFieldValue('TRIG');
+  var echo = this.getFieldValue('ECHO');
+  var type = 'XUltrasonic';//this.getFieldValue('TYPE');
+  var model = this.getFieldValue('MODEL');
+  
+  window.XBlockly.addOrUpdateObj(type,name,name);
+  Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
+
+  var globalCode = type + ' ' + name + ';';
+  Blockly.Arduino.XBlockly_addDeclaration(name, globalCode);
+
+  var setupCode = name + '.setup(\"'
+    + model
+    + '\", '
+    + trig
+    + ', '
+    + echo
+    + ');';
+  Blockly.Arduino.XBlockly_addSetup(name, setupCode);
+
+  return '';
+};
+
+Blockly.Arduino.xblockly_xvoicebroadcast_INIT = function () {
+  var name = this.getFieldValue('VAR');
+  var sda = this.getFieldValue('SDA');
+  var scl = this.getFieldValue('SCL');
+  var rst = this.getFieldValue('RST');
+  var sel = this.getFieldValue('SEL');
+  var type = 'XVoiceBroadcast';//this.getFieldValue('TYPE');
+  var model = this.getFieldValue('MODEL');
+  
+  window.XBlockly.addOrUpdateObj(type,name,name);
+  Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
+
+  var globalCode = type + ' ' + name + ';';
+  Blockly.Arduino.XBlockly_addDeclaration(name, globalCode);
+
+  var setupCode = name + '.setup(\"'
+    + model
+    + '\", '
+    + sda
+    + ', '
+    + scl
+    + ', '
+    + rst
+    + ', '
+    + sel
+    + ');';
+  Blockly.Arduino.XBlockly_addSetup(name, setupCode);
+
+  return '';
+};
+
 Blockly.Arduino.xblockly_xiodriver_digitalRead = function() {
   var name = this.getFieldValue('XIODriver');
   // if(Blockly.Arduino.XBlockly_isOnBoardModule('XIODriver', name)) {

@@ -26,13 +26,13 @@
 #define __XUlTRASONIC_H__
 
 #include <inttypes.h>
-#include <XBlock.h>
+
 
 
 #define XULS_MAX_MEASURE_DIS	(3000)	// mm
 
 
-class XUltrasonic : public XNBlock {
+class XUltrasonic {
 public:
 	XUltrasonic();
 	~XUltrasonic();
@@ -51,6 +51,8 @@ public:
 	结果：	成功返回0，失败返回负数
 	*/
 	int setup(const char *label);
+
+	int setup(const char *model, const uint8_t trigger, const uint8_t echo);
 
 	void reset();
 

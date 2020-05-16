@@ -44,11 +44,10 @@
 #endif
 
 
-XPotentiometer::XPotentiometer() :
-	XNBlock(),
-	_portId(-1),
-	_pin(0xFF)
+XPotentiometer::XPotentiometer()
 {
+	_portId = -1;
+	_pin = 0xFF;
 }
 
 XPotentiometer::~XPotentiometer()
@@ -94,6 +93,16 @@ int XPotentiometer::setup(const char *label)
 		LOGN("PortOnBoardSetup() failed");
 		return -1;
 	}
+
+	reset();
+	return 0;
+}
+
+int XPotentiometer::setup(const char *model, const uint8_t pinA)
+{
+	(void)model;
+
+	_pin = pinA;
 
 	reset();
 	return 0;

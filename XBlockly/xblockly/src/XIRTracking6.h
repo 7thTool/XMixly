@@ -34,6 +34,24 @@ public:
 	XIRTracking6() {}
 	~XIRTracking6() {}
 
+	int setup(const char *model, const uint8_t sda, const uint8_t scl, const uint8_t rst, const uint8_t sel)
+	{
+		if ( (PIN_A4 != sda) || (PIN_A5 != scl)) {
+			LOGN("Connect to I2C pin failed!");
+			return -1;
+		}
+		
+		if (!strcmp(model, "IRT3360")) {
+			_model = MODEL_CHANNELS_6;
+			_resetPin = rst;
+			_selectPin = sel;
+		}
+		else {
+			LOG("Unknown model of ");LOGN(model);
+			return -1;
+		}
+		return 0;
+	}
 };
 
 #endif //__XIRTRACKING6_H__

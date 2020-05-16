@@ -36,10 +36,11 @@
 #endif
 
 
-XIODriver::XIODriver() :
-	XNBlock(),
-	_portId(-2)
+XIODriver::XIODriver()
 {
+	_portId = -1;
+	_pin1 = 0xFF;
+	_pin2 = 0xFF;
 }
 
 XIODriver::~XIODriver()
@@ -105,11 +106,20 @@ int XIODriver::setup(const char *label)
 	return 0;
 }
 
+int XIODriver::setup(const char *model, const uint8_t pin1, cconst uint8_t pin2)
+{
+	(void)model;
+	
+	_pin1 = pin1;
+	_pin2 = pin2;
+
+	reset();
+	return 0;
+}
+
 void XIODriver::reset()
 {
 }
-
-
 
 uint8_t XIODriver::digitalRead(uint8_t sno)
 {

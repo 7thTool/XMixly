@@ -26,14 +26,12 @@
 #define __XDualDCMotor_H__
 
 
-#include <XBlock.h>
-
 
 #define DDM_SPEED_VALUE_MAX		100
 
-class XDualDCMotor : public XNBlock {
+class XDualDCMotor {
 public:
-	XDualDCMotor() : XNBlock(), _portId(-1), impl(NULL), _speed1(0), _speed2(0) {}
+	XDualDCMotor();
 	~XDualDCMotor();
 
 	/*
@@ -50,6 +48,8 @@ public:
 	结果：	成功返回0，失败返回负数
 	*/
 	int setup(const char *label);
+
+	int setup(const char *model, const uint8_t sda, const uint8_t scl, const uint8_t rst, const uint8_t sel);
 
 	void reset();
 
@@ -88,7 +88,7 @@ public:
 
 private:
 	int8_t	_portId;
-    void	*impl;
+    void	*_impl;
 	int8_t _speed1;
 	int8_t _speed2;
 };
