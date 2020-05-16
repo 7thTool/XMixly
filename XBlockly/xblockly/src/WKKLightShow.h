@@ -27,11 +27,10 @@
 
 
 #include <XRGBLed.h>
-#include <XLightShow.h>
 
 
 
-class WKKLightShow : public XLightShow {
+class WKKLightShow {
 public:
 	WKKLightShow();
 	~WKKLightShow();
@@ -81,13 +80,6 @@ public:
 	结果：	无
 	*/
 	void showBreath(uint8_t index, uint8_t speed, uint32_t value, int duration=0);
-
-	/*
-	功能：	关闭RGB彩灯
-	参数：	index, RGB彩灯编号，0表示全部
-	结果：	无
-	*/
-	void clear(uint8_t index);
 
 private:
 	void loopMeteor();

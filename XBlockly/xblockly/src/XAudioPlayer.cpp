@@ -146,8 +146,6 @@ const static uint16_t KFrequencyTable[3][14] PROGMEM = {
 
 XAudioPlayer::XAudioPlayer() :
 	_buz(NULL),
-	_mode(MODE_STOP),
-	_id(0),
 	_beatTime(500), // ms
 	_noteGap(40) // ms
 {
@@ -171,13 +169,8 @@ int XAudioPlayer::setup(XBuzzer *buz)
 
 void XAudioPlayer::reset()
 {
-	stop();
 	_beatTime = 500;
 	_noteGap = 40;
-}
-
-void XAudioPlayer::loop()
-{
 }
 
 void XAudioPlayer::playTone(uint16_t frequency, uint32_t duration)
@@ -185,12 +178,6 @@ void XAudioPlayer::playTone(uint16_t frequency, uint32_t duration)
 	if (!_buz) {
 		return;
 	}
-	
-	if (_mode != MODE_STOP) {
-		stop();
-	}
-
-	pinMode(4, OUTPUT);
 
 	_buz->playTone(frequency, duration);
 }
@@ -220,12 +207,6 @@ void XAudioPlayer::playNote(uint8_t note, uint8_t scale, uint8_t tone, uint8_t b
 	if (!_buz) {
 		return;
 	}
-	
-	if (_mode != MODE_STOP) {
-		stop();
-	}
-
-	pinMode(4, OUTPUT);
 
 	if(note == 0) {
 		//delay(noteDuration);

@@ -37,20 +37,22 @@
 #endif
 
 
-#define WKKLightShow_MODE_CLEAR				(0x01)
-#define WKKLightShow_MODE_SHOW_COLOR		(0x02)
+//#define WKKLightShow_MODE_CLEAR				(0x01)
+//#define WKKLightShow_MODE_SHOW_COLOR		(0x02)
 #define WKKLightShow_MODE_SHOW_METEOR		(0x03)
 #define WKKLightShow_MODE_SHOW_BREATH		(0x04)
 
 
 WKKLightShow::WKKLightShow() :
 	_rgb(NULL),
-	_mode(WKKLightShow_MODE_CLEAR),
+	_mode(0x0),
 	_index(0),
 	_speed(0),
 	_red(0x00),
 	_green(0x00),
-	_blue(0x00)
+	_blue(0x00),
+	_step(0),
+	_timestamp(0)
 {
 }
 
@@ -72,7 +74,6 @@ int WKKLightShow::setup(XRGBLed *rgb)
 
 void WKKLightShow::reset()
 {
-	clear(0);
 }
 
 void WKKLightShow::loop()
@@ -179,19 +180,6 @@ void WKKLightShow::showBreath(uint8_t index, uint8_t speed, uint32_t value, int 
 	b = value & 0xff;
 	
 	showBreath(index, speed, r, g, b, duration);
-}
-
-
-void WKKLightShow::clear(uint8_t index)
-{
-	if (_rgb) {
-		if (index <= 6) {
-			_rgb->showColor(index, 0, 0, 0);
-		} else {
-			return;
-		}
-		_mode = WKKLightShow_MODE_CLEAR;
-	}
 }
 
 

@@ -89,14 +89,16 @@ Blockly.Arduino.xblockly_construct_INIT = function() {
   {
     case 'Arduino/PanGu': {
       Blockly.Arduino.XBlockly_addInclude('Arduino', '#include <Arduino.h>');
-      Blockly.Arduino.XBlockly_addInclude('PGKSystem', '#include <PGKSystem.h>');
-      Blockly.Arduino.XBlockly_addSetup('PGKSystem', 'XSystem.setup();');
+      Blockly.Arduino.XBlockly_addInclude('XMainBoard', '#include <Pangu.h>');
+      Blockly.Arduino.XBlockly_addInclude('XSystem', '#include <XSystem.h>');
+      Blockly.Arduino.XBlockly_addSetup('XSystem', 'XSystem.setup();');
     }
     break;
     case 'Arduino/WuKong': {
       Blockly.Arduino.XBlockly_addInclude('Arduino', '#include <Arduino.h>');
-      Blockly.Arduino.XBlockly_addInclude('PGKSystem', '#include <WKKSystem.h>');
-      Blockly.Arduino.XBlockly_addSetup('PGKSystem', 'XSystem.setup();');
+      Blockly.Arduino.XBlockly_addInclude('XMainBoard', '#include <Wukong.h>');
+      Blockly.Arduino.XBlockly_addInclude('XSystem', '#include <XSystem.h>');
+      Blockly.Arduino.XBlockly_addSetup('XSystem', 'XSystem.setup();');
     }
     break;
     default: {
@@ -1349,13 +1351,13 @@ Blockly.Arduino.xblockly_xvoicebroadcast_isPlaying = function() {
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
-Blockly.Arduino.xblockly_xpgklightshow_showColor = function () {
+Blockly.Arduino.xblockly_xlightshow_showColor = function () {
   var name = this.getFieldValue('XRGBLed');
   // if(Blockly.Arduino.XBlockly_isOnBoardModule('XRGBLed', name)) {
   //   name = Blockly.Arduino.XBlockly_addOnBoardModule('XRGBLed', name);
   // }
   var arrObjs = [name];
-  var objName = Blockly.Arduino.XBlockly_addService('PGKLightShow', 'lgs', arrObjs);
+  var objName = Blockly.Arduino.XBlockly_addService('XLightShow', 'lgs', arrObjs);
   var index = this.getFieldValue('INDEX');
   // var color = Blockly.Arduino.valueToCode(this, 'COLOR',
   //         Blockly.Arduino.ORDER_ATOMIC) || 0;
@@ -1372,14 +1374,14 @@ Blockly.Arduino.xblockly_xpgklightshow_showColor = function () {
   return code;
 };
 
-Blockly.Arduino.xblockly_xpgklightshow_showRGB = function () {
+Blockly.Arduino.xblockly_xlightshow_showRGB = function () {
   var name = this.getFieldValue('XRGBLed');
   // if(Blockly.Arduino.XBlockly_isOnBoardModule('XRGBLed', name)) {
   //   name = Blockly.Arduino.XBlockly_addOnBoardModule('XRGBLed', name);
   // }
   var arrObjs = [name];
-  Blockly.Arduino.XBlockly_addService('PGKLightShow', 'lgs', arrObjs);
-  var objName = Blockly.Arduino.XBlockly_getServiceName('PGKLightShow', 'lgs', arrObjs);
+  Blockly.Arduino.XBlockly_addService('XLightShow', 'lgs', arrObjs);
+  var objName = Blockly.Arduino.XBlockly_getServiceName('XLightShow', 'lgs', arrObjs);
   var index = this.getFieldValue('INDEX');
   var r = Blockly.Arduino.valueToCode(this, 'R',
           Blockly.Arduino.ORDER_ATOMIC) || 0;
@@ -1391,25 +1393,73 @@ Blockly.Arduino.xblockly_xpgklightshow_showRGB = function () {
   return code;
 };
 
-Blockly.Arduino.xblockly_xpgklightshow_clear = function () {
+Blockly.Arduino.xblockly_xlightshow_clear = function () {
   var name = this.getFieldValue('XRGBLed');
   // if(Blockly.Arduino.XBlockly_isOnBoardModule('XRGBLed', name)) {
   //   name = Blockly.Arduino.XBlockly_addOnBoardModule('XRGBLed', name);
   // }
   var arrObjs = [name];
-  var objName = Blockly.Arduino.XBlockly_addService('PGKLightShow', 'lgs', arrObjs);
+  var objName = Blockly.Arduino.XBlockly_addService('XLightShow', 'lgs', arrObjs);
   var index = this.getFieldValue('INDEX');
   var code = objName + '.clear(' + index + ');\n';
   return code;
 };
 
-Blockly.Arduino.xblockly_xpgkaudioplayer_playTone = function() {
+Blockly.Arduino.xblockly_xwklightshow_showBreath = function () {
+  var name = this.getFieldValue('XRGBLed');
+  // if(Blockly.Arduino.XBlockly_isOnBoardModule('XRGBLed', name)) {
+  //   name = Blockly.Arduino.XBlockly_addOnBoardModule('XRGBLed', name);
+  // }
+  var arrObjs = [name];
+  var objName = Blockly.Arduino.XBlockly_addService('WKLightShow', 'wk_lgs', arrObjs);
+  var index = this.getFieldValue('INDEX');
+  //var val = Blockly.Arduino.valueToCode(block, 'VALUE',
+  //        Blockly.Arduino.ORDER_NONE) || 0;
+  var val = this.getFieldValue('VALUE');
+  var clrString = this.getFieldValue('COLOR');
+  var color = goog.color.hexToRgb(clrString);
+  var duration = Blockly.Arduino.valueToCode(this, 'DURATION',
+          Blockly.Arduino.ORDER_ATOMIC) || 0;
+  var code = objName + '.showBreath(' + index + ',' + val + ',' + color + ',' + duration + ');\n';
+  return code;
+};
+
+Blockly.Arduino.xblockly_xwklightshow_showMeteor = function () {
+  var name = this.getFieldValue('XRGBLed');
+  // if(Blockly.Arduino.XBlockly_isOnBoardModule('XRGBLed', name)) {
+  //   name = Blockly.Arduino.XBlockly_addOnBoardModule('XRGBLed', name);
+  // }
+  var arrObjs = [name];
+  var objName = Blockly.Arduino.XBlockly_addService('WKLightShow', 'wk_lgs', arrObjs);
+  //var val = Blockly.Arduino.valueToCode(block, 'VALUE',
+  //        Blockly.Arduino.ORDER_NONE) || 0;
+  var val = this.getFieldValue('VALUE');
+  var clrString = this.getFieldValue('COLOR');
+  var color = goog.color.hexToRgb(clrString);
+  var duration = Blockly.Arduino.valueToCode(this, 'DURATION',
+          Blockly.Arduino.ORDER_ATOMIC) || 0;
+  var code = objName + '.showMeteor(' + val + ',' + color + ',' + duration + ');\n';
+  return code;
+};
+
+Blockly.Arduino.xblockly_xlightshow_clear = function () {
+  var name = this.getFieldValue('XRGBLed');
+  // if(Blockly.Arduino.XBlockly_isOnBoardModule('XRGBLed', name)) {
+  //   name = Blockly.Arduino.XBlockly_addOnBoardModule('XRGBLed', name);
+  // }
+  var arrObjs = [name];
+  var objName = Blockly.Arduino.XBlockly_addService('XLightShow', 'lgs', arrObjs);
+  var index = this.getFieldValue('INDEX');
+  var code = objName + '.clear(' + index + ');\n';
+  return code;
+};
+Blockly.Arduino.xblockly_xaudioplayer_playTone = function() {
   var name = this.getFieldValue('XBuzzer');
   // if (Blockly.Arduino.XBlockly_isOnBoardModule('XBuzzer', name)) {
   //   name = Blockly.Arduino.XBlockly_addOnBoardModule('XBuzzer', name);
   // }
   var arrObjs = [name];
-  var objName = Blockly.Arduino.XBlockly_addService('PGKAudioPlayer', 'adp', arrObjs);
+  var objName = Blockly.Arduino.XBlockly_addService('XAudioPlayer', 'adp', arrObjs);
   var frequency = Blockly.Arduino.valueToCode(this, 'FREQUENCY',
       Blockly.Arduino.ORDER_ATOMIC) || 0;
   var duration = Blockly.Arduino.valueToCode(this, 'DURATION',
@@ -1418,13 +1468,13 @@ Blockly.Arduino.xblockly_xpgkaudioplayer_playTone = function() {
   return code;
 };
 
-Blockly.Arduino.xblockly_xpgkaudioplayer_setNoteParameter = function () {
+Blockly.Arduino.xblockly_xaudioplayer_setNoteParameter = function () {
   var name = this.getFieldValue('XBuzzer');
   // if (Blockly.Arduino.XBlockly_isOnBoardModule('XBuzzer', name)) {
   //   name = Blockly.Arduino.XBlockly_addOnBoardModule('XBuzzer', name);
   // }
   var arrObjs = [name];
-  var objName = Blockly.Arduino.XBlockly_addService('PGKAudioPlayer', 'adp', arrObjs);
+  var objName = Blockly.Arduino.XBlockly_addService('XAudioPlayer', 'adp', arrObjs);
   var beattime = Blockly.Arduino.valueToCode(this, 'BEATTIME',
     Blockly.Arduino.ORDER_ATOMIC) || 0;
   //0.1秒就是100ms, 2秒就是2000，对应beatTime分别就是10和200, 然后转换为一个字节
@@ -1438,18 +1488,54 @@ Blockly.Arduino.xblockly_xpgkaudioplayer_setNoteParameter = function () {
   return code;
 };
 
-Blockly.Arduino.xblockly_xpgkaudioplayer_playNote = function () {
+Blockly.Arduino.xblockly_xaudioplayer_playNote = function () {
   var name = this.getFieldValue('XBuzzer');
   // if (Blockly.Arduino.XBlockly_isOnBoardModule('XBuzzer', name)) {
   //   name = Blockly.Arduino.XBlockly_addOnBoardModule('XBuzzer', name);
   // }
   var arrObjs = [name];
-  var objName = Blockly.Arduino.XBlockly_addService('PGKAudioPlayer', 'adp', arrObjs);
+  var objName = Blockly.Arduino.XBlockly_addService('XAudioPlayer', 'adp', arrObjs);
   var note = this.getFieldValue('NOTE');
   var scale = this.getFieldValue('SCALE');
   var tone = this.getFieldValue('TONE');
   var beat = this.getFieldValue('BEAT');
   var code = objName + '.playNote(' + note + ',' + scale + ',' + tone + ',' + beat + ');\n';
+  return code;
+};
+
+Blockly.Arduino.xblockly_xwkaudioplayer_playMusic = function () {
+  var name = this.getFieldValue('XBuzzer');
+  // if (Blockly.Arduino.XBlockly_isOnBoardModule('XBuzzer', name)) {
+  //   name = Blockly.Arduino.XBlockly_addOnBoardModule('XBuzzer', name);
+  // }
+  var arrObjs = [name];
+  var objName = Blockly.Arduino.XBlockly_addService('WKAudioPlayer', 'wk_adp', arrObjs);
+  var val = this.getFieldValue('VALUE');
+  //var repeat = (block.getFieldValue('REPEAT') == 'TRUE') ? 1 : 0;
+  var code = objName + '.playMusic(' + val/* + ',' + repeat*/ + ');\n';
+  return code;
+};
+
+Blockly.Arduino.xblockly_xwkaudioplayer_playEffect = function () {
+  var name = this.getFieldValue('XBuzzer');
+  // if (Blockly.Arduino.XBlockly_isOnBoardModule('XBuzzer', name)) {
+  //   name = Blockly.Arduino.XBlockly_addOnBoardModule('XBuzzer', name);
+  // }
+  var arrObjs = [name];
+  var objName = Blockly.Arduino.XBlockly_addService('WKAudioPlayer', 'wk_adp', arrObjs);
+  var effect = this.getFieldValue('EFFECT');
+  var code = objName + '.playSound(' + effect + ');\n';
+  return code;
+};
+
+Blockly.Arduino.xblockly_xaudioplayer_stop = function () {
+  var name = this.getFieldValue('XBuzzer');
+  // if (Blockly.Arduino.XBlockly_isOnBoardModule('XBuzzer', name)) {
+  //   name = Blockly.Arduino.XBlockly_addOnBoardModule('XBuzzer', name);
+  // }
+  var arrObjs = [name];
+  var objName = Blockly.Arduino.XBlockly_addService('XAudioPlayer', 'adp', arrObjs);
+  var code = objName + '.stop();\n';
   return code;
 };
 

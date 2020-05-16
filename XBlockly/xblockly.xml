@@ -252,9 +252,9 @@
             <block type="xblockly_xvoicebroadcast_reportSound"></block> 
             <block type="xblockly_xvoicebroadcast_isPlaying"></block> 
             <block type="xblockly_xvoicebroadcast_stop"></block>
-    <block type="xblockly_xpgklightshow_showColor">
+            <block type="xblockly_xlightshow_showColor">
             </block>
-            <block type="xblockly_xpgklightshow_showRGB">
+            <block type="xblockly_xlightshow_showRGB">
                 <value name="R">
                     <shadow type="math_number">
                         <field name="NUM">0</field>
@@ -271,8 +271,24 @@
                     </shadow>
                 </value>
             </block>
-            <block type="xblockly_xpgklightshow_clear"></block>            
-            <block type="xblockly_xpgkaudioplayer_playTone">
+            <block type="xblockly_xwklightshow_showBreath">
+                <field name="VALUE">1</field>
+                <value name="DURATION">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="xblockly_xwklightshow_showMeteor">
+                <field name="VALUE">1</field>
+                <value name="DURATION">
+                    <shadow type="math_number">
+                        <field name="NUM">0</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="xblockly_xlightshow_clear"></block>            
+            <block type="xblockly_xaudioplayer_playTone">
                 <value name="FREQUENCY">
                     <shadow type="math_number">
                         <field name="NUM">300</field>
@@ -284,14 +300,19 @@
                     </shadow>
                 </value>
             </block>
-            <block type="xblockly_xpgkaudioplayer_setNoteParameter">
+            <block type="xblockly_xaudioplayer_setNoteParameter">
                 <value name="BEATTIME">
                     <shadow type="math_number">
                         <field name="NUM">0.8</field>
                     </shadow>
                 </value>
             </block>
-            <block type="xblockly_xpgkaudioplayer_playNote"></block>
+            <block type="xblockly_xaudioplayer_playNote"></block>
+            <block type="xblockly_xwkaudioplayer_playMusic"></block>
+            <block type="xblockly_xwkaudioplayer_playEffect">
+                <field name="EFFECT">4</field>
+            </block>
+            <block type="xblockly_xaudioplayer_stop"></block>
   </category>
   <!--通信模块-->
   <category id="xblockly_communicator" name="通信模块" colour="#3EDAFF">

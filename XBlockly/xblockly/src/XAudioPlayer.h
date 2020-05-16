@@ -42,7 +42,6 @@ public:
 	int setup(XBuzzer *buz);
 
 	void reset();
-	void loop();
 
 	/*
 	π¶ƒ‹£∫	≤•∑≈“Ù∆µ
@@ -74,8 +73,6 @@ private:
 	uint16_t getFrequency(uint8_t note, uint8_t scale, uint8_t tone);
 		
 	XBuzzer	*_buz;
-	uint8_t _mode;
-	uint8_t _id;
 	uint16_t _beatTime;
 	uint16_t _noteGap;
 };
