@@ -5,7 +5,7 @@ goog.provide('Blockly.Blocks.xblockly');
 goog.require('Blockly.Blocks');
 
 // Color
-var xblockly_robotColor_construct = '#FDB23B';  //连接
+var xblockly_robotColor_construct = '#62D669';//'#FDB23B';  //连接
 var xblockly_robotColor_actuator = '#5AA4FB'; //运动
 var xblockly_robotColor_sensor = '#AD77E6';   //感知
 var xblockly_robotColor_display = '#DA71C6';  //展示
@@ -639,7 +639,7 @@ var xblockly_robotColor_system = '#FF6767';   //系统
 
   window.XBlockly = XBlockly;
     
-  var jsonObjects = '{"modules":[{"type":"XDualDCMotor","name":"双直流电机","models":[{"func":"####","type":"XRJ25","id":"DDM3300"}],"objects":[],"onboards":[{"id":"DDM","model":"DDM3001","name":"板载-DDM"}]},{"type":"XBuzzer","name":"蜂鸣器","models":[{"func":"D###","type":"XRJ25","id":"BUZ3300"}],"objects":[],"onboards":[{"id":"BUZ","model":"BUZ4000","name":"板载-BUZ"}]},{"type":"XButton","name":"按钮","models":[{"func":"A###","type":"XRJ25","id":"BTN3300"}],"objects":[]},{"type":"XLightSensor","name":"光线传感器","models":[{"func":"A###","type":"XRJ25","id":"LIG3300"}],"objects":[],"onboards":[{"id":"LIG","model":"LIG4000","name":"板载-LIG"}]},{"type":"XSoundSensor","name":"声音传感器","models":[{"func":"A###","type":"XRJ25","id":"SND3300"}],"objects":[],"onboards":[{"id":"SND","model":"SND3000","name":"板载-SND"}]},{"type":"XIRReceiver","name":"红外接收器","models":[{"func":"H###","type":"XRJ25","id":"IRR3300"}],"objects":[],"onboards":[{"id":"IRR","model":"IRR3000","name":"板载-IRR"}]},{"type":"XIRTracking","name":"红外循迹传感器","models":[{"func":"H###","type":"XRJ25","id":"IRT3320"}],"objects":[]},{"type":"XIRTracking6","name":"六路红外循迹传感器","models":[{"func":"####","type":"XRJ25","id":"IRT3360"}],"objects":[]},{"type":"XUltrasonic","name":"超声波传感器","models":[{"func":"H###","type":"XRJ25","id":"ULS3600"}],"objects":[]},{"type":"XSegDisplay","name":"数码管","models":[{"func":"H###","type":"XRJ25","id":"SGD4300"}],"objects":[]},{"type":"XLEDMatrix","name":"LED面板","models":[{"func":"####","type":"XRJ25","id":"LMT3300"}],"objects":[]},{"type":"XVoiceBroadcast","name":"语音播报器","models":[{"func":"####","type":"XRJ25","id":"VBC3300"}],"objects":[]},{"type":"XIRAvoiding","name":"红外避障传感器","models":[{"func":"H###","type":"XRJ25","id":"IRA3300"}],"objects":[]},{"type":"XPotentiometer","name":"电位器","models":[{"func":"A###","type":"XRJ25","id":"PTM3300"}],"objects":[]},{"type":"XRGBLed","name":"RGB彩灯","models":[{"func":"D###","type":"XRJ25","id":"RGB3340"}],"objects":[],"onboards":[{"id":"RGB","model":"RGB3060","name":"板载-RGB"}]},{"type":"XHumiture","name":"温湿度传感器","models":[{"func":"D###","type":"XRJ25","id":"HUM3300"}],"objects":[]},{"type":"XPIR","name":"人体红外传感器","models":[{"func":"D###","type":"XRJ25","id":"PIR3300"}],"objects":[]},{"type":"XShockSensor","name":"震动传感器","models":[{"func":"D###","type":"XRJ25","id":"SKS3300"}],"objects":[]},{"type":"XBluetooth","name":"蓝牙","models":[{"func":"U###","type":"XIP45","id":"BLT4140"}],"objects":[]},{"type":"XServo","name":"舵机","models":[],"objects":[],"onboards":[{"id":"SVO","model":"SVO3000","name":"板载-SVO"},{"id":"SVO1","model":"SVO3000","name":"板载-SVO1"},{"id":"SVO2","model":"SVO3000","name":"板载-SVO2"}]},{"name":"端口","type":"XPORTS","models":[{"name":"端口1","id":"1","type":"XRJ25","func":"DHP#"},{"name":"端口2","id":"2","type":"XRJ25","func":"DHAK"},{"name":"端口3","id":"3","type":"XRJ25","func":"DHP#"},{"name":"端口4","id":"4","type":"XRJ25","func":"DHP#"},{"name":"端口5","id":"5","type":"XRJ25","func":"DHPR"},{"name":"端口6","id":"6","type":"XRJ25","func":"DHA#"},{"name":"端口7","id":"7","type":"XRJ25","func":"DHA#"},{"name":"端口8","id":"8","type":"XRJ25","func":"DHP#"},{"name":"端口9","id":"9","type":"XIP45","func":"U###"}]}]}';
+  var jsonObjects = '{"modules":[{"type":"XDualDCMotor","name":"双直流电机","models":[{"func":"####","type":"XRJ25","id":"DDM3300"}],"objects":[],"onboards":[{"id":"DDM","model":"DDM3001","name":"板载-DDM"}]},{"type":"XBuzzer","name":"蜂鸣器","models":[{"func":"D###","type":"XRJ25","id":"BUZ3300"}],"objects":[],"onboards":[{"id":"BUZ","model":"BUZ4000","name":"板载-BUZ"}]},{"type":"XButton","name":"按钮","models":[{"func":"A###","type":"XRJ25","id":"BTN3300"}],"objects":[],"onboards":[{"id":"BTN","model":"BTN3000","name":"板载-BTN"}]},{"type":"XLightSensor","name":"光线传感器","models":[{"func":"A###","type":"XRJ25","id":"LIG3300"}],"objects":[],"onboards":[{"id":"LIG","model":"LIG4000","name":"板载-LIG"}]},{"type":"XSoundSensor","name":"声音传感器","models":[{"func":"A###","type":"XRJ25","id":"SND3300"}],"objects":[],"onboards":[{"id":"SND","model":"SND3000","name":"板载-SND"}]},{"type":"XIRReceiver","name":"红外接收器","models":[{"func":"H###","type":"XRJ25","id":"IRR3300"}],"objects":[],"onboards":[{"id":"IRR","model":"IRR3000","name":"板载-IRR"}]},{"type":"XIRTracking","name":"红外循迹传感器","models":[{"func":"H###","type":"XRJ25","id":"IRT3320"}],"objects":[]},{"type":"XIRTracking6","name":"六路红外循迹传感器","models":[{"func":"####","type":"XRJ25","id":"IRT3360"}],"objects":[]},{"type":"XUltrasonic","name":"超声波传感器","models":[{"func":"H###","type":"XRJ25","id":"ULS3600"}],"objects":[]},{"type":"XSegDisplay","name":"数码管","models":[{"func":"H###","type":"XRJ25","id":"SGD4300"}],"objects":[]},{"type":"XLEDMatrix","name":"LED面板","models":[{"func":"####","type":"XRJ25","id":"LMT3300"}],"objects":[]},{"type":"XVoiceBroadcast","name":"语音播报器","models":[{"func":"####","type":"XRJ25","id":"VBC3300"}],"objects":[]},{"type":"XIRAvoiding","name":"红外避障传感器","models":[{"func":"H###","type":"XRJ25","id":"IRA3300"}],"objects":[]},{"type":"XPotentiometer","name":"电位器","models":[{"func":"A###","type":"XRJ25","id":"PTM3300"}],"objects":[]},{"type":"XRGBLed","name":"RGB彩灯","models":[{"func":"D###","type":"XRJ25","id":"RGB3340"}],"objects":[],"onboards":[{"id":"RGB","model":"RGB3060","name":"板载-RGB"}]},{"type":"XHumiture","name":"温湿度传感器","models":[{"func":"D###","type":"XRJ25","id":"HUM3300"}],"objects":[]},{"type":"XPIR","name":"人体红外传感器","models":[{"func":"D###","type":"XRJ25","id":"PIR3300"}],"objects":[]},{"type":"XShockSensor","name":"震动传感器","models":[{"func":"D###","type":"XRJ25","id":"SKS3300"}],"objects":[]},{"type":"XBluetooth","name":"蓝牙","models":[{"func":"U###","type":"XIP45","id":"BLT4140"}],"objects":[]},{"type":"XServo","name":"舵机","models":[],"objects":[],"onboards":[{"id":"SVO","model":"SVO3000","name":"板载-SVO"},{"id":"SVO1","model":"SVO3000","name":"板载-SVO1"},{"id":"SVO2","model":"SVO3000","name":"板载-SVO2"}]},{"name":"端口","type":"XPORTS","models":[{"name":"端口1","id":"1","type":"XRJ25","func":"DHP#"},{"name":"端口2","id":"2","type":"XRJ25","func":"DHAK"},{"name":"端口3","id":"3","type":"XRJ25","func":"DHP#"},{"name":"端口4","id":"4","type":"XRJ25","func":"DHP#"},{"name":"端口5","id":"5","type":"XRJ25","func":"DHPR"},{"name":"端口6","id":"6","type":"XRJ25","func":"DHA#"},{"name":"端口7","id":"7","type":"XRJ25","func":"DHA#"},{"name":"端口8","id":"8","type":"XRJ25","func":"DHP#"},{"name":"端口9","id":"9","type":"XIP45","func":"U###"}]}]}';
   window.XBlockly.init(JSON.parse(jsonObjects));
 })();
 
@@ -890,7 +890,7 @@ Blockly.Blocks.xblockly_construct_INIT = {
       .appendField(dropdownInstances, "XMainBoard")
       .appendField(Blockly.Msg.MY_XMAINBOARD_2);
     this.setInputsInline(true);
-    //this.setPreviousStatement(true, null);
+    this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     //this.setOutput(true, Boolean);
     this.setColour(xblockly_robotColor_construct);
@@ -1014,8 +1014,8 @@ Blockly.Blocks.xblockly_construct_ONBOARD = {
             value = this.callValidator(value);
 
             var labels = Blockly.getXBlocklyOnBoardNameLabelsByType(value, [Blockly.Msg.MY_NULL, '']);
-            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByLabel(value, dropdownLabels.value_));
             _this.dropdownLabels.setValue(labels[0][1]);
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByLabel(value, dropdownLabels.value_));
         }
         if (value !== null) {
             this.setValue(value);
@@ -1092,7 +1092,7 @@ Blockly.Blocks.xblockly_xbutton_INIT = {
       , ['A6', '20']
       , ['A7', '21']
     ]);
-    textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XButton', '14'));
+    textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XButton', 'A0'));
     dropdownPins.onItemSelected = function (menu, menuItem) {
         var value = menuItem.getValue();
         if (this.sourceBlock_) {
@@ -2199,7 +2199,7 @@ Blockly.Blocks.xblockly_xlightsensor_INIT = {
       , ['A6', '20']
       , ['A7', '21']
     ]);
-    textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XLightSensor', '14'));
+    textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XLightSensor', 'A0'));
     dropdownPins.onItemSelected = function (menu, menuItem) {
         var value = menuItem.getValue();
         if (this.sourceBlock_) {
@@ -2268,7 +2268,7 @@ Blockly.Blocks.xblockly_xsoundsensor_INIT = {
       , ['A6', '20']
       , ['A7', '21']
     ]);
-    textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XSoundSensor', '14'));
+    textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XSoundSensor', 'A0'));
     dropdownPins.onItemSelected = function (menu, menuItem) {
         var value = menuItem.getValue();
         if (this.sourceBlock_) {
@@ -2406,7 +2406,7 @@ Blockly.Blocks.xblockly_xpotentiometer_INIT = {
       , ['A6', '20']
       , ['A7', '21']
     ]);
-    textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XPotentiometer', '14'));
+    textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XPotentiometer', 'A0'));
     dropdownPins.onItemSelected = function (menu, menuItem) {
         var value = menuItem.getValue();
         if (this.sourceBlock_) {
@@ -5253,7 +5253,7 @@ Blockly.Blocks.xblockly_xwklightshow_showBreath = {
       , [Blockly.Msg.MY_XRGBLED_SPEED_FAST, '2']]);
     this.appendDummyInput()
         .appendField("")
-        .appendField(new Blockly.FieldImage("../blockly/media/XRGBLed.png", 16, 16, "*"));
+        .appendField(new Blockly.FieldImage("../../media/xblockly/XRGBLed.png", 16, 16, "*"));
     this.appendDummyInput()
       .appendField(Blockly.Msg.MY_XRGBLED_1)
       .appendField(dropdownInstances, "XRGBLed")
@@ -5567,7 +5567,7 @@ Blockly.Blocks.xblockly_xwkaudioplayer_playEffect = {
   }
 };
 
-Blockly.Blocks.xblockly_xaudioplayer_stop = {
+Blockly.Blocks.xblockly_xwkaudioplayer_stop = {
   init: function () {
     function getMyVars() {
       return Blockly.getXBlocklyNameObjsByType('XBuzzer', [Blockly.Msg.MY_NULL, '']);

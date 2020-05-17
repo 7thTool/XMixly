@@ -12,8 +12,8 @@
 <script type="text/javascript" src="../../generators/arduino/company/xblockly.js"></script>
 <!--引用所有写好的模块-->
 <category id="xblockly" name="XBlockly" colour="#16b886">
-  <!--连接模块-->
-  <category id="xblockly_construct" name="连接模块" colour="#3EDAFF">
+  <!--初始化-->
+  <category id="xblockly_construct" name="初始化" colour="#3EDAFF">
         <block type="xblockly_construct_INIT"></block>
         <block type="xblockly_construct_XPORTS"></block>
         <block type="xblockly_construct_ONBOARD"></block>
@@ -129,8 +129,8 @@
     <block type="xblockly_xshocksensor_isShocking"></block>
     <block type="xblockly_xshocksensor_waitStatus"></block>
   </category>
-  <!--展示模块-->
-  <category id="xblockly_display" name="展示模块" colour="#3EDAFF">
+  <!--声光模块-->
+  <category id="xblockly_display" name="声光模块" colour="#3EDAFF">
     <block type="xblockly_xsegdisplay_showNumber">
                 <value name="VALUE">
                     <shadow type="math_number">
@@ -312,7 +312,7 @@
             <block type="xblockly_xwkaudioplayer_playEffect">
                 <field name="EFFECT">4</field>
             </block>
-            <block type="xblockly_xaudioplayer_stop"></block>
+            <block type="xblockly_xwkaudioplayer_stop"></block>
   </category>
   <!--通信模块-->
   <category id="xblockly_communicator" name="通信模块" colour="#3EDAFF">
@@ -323,6 +323,11 @@
     </block>
     <block type="xblockly_xirreceiver_receiveNumber">
     </block>
+  </category>
+  <!--服务模块-->
+  <category id="xblockly_server" name="服务" colour="#3EDAFF" image="resizey.png">
+    <category id="xblockly_wk_server" name="悟空服务" colour="#3EDAFF" image="resizey.png">
+    </category>
   </category>
   <!--系统模块-->
   <!--<category id="xblockly_system" name="系统模块" colour="#3EDAFF">
