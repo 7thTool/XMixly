@@ -106,7 +106,7 @@ int XIODriver::setup(const char *label)
 	return 0;
 }
 
-int XIODriver::setup(const char *model, const uint8_t pin1, cconst uint8_t pin2)
+int XIODriver::setup(const char *model, const uint8_t pin1, const uint8_t pin2)
 {
 	(void)model;
 	

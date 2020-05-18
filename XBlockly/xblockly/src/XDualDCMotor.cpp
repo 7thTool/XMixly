@@ -129,7 +129,7 @@ int XDualDCMotor::setup(const char *model, const uint8_t sda, const uint8_t scl,
 		return -1;
 	}
 
-	((DDM3001Impl *)_impl)->setup(pin1, pin2);
+	((DDM3001Impl *)_impl)->setup(rst, sel);
 
 	_speed1 = 0;
 	_speed2 = 0;

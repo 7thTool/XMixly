@@ -26,7 +26,6 @@
 #define __XSYSTEM_H__
 
 
-
 class _XSystem {
 public:
 	_XSystem();
@@ -116,9 +115,6 @@ public:
 	float fetchData(uint8_t pos);
 
 };
-
-
-extern _XSystem XSystem;
 
 
 #endif //__XSYSTEM_H__

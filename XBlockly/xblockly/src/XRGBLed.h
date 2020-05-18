@@ -86,7 +86,25 @@ public:
 			blue, 蓝色分量的值, 0~255
 	结果：	无
 	*/
-	void showColor(uint8_t index, uint8_t red, uint8_t green, uint8_t blue);
+	void showColorIndex(uint8_t index, uint8_t red, uint8_t green, uint8_t blue);
+
+	/*
+	功能：	设置显示色彩
+	参数：	index, RGB彩灯编号，0表示全部
+			red/green/blue, 分别表示红、绿、蓝颜色分量，取值范围0~255
+			closeOthers, 是否关闭其他的RGB灯
+	结果：	无
+	*/
+	void showColor(uint8_t index, uint8_t red, uint8_t green, uint8_t blue, uint8_t clearOthers=0);
+	
+	/*
+	功能：	设置显示色彩
+	参数：	index, RGB彩灯编号，0表示全部
+			value, [23:16]表示红, [15:8]表示绿，[7:0]表示蓝，取值范围都是0~255
+			closeOthers, 是否关闭其他的RGB灯
+	结果：	无
+	*/
+	void showColor(uint8_t index, uint32_t value, uint8_t clearOthers=0);
 
 	/*
 	功能：	清除颜色设置并熄灭RGB彩灯
@@ -104,6 +122,9 @@ private:
 	uint8_t *pixels;
 	uint8_t pinMask;
 	const volatile uint8_t *ws2812_port;
+	uint8_t _red;
+	uint8_t _green;
+	uint8_t _blue;
 };
 
 

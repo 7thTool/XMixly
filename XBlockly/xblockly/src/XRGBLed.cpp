@@ -43,6 +43,9 @@ XRGBLed::XRGBLed()
 	pixels = NULL;
 	pinMask = 0;
 	ws2812_port = NULL;
+	_red = 0x00;
+	_green = 0x00;
+	_blue = 0x00;
 }
 	
 XRGBLed::~XRGBLed()
@@ -160,7 +163,7 @@ void XRGBLed::setColor(uint8_t index, uint8_t red, uint8_t green, uint8_t blue)
 	}
 }
 
-void XRGBLed::showColor(uint8_t index, uint8_t red, uint8_t green, uint8_t blue)
+void XRGBLed::showColorIndex(uint8_t index, uint8_t red, uint8_t green, uint8_t blue)
 {
 	LOG("XRGBLed::showColor(");LOG(index);LOG(",");LOG(red);LOG(",");LOG(green);LOG(",");LOG(blue);LOGN(")");
 
@@ -170,11 +173,39 @@ void XRGBLed::showColor(uint8_t index, uint8_t red, uint8_t green, uint8_t blue)
 	}
 }
 
+void XRGBLed::showColor(uint8_t index, uint8_t red, uint8_t green, uint8_t blue, uint8_t clearOthers)
+{
+		if (index <= count_led) {
+			if(clearOthers != 0) {
+				clear(0);
+			}
+			showColorIndex(index, red, green, blue);
+		} else {
+			return;
+		}
+}
+
+void XRGBLed::showColor(uint8_t index, uint32_t value, uint8_t clearOthers)
+{
+	uint8_t r, g, b;
+
+	r = (value>>16) & 0xff;
+	g = (value>>8) & 0xff;
+	b = value & 0xff;
+	
+	showColor(index, r, g, b, clearOthers);
+}
+
 void XRGBLed::clear(uint8_t index)
 {
 	LOG("XRGBLed::clear(");LOG(index);LOGN(")");
 	
-	showColor(index, 0, 0, 0);
+	if (index <= count_led) {
+		showColorIndex(index, 0, 0, 0);
+	} else {
+		return;
+	}
+
 }
 
 void XRGBLed::show(void)

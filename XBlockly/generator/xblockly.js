@@ -114,7 +114,7 @@ Blockly.Arduino.xblockly_construct_XPORTS = function () {
   var type = this.getFieldValue('TYPE');
   var model = this.getFieldValue('MODEL');
   
-  window.XBlockly.addOrUpdateObj(type,name,name);
+  window.XBlockly.addOrUpdateObj(type,name,'p'+port);
   Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
 
   var globalCode = type + ' ' + name + ';';
@@ -135,7 +135,7 @@ Blockly.Arduino.xblockly_construct_ONBOARD = function () {
   var type = this.getFieldValue('TYPE');
   var label = this.getFieldValue('LABEL');
   
-  window.XBlockly.addOrUpdateObj(type,name,name);
+  window.XBlockly.addOrUpdateObj(type,name,label);
   Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
 
   var globalCode = type + ' ' + name + ';';
@@ -155,7 +155,7 @@ Blockly.Arduino.xblockly_xbutton_INIT = function () {
   var type = 'XButton';//this.getFieldValue('TYPE');
   var model = this.getFieldValue('MODEL');
   
-  window.XBlockly.addOrUpdateObj(type,name,name);
+  window.XBlockly.addOrUpdateObj(type,name,pin);
   Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
 
   var globalCode = type + ' ' + name + ';';
@@ -177,7 +177,7 @@ Blockly.Arduino.xblockly_xbuzzer_INIT = function () {
   var type = 'XBuzzer';//this.getFieldValue('TYPE');
   var model = this.getFieldValue('MODEL');
   
-  window.XBlockly.addOrUpdateObj(type,name,name);
+  window.XBlockly.addOrUpdateObj(type,name,pin);
   Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
 
   var globalCode = type + ' ' + name + ';';
@@ -202,7 +202,7 @@ Blockly.Arduino.xblockly_xdualdcmotor_INIT = function () {
   var type = 'XDualDCMotor';//this.getFieldValue('TYPE');
   var model = this.getFieldValue('MODEL');
   
-  window.XBlockly.addOrUpdateObj(type,name,name);
+  window.XBlockly.addOrUpdateObj(type,name,sda+'_'+scl+'_'+rst+'_'+sel);
   Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
 
   var globalCode = type + ' ' + name + ';';
@@ -230,7 +230,7 @@ Blockly.Arduino.xblockly_xhumiture_INIT = function () {
   var type = 'XHumiture';//this.getFieldValue('TYPE');
   var model = this.getFieldValue('MODEL');
   
-  window.XBlockly.addOrUpdateObj(type,name,name);
+  window.XBlockly.addOrUpdateObj(type,name,pin);
   Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
 
   var globalCode = type + ' ' + name + ';';
@@ -253,7 +253,7 @@ Blockly.Arduino.xblockly_xiravoiding_INIT = function () {
   var type = 'XIRAvoiding';//this.getFieldValue('TYPE');
   var model = this.getFieldValue('MODEL');
   
-  window.XBlockly.addOrUpdateObj(type,name,name);
+  window.XBlockly.addOrUpdateObj(type,name,ctl+'_'+sta);
   Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
 
   var globalCode = type + ' ' + name + ';';
@@ -278,7 +278,7 @@ Blockly.Arduino.xblockly_xirreceiver_INIT = function () {
   var type = 'XIRReceiver';//this.getFieldValue('TYPE');
   var model = this.getFieldValue('MODEL');
   
-  window.XBlockly.addOrUpdateObj(type,name,name);
+  window.XBlockly.addOrUpdateObj(type,name,sta+'_'+dat);
   Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
 
   var globalCode = type + ' ' + name + ';';
@@ -303,7 +303,7 @@ Blockly.Arduino.xblockly_xirtracking_INIT = function () {
   var type = 'XIRTracking';//this.getFieldValue('TYPE');
   var model = this.getFieldValue('MODEL');
   
-  window.XBlockly.addOrUpdateObj(type,name,name);
+  window.XBlockly.addOrUpdateObj(type,name,s1+'_'+s2);
   Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
 
   var globalCode = type + ' ' + name + ';';
@@ -330,7 +330,7 @@ Blockly.Arduino.xblockly_xirtracking6_INIT = function () {
   var type = 'XIRTracking66';//this.getFieldValue('TYPE');
   var model = this.getFieldValue('MODEL');
   
-  window.XBlockly.addOrUpdateObj(type,name,name);
+  window.XBlockly.addOrUpdateObj(type,name,sda+'_'+scl+'_'+rst+'_'+sel);
   Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
 
   var globalCode = type + ' ' + name + ';';
@@ -361,7 +361,7 @@ Blockly.Arduino.xblockly_xledmatrix_INIT = function () {
   var type = 'XLEDMatrix';//this.getFieldValue('TYPE');
   var model = this.getFieldValue('MODEL');
   
-  window.XBlockly.addOrUpdateObj(type,name,name);
+  window.XBlockly.addOrUpdateObj(type,name,sda+'_'+scl+'_'+rst+'_'+sel);
   Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
 
   var globalCode = type + ' ' + name + ';';
@@ -389,7 +389,7 @@ Blockly.Arduino.xblockly_xlightsensor_INIT = function () {
   var type = 'XLightSensor';//this.getFieldValue('TYPE');
   var model = this.getFieldValue('MODEL');
   
-  window.XBlockly.addOrUpdateObj(type,name,name);
+  window.XBlockly.addOrUpdateObj(type,name,pin);
   Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
 
   var globalCode = type + ' ' + name + ';';
@@ -411,7 +411,7 @@ Blockly.Arduino.xblockly_xsoundsensor_INIT = function () {
   var type = 'XSoundSensor';//this.getFieldValue('TYPE');
   var model = this.getFieldValue('MODEL');
   
-  window.XBlockly.addOrUpdateObj(type,name,name);
+  window.XBlockly.addOrUpdateObj(type,name,pin);
   Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
 
   var globalCode = type + ' ' + name + ';';
@@ -433,7 +433,7 @@ Blockly.Arduino.xblockly_xpir_INIT = function () {
   var type = 'XPIR';//this.getFieldValue('TYPE');
   var model = this.getFieldValue('MODEL');
   
-  window.XBlockly.addOrUpdateObj(type,name,name);
+  window.XBlockly.addOrUpdateObj(type,name,pin);
   Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
 
   var globalCode = type + ' ' + name + ';';
@@ -455,7 +455,7 @@ Blockly.Arduino.xblockly_xpotentiometer_INIT = function () {
   var type = 'XPotentiometer';//this.getFieldValue('TYPE');
   var model = this.getFieldValue('MODEL');
   
-  window.XBlockly.addOrUpdateObj(type,name,name);
+  window.XBlockly.addOrUpdateObj(type,name,pin);
   Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
 
   var globalCode = type + ' ' + name + ';';
@@ -477,7 +477,7 @@ Blockly.Arduino.xblockly_xrgbled_INIT = function () {
   var type = 'XRGBLed';//this.getFieldValue('TYPE');
   var model = this.getFieldValue('MODEL');
   
-  window.XBlockly.addOrUpdateObj(type,name,name);
+  window.XBlockly.addOrUpdateObj(type,name,pin);
   Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
 
   var globalCode = type + ' ' + name + ';';
@@ -500,7 +500,7 @@ Blockly.Arduino.xblockly_xsegdisplay_INIT = function () {
   var type = 'XIRTracking';//this.getFieldValue('TYPE');
   var model = this.getFieldValue('MODEL');
   
-  window.XBlockly.addOrUpdateObj(type,name,name);
+  window.XBlockly.addOrUpdateObj(type,name,dat+'_'+clk);
   Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
 
   var globalCode = type + ' ' + name + ';';
@@ -524,7 +524,7 @@ Blockly.Arduino.xblockly_xservo_INIT = function () {
   var type = 'XServo';//this.getFieldValue('TYPE');
   var model = this.getFieldValue('MODEL');
   
-  window.XBlockly.addOrUpdateObj(type,name,name);
+  window.XBlockly.addOrUpdateObj(type,name,pin);
   Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
 
   var globalCode = type + ' ' + name + ';';
@@ -547,7 +547,7 @@ Blockly.Arduino.xblockly_xultrasonic_INIT = function () {
   var type = 'XUltrasonic';//this.getFieldValue('TYPE');
   var model = this.getFieldValue('MODEL');
   
-  window.XBlockly.addOrUpdateObj(type,name,name);
+  window.XBlockly.addOrUpdateObj(type,name,trig+'_'+echo);
   Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
 
   var globalCode = type + ' ' + name + ';';
@@ -574,7 +574,7 @@ Blockly.Arduino.xblockly_xvoicebroadcast_INIT = function () {
   var type = 'XVoiceBroadcast';//this.getFieldValue('TYPE');
   var model = this.getFieldValue('MODEL');
   
-  window.XBlockly.addOrUpdateObj(type,name,name);
+  window.XBlockly.addOrUpdateObj(type,name,sda+'_'+scl+'_'+rst+'_'+sel);
   Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
 
   var globalCode = type + ' ' + name + ';';

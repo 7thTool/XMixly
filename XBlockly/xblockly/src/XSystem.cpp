@@ -31,9 +31,6 @@
 #include <XSystem.h>
 
 
-_XSystem XSystem;
-
-
 #if 0
 #include <XDebug.h>
 #define LOG(x)		XDebug.print(x)
@@ -59,17 +56,6 @@ int _XSystem::setup()
 {
 	LOGN("_XSystem::setup()");
 
-#ifdef BOARD_WUKONG
-	// reset co-processor
-	pinMode(10, OUTPUT);
-	digitalWrite(10, 1);
-	delay(1);
-	digitalWrite(10, 0);
-#endif
-
-	PortInit(); //MUST < 150ms
-
-	delay(228); //MUST = 300ms
 	return 0;
 }
 

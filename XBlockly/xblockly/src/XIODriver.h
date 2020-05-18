@@ -53,7 +53,7 @@ public:
 	*/
 	int setup(const char *label);
 
-	int setup(const char *model, const uint8_t pin1, cconst uint8_t pin2);
+	int setup(const char *model, const uint8_t pin1, const uint8_t pin2);
 	
 	void reset();
 

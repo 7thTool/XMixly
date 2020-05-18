@@ -22,7 +22,8 @@
  */
 
 
-#include <YGRSystem.h>
+//#include <Wukong.h>
+#include <XSystem.h>
 #include <XVoiceBroadcast.h>
 
 
@@ -31,7 +32,7 @@ XVoiceBroadcast vbc;
 
 void setup() {
 	XSystem.setup();
-	vbc.setup("VBC3200", "1");
+	vbc.setup("VBC3300", "1");
 }
 
 void loop() {
