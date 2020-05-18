@@ -89,15 +89,15 @@ Blockly.Arduino.xblockly_construct_INIT = function() {
   {
     case 'Arduino/PanGu': {
       Blockly.Arduino.XBlockly_addInclude('Arduino', '#include <Arduino.h>');
-      Blockly.Arduino.XBlockly_addInclude('XMainBoard', '#include <Pangu.h>');
-      Blockly.Arduino.XBlockly_addInclude('XSystem', '#include <XSystem.h>');
+      //Blockly.Arduino.XBlockly_addInclude('XMainBoard', '#include <Pangu.h>');
+      Blockly.Arduino.XBlockly_addInclude('XSystem', '#include <XPGSystem.h>');
       Blockly.Arduino.XBlockly_addSetup('XSystem', 'XSystem.setup();');
     }
     break;
     case 'Arduino/WuKong': {
       Blockly.Arduino.XBlockly_addInclude('Arduino', '#include <Arduino.h>');
-      Blockly.Arduino.XBlockly_addInclude('XMainBoard', '#include <Wukong.h>');
-      Blockly.Arduino.XBlockly_addInclude('XSystem', '#include <XSystem.h>');
+      //Blockly.Arduino.XBlockly_addInclude('XMainBoard', '#include <Wukong.h>');
+      Blockly.Arduino.XBlockly_addInclude('XSystem', '#include <XWKSystem.h>');
       Blockly.Arduino.XBlockly_addSetup('XSystem', 'XSystem.setup();');
     }
     break;
@@ -1351,13 +1351,11 @@ Blockly.Arduino.xblockly_xvoicebroadcast_isPlaying = function() {
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
-Blockly.Arduino.xblockly_xlightshow_showColor = function () {
+Blockly.Arduino.xblockly_xrgbled_showColor = function () {
   var name = this.getFieldValue('XRGBLed');
   // if(Blockly.Arduino.XBlockly_isOnBoardModule('XRGBLed', name)) {
   //   name = Blockly.Arduino.XBlockly_addOnBoardModule('XRGBLed', name);
   // }
-  var arrObjs = [name];
-  var objName = Blockly.Arduino.XBlockly_addService('XLightShow', 'lgs', arrObjs);
   var index = this.getFieldValue('INDEX');
   // var color = Blockly.Arduino.valueToCode(this, 'COLOR',
   //         Blockly.Arduino.ORDER_ATOMIC) || 0;
@@ -1370,17 +1368,15 @@ Blockly.Arduino.xblockly_xlightshow_showColor = function () {
   color |= ((g<<8)&0xff00);
   color |= ((r<<16)&0xff0000);*/
   var color = goog.color.hexToRgb(clrString);
-  var code = objName + '.showColor(' + index + ',' + color + ');\n';
+  var code = name + '.showColor(' + index + ',' + color + ');\n';
   return code;
 };
 
-Blockly.Arduino.xblockly_xlightshow_showRGB = function () {
+Blockly.Arduino.xblockly_xrgbled_showRGB = function () {
   var name = this.getFieldValue('XRGBLed');
   // if(Blockly.Arduino.XBlockly_isOnBoardModule('XRGBLed', name)) {
   //   name = Blockly.Arduino.XBlockly_addOnBoardModule('XRGBLed', name);
   // }
-  var arrObjs = [name];
-  var objName = Blockly.Arduino.XBlockly_addService('XLightShow', 'lgs', arrObjs);
   var index = this.getFieldValue('INDEX');
   var r = Blockly.Arduino.valueToCode(this, 'R',
           Blockly.Arduino.ORDER_ATOMIC) || 0;
@@ -1388,19 +1384,17 @@ Blockly.Arduino.xblockly_xlightshow_showRGB = function () {
           Blockly.Arduino.ORDER_ATOMIC) || 0;
   var b = Blockly.Arduino.valueToCode(this, 'B',
           Blockly.Arduino.ORDER_ATOMIC) || 0;
-  var code = objName + '.showColor(' + index + ',' + r + ',' + g + ',' + b + ');\n';
+  var code = name + '.showColor(' + index + ',' + r + ',' + g + ',' + b + ');\n';
   return code;
 };
 
-Blockly.Arduino.xblockly_xlightshow_clear = function () {
+Blockly.Arduino.xblockly_xrgbled_clear = function () {
   var name = this.getFieldValue('XRGBLed');
   // if(Blockly.Arduino.XBlockly_isOnBoardModule('XRGBLed', name)) {
   //   name = Blockly.Arduino.XBlockly_addOnBoardModule('XRGBLed', name);
   // }
-  var arrObjs = [name];
-  var objName = Blockly.Arduino.XBlockly_addService('XLightShow', 'lgs', arrObjs);
   var index = this.getFieldValue('INDEX');
-  var code = objName + '.clear(' + index + ');\n';
+  var code = name + '.clear(' + index + ');\n';
   return code;
 };
 
@@ -1441,39 +1435,24 @@ Blockly.Arduino.xblockly_xwklightshow_showMeteor = function () {
   return code;
 };
 
-Blockly.Arduino.xblockly_xlightshow_clear = function () {
-  var name = this.getFieldValue('XRGBLed');
-  // if(Blockly.Arduino.XBlockly_isOnBoardModule('XRGBLed', name)) {
-  //   name = Blockly.Arduino.XBlockly_addOnBoardModule('XRGBLed', name);
-  // }
-  var arrObjs = [name];
-  var objName = Blockly.Arduino.XBlockly_addService('XLightShow', 'lgs', arrObjs);
-  var index = this.getFieldValue('INDEX');
-  var code = objName + '.clear(' + index + ');\n';
-  return code;
-};
-Blockly.Arduino.xblockly_xaudioplayer_playTone = function() {
+Blockly.Arduino.xblockly_xbuzzer_playTone = function() {
   var name = this.getFieldValue('XBuzzer');
   // if (Blockly.Arduino.XBlockly_isOnBoardModule('XBuzzer', name)) {
   //   name = Blockly.Arduino.XBlockly_addOnBoardModule('XBuzzer', name);
   // }
-  var arrObjs = [name];
-  var objName = Blockly.Arduino.XBlockly_addService('XAudioPlayer', 'adp', arrObjs);
   var frequency = Blockly.Arduino.valueToCode(this, 'FREQUENCY',
       Blockly.Arduino.ORDER_ATOMIC) || 0;
   var duration = Blockly.Arduino.valueToCode(this, 'DURATION',
       Blockly.Arduino.ORDER_ATOMIC) || 0;
-  var code = objName + '.playTone(' + frequency + ', ' + duration + ');\n';
+  var code = name + '.playTone(' + frequency + ', ' + duration + ');\n';
   return code;
 };
 
-Blockly.Arduino.xblockly_xaudioplayer_setNoteParameter = function () {
+Blockly.Arduino.xblockly_xbuzzer_setNoteParameter = function () {
   var name = this.getFieldValue('XBuzzer');
   // if (Blockly.Arduino.XBlockly_isOnBoardModule('XBuzzer', name)) {
   //   name = Blockly.Arduino.XBlockly_addOnBoardModule('XBuzzer', name);
   // }
-  var arrObjs = [name];
-  var objName = Blockly.Arduino.XBlockly_addService('XAudioPlayer', 'adp', arrObjs);
   var beattime = Blockly.Arduino.valueToCode(this, 'BEATTIME',
     Blockly.Arduino.ORDER_ATOMIC) || 0;
   //0.1秒就是100ms, 2秒就是2000，对应beatTime分别就是10和200, 然后转换为一个字节
@@ -1483,22 +1462,20 @@ Blockly.Arduino.xblockly_xaudioplayer_setNoteParameter = function () {
     beattime = 2.0;
   }
   beattime *= 100;
-  var code = objName + '.setNoteParameter(' + beattime + ',0);\n';
+  var code = name + '.setNoteParameter(' + beattime + ',0);\n';
   return code;
 };
 
-Blockly.Arduino.xblockly_xaudioplayer_playNote = function () {
+Blockly.Arduino.xblockly_xbuzzer_playNote = function () {
   var name = this.getFieldValue('XBuzzer');
   // if (Blockly.Arduino.XBlockly_isOnBoardModule('XBuzzer', name)) {
   //   name = Blockly.Arduino.XBlockly_addOnBoardModule('XBuzzer', name);
   // }
-  var arrObjs = [name];
-  var objName = Blockly.Arduino.XBlockly_addService('XAudioPlayer', 'adp', arrObjs);
   var note = this.getFieldValue('NOTE');
   var scale = this.getFieldValue('SCALE');
   var tone = this.getFieldValue('TONE');
   var beat = this.getFieldValue('BEAT');
-  var code = objName + '.playNote(' + note + ',' + scale + ',' + tone + ',' + beat + ');\n';
+  var code = name + '.playNote(' + note + ',' + scale + ',' + tone + ',' + beat + ');\n';
   return code;
 };
 

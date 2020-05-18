@@ -252,9 +252,9 @@
             <block type="xblockly_xvoicebroadcast_reportSound"></block> 
             <block type="xblockly_xvoicebroadcast_isPlaying"></block> 
             <block type="xblockly_xvoicebroadcast_stop"></block>
-            <block type="xblockly_xlightshow_showColor">
+            <block type="xblockly_xrgbled_showColor">
             </block>
-            <block type="xblockly_xlightshow_showRGB">
+            <block type="xblockly_xrgbled_showRGB">
                 <value name="R">
                     <shadow type="math_number">
                         <field name="NUM">0</field>
@@ -271,6 +271,40 @@
                     </shadow>
                 </value>
             </block>
+            <block type="xblockly_xrgbled_clear"></block>            
+            <block type="xblockly_xbuzzer_playTone">
+                <value name="FREQUENCY">
+                    <shadow type="math_number">
+                        <field name="NUM">300</field>
+                    </shadow>
+                </value>
+                <value name="DURATION">
+                    <shadow type="math_number">
+                        <field name="NUM">200</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="xblockly_xbuzzer_setNoteParameter">
+                <value name="BEATTIME">
+                    <shadow type="math_number">
+                        <field name="NUM">0.8</field>
+                    </shadow>
+                </value>
+            </block>
+            <block type="xblockly_xbuzzer_playNote"></block>
+  </category>
+  <!--通信模块-->
+  <category id="xblockly_communicator" name="通信模块" colour="#3EDAFF">
+    <block type="xblockly_xirreceiver_enableLongPress">
+    </block>
+    <block type="xblockly_xirreceiver_available"></block>
+    <block type="xblockly_xirreceiver_waitMessage">
+    </block>
+    <block type="xblockly_xirreceiver_receiveNumber">
+    </block>
+  </category>
+  <!--服务模块-->
+  <category id="xblockly_server" name="服务模块" colour="#3EDAFF">
             <block type="xblockly_xwklightshow_showBreath">
                 <field name="VALUE">1</field>
                 <value name="DURATION">
@@ -287,47 +321,11 @@
                     </shadow>
                 </value>
             </block>
-            <block type="xblockly_xlightshow_clear"></block>            
-            <block type="xblockly_xaudioplayer_playTone">
-                <value name="FREQUENCY">
-                    <shadow type="math_number">
-                        <field name="NUM">300</field>
-                    </shadow>
-                </value>
-                <value name="DURATION">
-                    <shadow type="math_number">
-                        <field name="NUM">200</field>
-                    </shadow>
-                </value>
-            </block>
-            <block type="xblockly_xaudioplayer_setNoteParameter">
-                <value name="BEATTIME">
-                    <shadow type="math_number">
-                        <field name="NUM">0.8</field>
-                    </shadow>
-                </value>
-            </block>
-            <block type="xblockly_xaudioplayer_playNote"></block>
             <block type="xblockly_xwkaudioplayer_playMusic"></block>
             <block type="xblockly_xwkaudioplayer_playEffect">
                 <field name="EFFECT">4</field>
             </block>
             <block type="xblockly_xwkaudioplayer_stop"></block>
-  </category>
-  <!--通信模块-->
-  <category id="xblockly_communicator" name="通信模块" colour="#3EDAFF">
-    <block type="xblockly_xirreceiver_enableLongPress">
-    </block>
-    <block type="xblockly_xirreceiver_available"></block>
-    <block type="xblockly_xirreceiver_waitMessage">
-    </block>
-    <block type="xblockly_xirreceiver_receiveNumber">
-    </block>
-  </category>
-  <!--服务模块-->
-  <category id="xblockly_server" name="服务" colour="#3EDAFF" image="resizey.png">
-    <category id="xblockly_wk_server" name="悟空服务" colour="#3EDAFF" image="resizey.png">
-    </category>
   </category>
   <!--系统模块-->
   <!--<category id="xblockly_system" name="系统模块" colour="#3EDAFF">

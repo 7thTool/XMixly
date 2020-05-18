@@ -726,7 +726,7 @@ Blockly.getXBlocklyNameObjsByType = function (type, defVar) {
         if (myObjects) {
             for (var i = 0; i < myObjects.length; i++) {
                 var o = myObjects[i];
-                myVars.push([o.name, o.id]);
+                myVars.push([o.name, o.name]);
             }
         }
     }
@@ -884,7 +884,7 @@ Blockly.Blocks.xblockly_construct_INIT = {
       ,['Arduino/PanGu', 'Arduino/PanGu']]);
     this.appendDummyInput()
         .appendField("")
-        .appendField(new Blockly.FieldImage("../../media/xblockly/XIODriver.png", 16, 16, "*"));
+        .appendField(new Blockly.FieldImage("../../media/xblockly/XConstruct.png", 16, 16, "*"));
     this.appendDummyInput()
       .appendField(Blockly.Msg.MY_XMAINBOARD_1)
       .appendField(dropdownInstances, "XMainBoard")
@@ -963,7 +963,7 @@ Blockly.Blocks.xblockly_construct_XPORTS = {
     };
     this.appendDummyInput()
         .appendField("")
-        .appendField(new Blockly.FieldImage("../../media/xblockly/XIODriver.png", 16, 16, "*"))
+        .appendField(new Blockly.FieldImage("../../media/xblockly/XConstruct.png", 16, 16, "*"))
         .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS);
     this.appendDummyInput()
         .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_TYPE_1)
@@ -1034,7 +1034,7 @@ Blockly.Blocks.xblockly_construct_ONBOARD = {
     };
     this.appendDummyInput()
         .appendField("")
-        .appendField(new Blockly.FieldImage("../../media/xblockly/XIODriver.png", 16, 16, "*"))
+        .appendField(new Blockly.FieldImage("../../media/xblockly/XConstruct.png", 16, 16, "*"))
         .appendField(Blockly.Msg.MY_CONSTRUCT_ONBOARD);
     this.appendDummyInput()
         .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_TYPE_1)
@@ -1435,7 +1435,7 @@ Blockly.Blocks.xblockly_xhumiture_INIT = {
     };
     this.appendDummyInput()
         .appendField("")
-        .appendField(new Blockly.FieldImage("../../media/xblockly/XHumiture.png", 16, 16, "*"))
+        .appendField(new Blockly.FieldImage("../../media/xblockly/XDHT.png", 16, 16, "*"))
         .appendField(Blockly.Msg.MY_CONSTRUCT_XHUMITURE);
     this.appendDummyInput()
         .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_1)
@@ -1944,7 +1944,7 @@ Blockly.Blocks.xblockly_xirtracking6_INIT = {
     };
     this.appendDummyInput()
         .appendField("")
-        .appendField(new Blockly.FieldImage("../../media/xblockly/XIRTracking6.png", 16, 16, "*"))
+        .appendField(new Blockly.FieldImage("../../media/xblockly/XIRTracking.png", 16, 16, "*"))
         .appendField(Blockly.Msg.MY_CONSTRUCT_XIRTRACKING6);
     this.appendDummyInput()
         .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_1)
@@ -5139,7 +5139,7 @@ Blockly.Blocks.xblockly_xvoicebroadcast_isPlaying = {
     }
   };
 
-  Blockly.Blocks.xblockly_xlightshow_showColor = {
+  Blockly.Blocks.xblockly_xrgbled_showColor = {
     init: function () {
       function getMyVars() {
         return Blockly.getXBlocklyNameObjsByType('XRGBLed', [Blockly.Msg.MY_NULL, '']);
@@ -5180,7 +5180,7 @@ Blockly.Blocks.xblockly_xvoicebroadcast_isPlaying = {
     }
   };
   
-  Blockly.Blocks.xblockly_xlightshow_showRGB = {
+  Blockly.Blocks.xblockly_xrgbled_showRGB = {
     init: function () {
       function getMyVars() {
         return Blockly.getXBlocklyNameObjsByType('XRGBLed', [Blockly.Msg.MY_NULL, '']);
@@ -5233,6 +5233,41 @@ Blockly.Blocks.xblockly_xvoicebroadcast_isPlaying = {
     }
   };
   
+  Blockly.Blocks.xblockly_xrgbled_clear = {
+    init: function () {
+      function getMyVars() {
+        return Blockly.getXBlocklyNameObjsByType('XRGBLed', [Blockly.Msg.MY_NULL, '']);
+      }
+      var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
+      var dropdownIndexs = new Blockly.FieldDropdown([
+        [Blockly.Msg.MY_XRGBLED_INDEX_ALL, '0']
+        , ['1', '1']
+        , ['2', '2']
+        , ['3', '3']
+        , ['4', '4']
+        , ['5', '5']
+        , ['6', '6']]);
+      this.appendDummyInput()
+          .appendField("")
+          .appendField(new Blockly.FieldImage("../../media/xblockly/XRGBLed.png", 16, 16, "*"));
+      this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_XRGBLED_1)
+        .appendField(dropdownInstances, "XRGBLed")
+        .appendField(Blockly.Msg.MY_XRGBLED_2);
+      this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_XRGBLED_CLEAR_INDEX_1)
+        .appendField(dropdownIndexs, 'INDEX')
+        .appendField(Blockly.Msg.MY_XRGBLED_CLEAR_INDEX_2);
+      this.setInputsInline(true);
+      this.setPreviousStatement(true, null);
+      this.setNextStatement(true, null);
+      //this.setOutput(true, 'Number');
+      this.setColour(xblockly_robotColor_display);
+      this.setTooltip("");
+      this.setHelpUrl("");
+    }
+  };
+  
 Blockly.Blocks.xblockly_xwklightshow_showBreath = {
   init: function () {
     function getMyVars() {
@@ -5255,9 +5290,9 @@ Blockly.Blocks.xblockly_xwklightshow_showBreath = {
         .appendField("")
         .appendField(new Blockly.FieldImage("../../media/xblockly/XRGBLed.png", 16, 16, "*"));
     this.appendDummyInput()
-      .appendField(Blockly.Msg.MY_XRGBLED_1)
+      .appendField(Blockly.Msg.MY_XWKLIGHTSHOW_1)
       .appendField(dropdownInstances, "XRGBLed")
-      .appendField(Blockly.Msg.MY_XRGBLED_2);
+      .appendField(Blockly.Msg.MY_XWKLIGHTSHOW_2);
     this.appendDummyInput()
       .appendField(Blockly.Msg.MY_XRGBLED_SETBREATH_INDEX_1)
       .appendField(dropdownIndexs, 'INDEX')
@@ -5306,9 +5341,9 @@ Blockly.Blocks.xblockly_xwklightshow_showMeteor = {
         .appendField("")
         .appendField(new Blockly.FieldImage("../../media/xblockly/XRGBLed.png", 16, 16, "*"));
     this.appendDummyInput()
-      .appendField(Blockly.Msg.MY_XRGBLED_1)
+      .appendField(Blockly.Msg.MY_XWKLIGHTSHOW_1)
       .appendField(dropdownInstances, "XRGBLed")
-      .appendField(Blockly.Msg.MY_XRGBLED_2);
+      .appendField(Blockly.Msg.MY_XWKLIGHTSHOW_2);
     this.appendDummyInput()
       .appendField(Blockly.Msg.MY_XRGBLED_SHOWMETEOR_1)
       .appendField(Blockly.Msg.MY_XRGBLED_SHOWMETEOR_2);
@@ -5337,40 +5372,7 @@ Blockly.Blocks.xblockly_xwklightshow_showMeteor = {
   }
 };
 
-  Blockly.Blocks.xblockly_xlightshow_clear = {
-    init: function () {
-      function getMyVars() {
-        return Blockly.getXBlocklyNameObjsByType('XRGBLed', [Blockly.Msg.MY_NULL, '']);
-      }
-      var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
-      var dropdownIndexs = new Blockly.FieldDropdown([
-        [Blockly.Msg.MY_XRGBLED_INDEX_ALL, '0']
-        , ['1', '1']
-        , ['2', '2']
-        , ['3', '3']
-        , ['4', '4']]);
-      this.appendDummyInput()
-          .appendField("")
-          .appendField(new Blockly.FieldImage("../../media/xblockly/XRGBLed.png", 16, 16, "*"));
-      this.appendDummyInput()
-        .appendField(Blockly.Msg.MY_XRGBLED_1)
-        .appendField(dropdownInstances, "XRGBLed")
-        .appendField(Blockly.Msg.MY_XRGBLED_2);
-      this.appendDummyInput()
-        .appendField(Blockly.Msg.MY_XRGBLED_CLEAR_INDEX_1)
-        .appendField(dropdownIndexs, 'INDEX')
-        .appendField(Blockly.Msg.MY_XRGBLED_CLEAR_INDEX_2);
-      this.setInputsInline(true);
-      this.setPreviousStatement(true, null);
-      this.setNextStatement(true, null);
-      //this.setOutput(true, 'Number');
-      this.setColour(xblockly_robotColor_display);
-      this.setTooltip("");
-      this.setHelpUrl("");
-    }
-  };
-  
-Blockly.Blocks.xblockly_xaudioplayer_playTone = {
+Blockly.Blocks.xblockly_xbuzzer_playTone = {
   init: function() {
     function getMyVars() {
       return Blockly.getXBlocklyNameObjsByType('XBuzzer', [Blockly.Msg.MY_NULL, '']);
@@ -5403,7 +5405,7 @@ Blockly.Blocks.xblockly_xaudioplayer_playTone = {
   }
 };
 
-Blockly.Blocks.xblockly_xaudioplayer_setNoteParameter = {
+Blockly.Blocks.xblockly_xbuzzer_setNoteParameter = {
   init: function () {
     function getMyVars() {
       return Blockly.getXBlocklyNameObjsByType('XBuzzer', [Blockly.Msg.MY_NULL, '']);
@@ -5432,7 +5434,7 @@ Blockly.Blocks.xblockly_xaudioplayer_setNoteParameter = {
   }
 };
 
-Blockly.Blocks.xblockly_xaudioplayer_playNote = {
+Blockly.Blocks.xblockly_xbuzzer_playNote = {
   init: function () {
     function getMyVars() {
       return Blockly.getXBlocklyNameObjsByType('XBuzzer', [Blockly.Msg.MY_NULL, '']);
@@ -5514,9 +5516,9 @@ Blockly.Blocks.xblockly_xwkaudioplayer_playMusic = {
         .appendField("")
         .appendField(new Blockly.FieldImage("../../media/xblockly/XBuzzer.png", 16, 16, "*"));
     this.appendDummyInput()
-      .appendField(Blockly.Msg.MY_XBUZZER_1)
+      .appendField(Blockly.Msg.MY_XWKAUDIOPLAYER_1)
       .appendField(dropdownInstances, "XBuzzer")
-      .appendField(Blockly.Msg.MY_XBUZZER_2);
+      .appendField(Blockly.Msg.MY_XWKAUDIOPLAYER_2);
     this.appendDummyInput()
       .appendField(Blockly.Msg.MY_XBUZZER_PLAYMUSIC_VALUE_1)
       .appendField(dropdownValues, 'VALUE')
@@ -5550,9 +5552,9 @@ Blockly.Blocks.xblockly_xwkaudioplayer_playEffect = {
         .appendField("")
         .appendField(new Blockly.FieldImage("../../media/xblockly/XBuzzer.png", 16, 16, "*"));
     this.appendDummyInput()
-      .appendField(Blockly.Msg.MY_XBUZZER_1)
+      .appendField(Blockly.Msg.MY_XWKAUDIOPLAYER_1)
       .appendField(dropdownInstances, "XBuzzer")
-      .appendField(Blockly.Msg.MY_XBUZZER_2);
+      .appendField(Blockly.Msg.MY_XWKAUDIOPLAYER_2);
     this.appendDummyInput()
       .appendField(Blockly.Msg.MY_XBUZZER_PLAYEFFECT_VALUE_1)
       .appendField(dropdownEffects, 'EFFECT')
@@ -5577,9 +5579,9 @@ Blockly.Blocks.xblockly_xwkaudioplayer_stop = {
         .appendField("")
         .appendField(new Blockly.FieldImage("../../media/xblockly/XBuzzer.png", 16, 16, "*"));
     this.appendDummyInput()
-      .appendField(Blockly.Msg.MY_XBUZZER_1)
+      .appendField(Blockly.Msg.MY_XWKAUDIOPLAYER_1)
       .appendField(dropdownInstances, "XBuzzer")
-      .appendField(Blockly.Msg.MY_XBUZZER_2)
+      .appendField(Blockly.Msg.MY_XWKAUDIOPLAYER_2)
       .appendField(Blockly.Msg.MY_XBUZZER_STOP);
     this.setInputsInline(true);
     this.setPreviousStatement(true, null);
