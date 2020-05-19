@@ -90,14 +90,14 @@ Blockly.Arduino.xblockly_construct_INIT = function() {
     case 'Arduino/PanGu': {
       Blockly.Arduino.XBlockly_addInclude('Arduino', '#include <Arduino.h>');
       //Blockly.Arduino.XBlockly_addInclude('XMainBoard', '#include <Pangu.h>');
-      Blockly.Arduino.XBlockly_addInclude('XSystem', '#include <XPGSystem.h>');
+      Blockly.Arduino.XBlockly_addInclude('XSystem', '#include <PGSystem.h>');
       Blockly.Arduino.XBlockly_addSetup('XSystem', 'XSystem.setup();');
     }
     break;
     case 'Arduino/WuKong': {
       Blockly.Arduino.XBlockly_addInclude('Arduino', '#include <Arduino.h>');
       //Blockly.Arduino.XBlockly_addInclude('XMainBoard', '#include <Wukong.h>');
-      Blockly.Arduino.XBlockly_addInclude('XSystem', '#include <XWKSystem.h>');
+      Blockly.Arduino.XBlockly_addInclude('XSystem', '#include <WKSystem.h>');
       Blockly.Arduino.XBlockly_addSetup('XSystem', 'XSystem.setup();');
     }
     break;
