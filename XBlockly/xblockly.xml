@@ -29,6 +29,7 @@
         <block type="xblockly_xlightsensor_INIT"></block>
         <block type="xblockly_xsoundsensor_INIT"></block>
         <block type="xblockly_xpir_INIT"></block>
+        <block type="xblockly_xshocksensor_INIT"></block>
         <block type="xblockly_xpotentiometer_INIT"></block>
         <block type="xblockly_xrgbled_INIT"></block>
         <block type="xblockly_xsegdisplay_INIT"></block>

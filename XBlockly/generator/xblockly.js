@@ -327,7 +327,7 @@ Blockly.Arduino.xblockly_xirtracking6_INIT = function () {
   var scl = this.getFieldValue('SCL');
   var rst = this.getFieldValue('RST');
   var sel = this.getFieldValue('SEL');
-  var type = 'XIRTracking66';//this.getFieldValue('TYPE');
+  var type = 'XIRTracking6';//this.getFieldValue('TYPE');
   var model = this.getFieldValue('MODEL');
   
   window.XBlockly.addOrUpdateObj(type,name,sda+'_'+scl+'_'+rst+'_'+sel);
@@ -449,6 +449,28 @@ Blockly.Arduino.xblockly_xpir_INIT = function () {
   return '';
 };
 
+Blockly.Arduino.xblockly_xshocksensor_INIT = function () {
+  var name = this.getFieldValue('VAR');
+  var pin = this.getFieldValue('PIN');
+  var type = 'XShockSensor';//this.getFieldValue('TYPE');
+  var model = this.getFieldValue('MODEL');
+  
+  window.XBlockly.addOrUpdateObj(type,name,pin);
+  Blockly.Arduino.XBlockly_addInclude(type, '#include <' + type + '.h>');
+
+  var globalCode = type + ' ' + name + ';';
+  Blockly.Arduino.XBlockly_addDeclaration(name, globalCode);
+
+  var setupCode = name + '.setup(\"'
+    + model
+    + '\", '
+    + pin
+    + ');';
+  Blockly.Arduino.XBlockly_addSetup(name, setupCode);
+
+  return '';
+};
+
 Blockly.Arduino.xblockly_xpotentiometer_INIT = function () {
   var name = this.getFieldValue('VAR');
   var pin = this.getFieldValue('PIN');
@@ -497,7 +519,7 @@ Blockly.Arduino.xblockly_xsegdisplay_INIT = function () {
   var name = this.getFieldValue('VAR');
   var dat = this.getFieldValue('DAT');
   var clk = this.getFieldValue('CLK');
-  var type = 'XIRTracking';//this.getFieldValue('TYPE');
+  var type = 'XSegDisplay';//this.getFieldValue('TYPE');
   var model = this.getFieldValue('MODEL');
   
   window.XBlockly.addOrUpdateObj(type,name,dat+'_'+clk);
@@ -983,7 +1005,7 @@ Blockly.Arduino.xblockly_xpir_waitMotion = function() {
   var event = this.getFieldValue('INDEX');
   var code = '';
   if(event==1) {
-    code = 'while(!(' + name + '.isHumanMotionDetected()));\n';
+    code = 'while(!' + name + '.isHumanMotionDetected());\n';
   } else {
     code = 'while(' + name + '.isHumanMotionDetected());\n';
   }
@@ -995,7 +1017,7 @@ Blockly.Arduino.xblockly_xshocksensor_isShocking = function() {
   // if(Blockly.Arduino.XBlockly_isOnBoardModule('XShockSensor', name)) {
   //   name = Blockly.Arduino.XBlockly_addOnBoardModule('XShockSensor', name);
   // }
-  var code = '(' + name + '.isShocking()==1)';
+  var code = name + '.isShocking()';
   return [code, Blockly.Arduino.ORDER_ATOMIC];
 };
 
@@ -1007,7 +1029,7 @@ Blockly.Arduino.xblockly_xshocksensor_waitStatus = function () {
   var event = this.getFieldValue('EVENT');
   var code;
   if(event==1) {
-    code = 'while(!(' + name + '.isShocking()));\n';
+    code = 'while(!' + name + '.isShocking());\n';
   } else {
     code = 'while(' + name + '.isShocking());\n';
   }

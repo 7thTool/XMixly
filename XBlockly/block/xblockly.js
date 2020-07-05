@@ -2374,6 +2374,75 @@ Blockly.Blocks.xblockly_xpir_INIT = {
   }
 };
 
+Blockly.Blocks.xblockly_xshocksensor_INIT = {
+  init: function () {
+    var _this = this;
+    var textInputVar = this.textInputVar = new Blockly.FieldTextInput('');
+    function getMyModels() {
+      return Blockly.getXBlocklyNameModelsByType('XShockSensor', [Blockly.Msg.MY_NULL, '']);
+    }
+    var dropdownModels = this.dropdownModels = new Blockly.FieldDropdown(getMyModels);
+    var dropdownPins = this.dropdownPins = new Blockly.FieldDropdown([
+      ['0', '0']
+      , ['1', '1']
+      , ['2', '2']
+      , ['3', '3']
+      , ['4', '4']
+      , ['5', '5']
+      , ['6', '6']
+      , ['7', '7']
+      , ['8', '8']
+      , ['9', '9']
+      , ['10', '10']
+      , ['11', '11']
+      , ['12', '12']
+      , ['13', '13']
+      , ['A0', '14']
+      , ['A1', '15']
+      , ['A2', '16']
+      , ['A3', '17']
+      , ['A4', '18']
+      , ['A5', '19']
+      //, ['A6', '20']
+      //, ['A7', '21']
+    ]);
+    textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XShockSensor', '0'));
+    dropdownPins.onItemSelected = function (menu, menuItem) {
+        var value = menuItem.getValue();
+        if (this.sourceBlock_) {
+            value = this.callValidator(value);
+            
+            _this.textInputVar.setValue(Blockly.getXBlocklyVarNameByPin('XShockSensor', Blockly.getXBlocklyVarPin(value)));
+        }
+        if (value !== null) {
+            this.setValue(value);
+        }
+    };
+    this.appendDummyInput()
+        .appendField("")
+        .appendField(new Blockly.FieldImage("../../media/xblockly/XShockSensor.png", 16, 16, "*"))
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XSHOCKSENSOR);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_1)
+        .appendField(dropdownModels, "MODEL")
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_MODEL_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_1)
+        .appendField(textInputVar, 'VAR')
+        .appendField(Blockly.Msg.MY_CONSTRUCT_XPORTS_VAR_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_CONNECT);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_CONSTRUCT_PIN_STA)
+        .appendField(dropdownPins, "PIN");
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    //this.setOutput(true, 'String');
+    this.setColour(xblockly_robotColor_construct);
+  }
+};
+
 Blockly.Blocks.xblockly_xpotentiometer_INIT = {
   init: function () {
     var _this = this;
