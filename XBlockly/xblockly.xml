@@ -153,6 +153,12 @@
                     </shadow>
                 </value>
             </block>
+            <block type="xblockly_xsegdisplay_showBitmap">
+                <value name="VALUE">
+                    <shadow type="xblockly_xsegdisplay_segment">
+                    </shadow>
+                </value>
+            </block> 
             <block type="xblockly_xsegdisplay_showSegment"></block>
             <block type="xblockly_xsegdisplay_clearSegment"></block>
             <block type="xblockly_xsegdisplay_clear"></block>

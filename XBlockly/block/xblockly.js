@@ -4256,6 +4256,74 @@ Blockly.Blocks.xblockly_xsegdisplay_showCharacter = {
   }
 };
 
+// 自定义 图形化
+Blockly.Blocks.xblockly_xsegdisplay_segment = { //
+  init: function() {
+    this.setColour(xblockly_robotColor_display);
+    this.appendDummyInput()
+        .appendField('    a')
+        .appendField(new Blockly.FieldCheckbox(false), 'a');
+    this.appendDummyInput()
+        .appendField('f')
+        .appendField(new Blockly.FieldCheckbox(false), 'f')
+        .appendField('  b')
+        .appendField(new Blockly.FieldCheckbox(false), 'b');
+    this.appendDummyInput()
+        .appendField('    g')
+        .appendField(new Blockly.FieldCheckbox(false), 'g');
+    this.appendDummyInput()
+        .appendField('e')
+        .appendField(new Blockly.FieldCheckbox(false), 'e')
+        .appendField('  c')
+        .appendField(new Blockly.FieldCheckbox(false), 'c');
+    this.appendDummyInput()
+        .appendField('    d')
+        .appendField(new Blockly.FieldCheckbox(false), 'd')
+        .appendField('h')
+        .appendField(new Blockly.FieldCheckbox(false), 'h');
+    this.setOutput(true, Number);
+    this.setTooltip('');
+  }
+};
+
+Blockly.Blocks.xblockly_xsegdisplay_showBitmap = {
+  init: function () {
+    function getMyVars() {
+      return Blockly.getXBlocklyNameObjsByType('XSegDisplay', [Blockly.Msg.MY_NULL, '']);
+    }
+    var dropdownInstances = new Blockly.FieldDropdown(getMyVars);
+    var dropdownIndexs = new Blockly.FieldDropdown([
+      [Blockly.Msg.MY_XSEGDISPLAY_INDEX_1, '1']
+      , [Blockly.Msg.MY_XSEGDISPLAY_INDEX_2, '2']
+      , [Blockly.Msg.MY_XSEGDISPLAY_INDEX_3, '3']
+      , [Blockly.Msg.MY_XSEGDISPLAY_INDEX_4, '4']
+    ]);
+    this.appendDummyInput()
+        .appendField("")
+        .appendField(new Blockly.FieldImage("../../media/xblockly/XSegDisplay.png", 16, 16, "*"));
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_XSEGDISPLAY_1)
+        .appendField(dropdownInstances, "XSegDisplay")
+        .appendField(Blockly.Msg.MY_XSEGDISPLAY_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_XSEGDISPLAY_SHOWSEGMENT_INDEX_1)
+        .appendField(dropdownIndexs, "INDEX")
+        .appendField(Blockly.Msg.MY_XSEGDISPLAY_SHOWSEGMENT_INDEX_2);
+    this.appendDummyInput()
+        .appendField(Blockly.Msg.MY_XSEGDISPLAY_SHOWBITMAP_VALUE_1);
+    this.appendValueInput('VALUE')
+        .setCheck(Number)
+        .appendField(Blockly.Msg.MY_XSEGDISPLAY_SHOWBITMAP_VALUE_2);
+    this.setInputsInline(true);
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    //this.setOutput(true, 'Number');
+    this.setColour(xblockly_robotColor_display);
+    this.setTooltip("");
+    this.setHelpUrl("");
+  }
+};
+
 Blockly.Blocks.xblockly_xsegdisplay_showSegment = {
   init: function () {
     function getMyVars() {

@@ -1075,6 +1075,48 @@ Blockly.Arduino.xblockly_xsegdisplay_showCharacter = function() {
   return code;
 };
 
+//显示 - 自定义图案数组
+Blockly.Arduino.xblockly_xsegdisplay_segment = function() {
+  var code = 0;
+  if((this.getFieldValue('a') == 'TRUE')) {
+    code |= 0x01;
+  }
+  if((this.getFieldValue('b') == 'TRUE')) {
+    code |= 0x02;
+  }
+  if((this.getFieldValue('c') == 'TRUE')) {
+    code |= 0x04;
+  }
+  if((this.getFieldValue('d') == 'TRUE')) {
+    code |= 0x08;
+  }
+  if((this.getFieldValue('e') == 'TRUE')) {
+    code |= 0x10;
+  }
+  if((this.getFieldValue('f') == 'TRUE')) {
+    code |= 0x20;
+  }
+  if((this.getFieldValue('g') == 'TRUE')) {
+    code |= 0x40;
+  }
+  if((this.getFieldValue('h') == 'TRUE')) {
+    code |= 0x80;
+  }
+  return [code, Blockly.Arduino.ORDER_ATOMIC];
+};
+
+Blockly.Arduino.xblockly_xsegdisplay_showBitmap = function() {
+  var name = this.getFieldValue('XSegDisplay');
+  // if(Blockly.Arduino.XBlockly_isOnBoardModule('XSegDisplay', name)) {
+  //   name = Blockly.Arduino.XBlockly_addOnBoardModule('XSegDisplay', name);
+  // }
+  var index = this.getFieldValue('INDEX');
+  var segment = Blockly.Arduino.valueToCode(this, 'VALUE',
+    Blockly.Arduino.ORDER_NONE) || 0;
+  var code = name + '.showSegments(' + index + ',' + segment + ');\n';
+  return code;
+};
+
 Blockly.Arduino.xblockly_xsegdisplay_showSegment = function() {
   var name = this.getFieldValue('XSegDisplay');
   // if(Blockly.Arduino.XBlockly_isOnBoardModule('XSegDisplay', name)) {
